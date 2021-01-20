@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="AnimationApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xv1-zh-W8R">
+                                <rect key="frame" x="87" y="111" width="240" height="128"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Core Animation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bHK-0n-rDC">
+                                        <rect key="frame" x="46.5" y="50.5" width="147" height="27"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemTealColor"/>
+                                <constraints>
+                                    <constraint firstItem="bHK-0n-rDC" firstAttribute="centerY" secondItem="Xv1-zh-W8R" secondAttribute="centerY" id="C5V-8U-3Wz"/>
+                                    <constraint firstAttribute="width" constant="240" id="Ih6-1V-PzH"/>
+                                    <constraint firstAttribute="height" constant="128" id="XlQ-yx-vHP"/>
+                                    <constraint firstItem="bHK-0n-rDC" firstAttribute="centerX" secondItem="Xv1-zh-W8R" secondAttribute="centerX" id="zCQ-qp-viR"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C6A-YI-QHN">
+                                <rect key="frame" x="87" y="702" width="240" height="60"/>
+                                <color key="backgroundColor" systemColor="systemTealColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="aQp-Bg-QgV"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Run Core Animation"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="startCoreAnimation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pRu-be-nJU"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sKB-LZ-m5X" customClass="SpringView" customModule="Spring">
+                                <rect key="frame" x="87" y="279" width="240" height="128"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Core Animation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ECP-6e-iCi">
+                                        <rect key="frame" x="46.5" y="50.5" width="147" height="27"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                <constraints>
+                                    <constraint firstItem="ECP-6e-iCi" firstAttribute="centerX" secondItem="sKB-LZ-m5X" secondAttribute="centerX" id="Fv4-0e-NNE"/>
+                                    <constraint firstItem="ECP-6e-iCi" firstAttribute="centerY" secondItem="sKB-LZ-m5X" secondAttribute="centerY" id="QO3-W0-LVy"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oYC-7I-4cX" customClass="SpringButton" customModule="Spring">
+                                <rect key="frame" x="87" y="782" width="240" height="60"/>
+                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="3pD-pA-bS4"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Run Core Animation"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="startSpringAnimation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OG8-0e-Ie2"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="oYC-7I-4cX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="2OX-7d-FJ3"/>
+                            <constraint firstItem="sKB-LZ-m5X" firstAttribute="height" secondItem="Xv1-zh-W8R" secondAttribute="height" id="D7b-lT-Jhs"/>
+                            <constraint firstItem="Xv1-zh-W8R" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="67" id="DTI-af-c0T"/>
+                            <constraint firstItem="C6A-YI-QHN" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="KSA-uw-ROX"/>
+                            <constraint firstItem="sKB-LZ-m5X" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Pvd-0l-GFc"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="C6A-YI-QHN" secondAttribute="bottom" constant="100" id="Zga-qM-uSk"/>
+                            <constraint firstItem="sKB-LZ-m5X" firstAttribute="width" secondItem="Xv1-zh-W8R" secondAttribute="width" id="dDe-iP-YQy"/>
+                            <constraint firstItem="sKB-LZ-m5X" firstAttribute="top" secondItem="Xv1-zh-W8R" secondAttribute="bottom" constant="40" id="jT7-o1-nP3"/>
+                            <constraint firstItem="oYC-7I-4cX" firstAttribute="top" secondItem="C6A-YI-QHN" secondAttribute="bottom" constant="20" id="jVe-q9-89s"/>
+                            <constraint firstItem="C6A-YI-QHN" firstAttribute="width" secondItem="Xv1-zh-W8R" secondAttribute="width" id="mps-nY-Z82"/>
+                            <constraint firstItem="oYC-7I-4cX" firstAttribute="height" secondItem="C6A-YI-QHN" secondAttribute="height" id="o3i-OQ-K8w"/>
+                            <constraint firstItem="Xv1-zh-W8R" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="oaf-M0-i3V"/>
+                            <constraint firstItem="oYC-7I-4cX" firstAttribute="width" secondItem="C6A-YI-QHN" secondAttribute="width" id="pxv-Cr-6eK"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="coreAnimationView" destination="Xv1-zh-W8R" id="QnT-p8-4mQ"/>
+                        <outlet property="springAnimationView" destination="sKB-LZ-m5X" id="iGw-QD-K0s"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-85.507246376811594" y="83.035714285714278"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemTealColor">
+            <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
