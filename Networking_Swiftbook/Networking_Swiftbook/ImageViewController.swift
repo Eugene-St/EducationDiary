@@ -11,7 +11,11 @@ class ImageViewController: UIViewController {
     
     // MARK: - IBOutlets
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView! {
+        didSet {
+            activityIndicator.hidesWhenStopped = true
+        }
+    }
     @IBOutlet weak var loadingImageLabel: UILabel!
     
     // MARK: - Private Properties
@@ -32,8 +36,9 @@ class ImageViewController: UIViewController {
     // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(activityIndicator.isAnimating)
         fetchImage()
-        activityIndicator.hidesWhenStopped = true
+        
     }
     
     // MARK: - Private Methods
