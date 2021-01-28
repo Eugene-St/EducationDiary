@@ -21,6 +21,10 @@
 		58369FB425C30E5A00296493 /* TopicEditCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FB325C30E5A00296493 /* TopicEditCreateViewController.swift */; };
 		58369FB725C30E7A00296493 /* QuestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FB625C30E7A00296493 /* QuestionsViewController.swift */; };
 		58369FBA25C30EAF00296493 /* QuestionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FB925C30EAF00296493 /* QuestionDetailsViewController.swift */; };
+		58369FBE25C30FBF00296493 /* Topic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FBD25C30FBF00296493 /* Topic.swift */; };
+		58369FC225C30FCA00296493 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FC125C30FCA00296493 /* Question.swift */; };
+		58369FC525C30FD500296493 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FC425C30FD500296493 /* Task.swift */; };
+		58369FC825C30FE800296493 /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FC725C30FE800296493 /* Bookmark.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +44,10 @@
 		58369FB325C30E5A00296493 /* TopicEditCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicEditCreateViewController.swift; sourceTree = "<group>"; };
 		58369FB625C30E7A00296493 /* QuestionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsViewController.swift; sourceTree = "<group>"; };
 		58369FB925C30EAF00296493 /* QuestionDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionDetailsViewController.swift; sourceTree = "<group>"; };
+		58369FBD25C30FBF00296493 /* Topic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Topic.swift; sourceTree = "<group>"; };
+		58369FC125C30FCA00296493 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
+		58369FC425C30FD500296493 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		58369FC725C30FE800296493 /* Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,11 +80,11 @@
 		58369F7E25C2DEC500296493 /* EducationDiary */ = {
 			isa = PBXGroup;
 			children = (
-				58369F9825C2E79800296493 /* Controllers */,
+				58369F9D25C2E7CA00296493 /* Model */,
 				58369F9925C2E7A000296493 /* Storyboards */,
+				58369F9825C2E79800296493 /* Controllers */,
 				58369F9A25C2E7B500296493 /* SupportingFiles */,
 				58369F9C25C2E7C000296493 /* Source */,
-				58369F9D25C2E7CA00296493 /* Model */,
 			);
 			path = EducationDiary;
 			sourceTree = "<group>";
@@ -127,6 +135,10 @@
 			isa = PBXGroup;
 			children = (
 				58369F8825C2DEC500296493 /* EducationDiary.xcdatamodeld */,
+				58369FBD25C30FBF00296493 /* Topic.swift */,
+				58369FC125C30FCA00296493 /* Question.swift */,
+				58369FC425C30FD500296493 /* Task.swift */,
+				58369FC725C30FE800296493 /* Bookmark.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -202,15 +214,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				58369FAD25C30DD400296493 /* TopicsViewController.swift in Sources */,
+				58369FBE25C30FBF00296493 /* Topic.swift in Sources */,
 				58369FA725C30D4C00296493 /* BookmarksViewController.swift in Sources */,
 				58369FB425C30E5A00296493 /* TopicEditCreateViewController.swift in Sources */,
 				58369FAA25C30D9F00296493 /* TasksSecondViewController.swift in Sources */,
+				58369FC825C30FE800296493 /* Bookmark.swift in Sources */,
 				58369F8A25C2DEC500296493 /* EducationDiary.xcdatamodeld in Sources */,
 				58369FA325C30D2A00296493 /* TasksViewController.swift in Sources */,
 				58369FB725C30E7A00296493 /* QuestionsViewController.swift in Sources */,
+				58369FC225C30FCA00296493 /* Question.swift in Sources */,
 				58369F8025C2DEC500296493 /* AppDelegate.swift in Sources */,
 				58369FB125C30E2400296493 /* TopicDetailsViewController.swift in Sources */,
 				58369FBA25C30EAF00296493 /* QuestionDetailsViewController.swift in Sources */,
+				58369FC525C30FD500296493 /* Task.swift in Sources */,
 				58369F8225C2DEC500296493 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
