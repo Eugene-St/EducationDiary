@@ -413,11 +413,6 @@
                                         <constraint firstItem="Bb3-1w-LFR" firstAttribute="leading" secondItem="OOD-NH-oQV" secondAttribute="leadingMargin" constant="20" id="zWB-vj-qAS"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="sMo-av-O7u" kind="popoverPresentation" identifier="EditTask" popoverAnchorView="7eB-oj-i8N" id="zpV-cd-QfG">
-                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                    </segue>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -428,11 +423,6 @@
                     <navigationItem key="navigationItem" title="Tasks" id="Twb-NO-ODu">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="gfs-s6-IEc">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <connections>
-                                <segue destination="sMo-av-O7u" kind="popoverPresentation" identifier="AddNewTask" popoverAnchorBarButtonItem="gfs-s6-IEc" id="Gcn-Vt-CtV">
-                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                </segue>
-                            </connections>
                         </barButtonItem>
                     </navigationItem>
                 </tableViewController>
@@ -445,11 +435,11 @@
             <objects>
                 <viewController id="sMo-av-O7u" userLabel="2.2" customClass="TasksSecondViewController" customModule="EducationDiary" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="J30-pV-rtN">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Description" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Bc2-vf-S1T">
-                                <rect key="frame" x="20" y="391" width="374" height="60"/>
+                                <rect key="frame" x="20" y="418" width="374" height="60"/>
                                 <color key="backgroundColor" red="0.58517313000000004" green="0.4606387019" blue="0.90832060579999996" alpha="0.55413589996545498" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="Pym-Yu-VMN"/>
@@ -458,7 +448,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qXG-eC-sXu">
-                                <rect key="frame" x="132" y="491" width="150" height="50"/>
+                                <rect key="frame" x="132" y="518" width="150" height="50"/>
                                 <color key="backgroundColor" red="0.58517313000000004" green="0.4606387019" blue="0.90832060579999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="DCc-e5-xbu"/>
@@ -469,7 +459,7 @@
                                 <state key="normal" title="Save"/>
                             </button>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="0.0" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="f0K-N7-fGl">
-                                <rect key="frame" x="18" y="321" width="378" height="31"/>
+                                <rect key="frame" x="18" y="348" width="378" height="31"/>
                                 <color key="minimumTrackTintColor" red="0.2395803332" green="0.69150143860000002" blue="0.4762094617" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="thumbTintColor" red="0.58517313000000004" green="0.4606387019" blue="0.90832060579999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </slider>
@@ -535,6 +525,9 @@
                     <navigationItem key="navigationItem" title="Bookmarks" id="ucu-gR-odW">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="pHC-La-KN4">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="addBookmarkPressed:" destination="fXx-9X-RIh" id="WK7-Ci-vCh"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                 </tableViewController>
@@ -578,13 +571,13 @@
                     </tabBar>
                     <connections>
                         <segue destination="2Vg-zp-1Ia" kind="relationship" relationship="viewControllers" id="sns-qD-ewl"/>
-                        <segue destination="rzC-rf-ISW" kind="relationship" relationship="viewControllers" id="Ath-W7-ELZ"/>
-                        <segue destination="b9o-r7-q6s" kind="relationship" relationship="viewControllers" id="76o-H7-5lR"/>
+                        <segue destination="rzC-rf-ISW" kind="relationship" relationship="viewControllers" id="2Dj-81-OtN"/>
+                        <segue destination="b9o-r7-q6s" kind="relationship" relationship="viewControllers" id="4gi-GF-RSp"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3j6-hU-s9X" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-665" y="305"/>
+            <point key="canvasLocation" x="-728" y="305"/>
         </scene>
         <!--Tasks-->
         <scene sceneID="w24-yw-ScI">
@@ -634,9 +627,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Gcn-Vt-CtV"/>
         <segue reference="a2f-5P-d2A"/>
-        <segue reference="O3C-gJ-Tsi"/>
+        <segue reference="ahc-1a-8kL"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="brain" width="30" height="30"/>

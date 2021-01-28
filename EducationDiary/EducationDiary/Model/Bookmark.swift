@@ -7,12 +7,10 @@
 
 import Foundation
 
-let host = "https://testapp-3135f-default-rtdb.firebaseio.com//bookmarks.json"
-
-struct BookmarkValue: Codable {
+struct Bookmark: Codable {
     
     let name: String?
     let text: String?
+    
+    typealias Bookmarks = [String: Bookmark]
 }
-
-typealias Bookmark = [String: BookmarkValue]
