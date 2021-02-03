@@ -7,10 +7,9 @@
 
 import Foundation
 
+typealias Bookmarks = [String: Bookmark]
+
 struct Bookmark: Codable {
-    
     let name: String?
     let text: String?
-    
-    typealias Bookmarks = [String: Bookmark]
 }

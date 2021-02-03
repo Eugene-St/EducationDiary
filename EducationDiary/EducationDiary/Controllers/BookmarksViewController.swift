@@ -10,16 +10,32 @@ import UIKit
 class BookmarksViewController: UITableViewController {
 
     // MARK: - Private Properties
-    private var bookmarks = [String: Bookmark]()
+    private var bookmarks = Bookmarks()
     
     // MARK: - View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NetworkManager.shared.fetchData { booksmark in
-            DispatchQueue.main.async {
-                self.bookmarks = booksmark
-                self.tableView.reloadData()
+        // add long press gesture
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed(sender:)))
+        self.tableView.addGestureRecognizer(longPressRecognizer)
+        
+        // fetch data from network
+        NetworkManager.shared.getRequest(of: Bookmarks.self, path: "bookmarks.json") { result in
+            switch result {
+            case .failure(let error):
+                    if error is DataError {
+                        print(error)
+                    } else {
+                        print(error.localizedDescription)
+                    }
+                    print(error.localizedDescription)
+                    
+                case .success(let bookmarks):
+                    DispatchQueue.main.async {
+                        self.bookmarks = bookmarks
+                        self.tableView.reloadData()
+                }
             }
         }
     }
@@ -32,10 +48,11 @@ class BookmarksViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "bookmarkCell", for: indexPath)
         
-        let bookmarkValues = Array(bookmarks.values)
+        let bookmarkKeys = Array(bookmarks.keys)
+        let bookmark = bookmarks[bookmarkKeys[indexPath.row]]
 
-        cell.textLabel?.text = bookmarkValues[indexPath.row].name
-        cell.detailTextLabel?.text = bookmarkValues[indexPath.row].text
+        cell.textLabel?.text = bookmark?.name
+        cell.detailTextLabel?.text = bookmark?.text
 
         return cell
     }
@@ -46,12 +63,23 @@ class BookmarksViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
         if editingStyle == .delete {
-            print("Deleted")
-//            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            print("Edited")
-        }    
+            
+            let bookmarkKeys = Array(bookmarks.keys)
+            let bookMarKey = bookmarkKeys[indexPath.row]
+            let bookMArkID = "\(bookMarKey).json"
+            
+            NetworkManager.shared.deleteRequest(path: "bookmarks/", id: bookMArkID) { error in
+                if let err = error {
+                    print("Failed to delete", err)
+                    return
+                }
+            }
+            
+            bookmarks.removeValue(forKey: bookmarkKeys[indexPath.row])
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -61,29 +89,70 @@ class BookmarksViewController: UITableViewController {
     // MARK: - IBActions
     @IBAction func addBookmarkPressed(_ sender: UIBarButtonItem) {
         
-        let ac = UIAlertController(title: "Add bookmark", message: "Please enter bookmark name and text", preferredStyle: .alert)
+        var dataToPass: [String: String] = [:]
+        
+        let timeStamp = String(format: "%.0f", Date.timeIntervalSinceReferenceDate)
+        let id = "\(timeStamp).json"
+        
+        let ac = UIAlertController(title: "Add bookmark", message: "Please enter Bookmark name and text", preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "Ok", style: .default) { _ in
+            
+            if let name = ac.textFields?.first?.text {
+                dataToPass["name"] = name
+            }
+            
+            if let text = ac.textFields?.last?.text {
+                dataToPass["text"] = text
+            }
+
+            NetworkManager.shared.putRequest(path: "/bookmarks/", id: id, body: dataToPass) { error in
+                print(error ?? DataError.invalidResponse)
+            }
+            
+            self.bookmarks[id] = Bookmark(name: dataToPass["name"], text: dataToPass["text"])
+            self.tableView.reloadData()
+        }
         
         ac.addTextField { nameTextfield in
             nameTextfield.placeholder = "name - optional"
+            nameTextfield.autocapitalizationType = .sentences
         }
         
         ac.addTextField { textField in
             textField.placeholder = "text - required"
-        }
-        
-        let okAction = UIAlertAction(title: "Ok", style: .default) { _ in
-            print("added new bookmark")
+            textField.autocapitalizationType = .sentences
+
+            NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: OperationQueue.main) { _ in
+
+                let textCount = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines).count ?? 0
+
+                let textIsNotEmpty = textCount > 0
+
+                okAction.isEnabled = textIsNotEmpty
+            }
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
-        
+
         ac.addAction(cancelAction)
+        okAction.isEnabled = false
         ac.addAction(okAction)
-        
         present(ac, animated: true)
     }
     
-    
     // MARK: - Private methods
+    @objc func longPressed(sender: UILongPressGestureRecognizer) {
 
+        if sender.state == UIGestureRecognizer.State.began {
+
+            let touchPoint = sender.location(in: self.tableView)
+            if let indexPath = tableView.indexPathForRow(at: touchPoint) {
+
+                let cell = tableView.cellForRow(at: indexPath)
+
+                print("Long pressed row: \(cell?.detailTextLabel?.text ?? "No details")")
+            }
+        }
+    }
 }
