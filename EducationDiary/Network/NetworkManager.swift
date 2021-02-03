@@ -65,18 +65,25 @@ class NetworkManager {
         
         request.httpMethod = HTTPMethods.delete.rawValue
         
-        URLSession.shared.dataTask(with: request) { _, response, error in
+        URLSession.shared.dataTask(with: request) { data, response, error in
             
                 guard error == nil else {
                     print("Error: error calling DELETE")
                     completion(error)
                     return
                 }
-                
-                guard let response = response as? HTTPURLResponse, (200 ..< 299) ~= response.statusCode else {
-                    print("Error: HTTP request failed")
-                    return
-                }
+            
+            if let response = response as? HTTPURLResponse, response.statusCode != 200 {
+                let errorString = String(data: data ?? Data(), encoding: .utf8) ?? ""
+                completion(NSError(domain: "", code: response.statusCode, userInfo: [NSLocalizedDescriptionKey: errorString]))
+                return
+            }
+            
+//                guard let response = response as? HTTPURLResponse, (200 ..< 299) ~= response.statusCode else {
+//                    print("Error: HTTP request failed")
+//                    completion(NSError(domain: "", code: , userInfo: [NSLocalizedDescriptionKey: ""]))
+//                    return
+//                }
             
             completion(nil)
             

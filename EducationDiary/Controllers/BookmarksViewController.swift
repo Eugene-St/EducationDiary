@@ -46,23 +46,14 @@ class BookmarksViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "bookmarkCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "bookmarkCell", for: indexPath) as! BookmarksCell
         
-        let bookmarkKeys = Array(bookmarks.keys)
-        let bookmark = bookmarks[bookmarkKeys[indexPath.row]]
-
-        cell.textLabel?.text = bookmark?.name
-        cell.detailTextLabel?.text = bookmark?.text
-        
-        let copyPaste = 0 //
-        
-        UIPasteboard.general.string = bookmark?.text
+        cell.configure(with: bookmarks, indexPath: indexPath)
 
         return cell
     }
 
     // MARK: - Table View Delegate method
-    // edit cell
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
@@ -155,7 +146,7 @@ class BookmarksViewController: UITableViewController {
     }
     
     // MARK: - Private methods
-    @objc func longPressed(sender: UILongPressGestureRecognizer) {
+    @objc private func longPressed(sender: UILongPressGestureRecognizer) {
 
         if sender.state == UIGestureRecognizer.State.began {
 
