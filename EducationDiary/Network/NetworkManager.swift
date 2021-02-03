@@ -15,9 +15,8 @@ class NetworkManager {
     private init() {}
     
     // MARK: - GET
-    func getRequest<T: Codable>(of type: T.Type,
-                                path: String,
-                                _ completion: @escaping result<T>) {
+    func getRequest(path: String,
+                    _ completion: @escaping result<Data>) {
         
         guard let hostURL = hostURL else { return }
         
@@ -37,12 +36,8 @@ class NetworkManager {
             if 200...299 ~= response.statusCode {
                 if let data = data {
                     
-                    do {
-                        let decodeData:T = try JSONDecoder().decode(T.self, from: data)
-                        completion(.success(decodeData))
-                    } catch {
-                        completion(.failure(DataError.decodingError))
-                    }
+                    completion(.success(data))
+                    
                 } else {
                     completion(.failure(DataError.invalidData))
                 }

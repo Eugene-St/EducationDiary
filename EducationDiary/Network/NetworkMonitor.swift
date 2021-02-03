@@ -18,12 +18,6 @@ class NetworkMonitor {
     func startMonitoring() {
         monitor.pathUpdateHandler = { [weak self] path in
             self?.status = path.status
-            
-            if path.status == .satisfied {
-                print("We're connected!")
-            } else {
-                print("No connection.")
-            }
         }
         
         let queue = DispatchQueue(label: "Network Monitor")

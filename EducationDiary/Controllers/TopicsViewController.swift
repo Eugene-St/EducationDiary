@@ -16,25 +16,25 @@ class TopicsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NetworkManager.shared.getRequest(of: Topics.self,
-                                         path: "topics.json") { result in
-            
-            switch result {
-            case .failure(let error):
-                    if error is DataError {
-                        print(error)
-                    } else {
-                        print(error.localizedDescription)
-                    }
-                    print(error.localizedDescription)
-                    
-                case .success(let topics):
-                    DispatchQueue.main.async {
-                        self.topics = topics
-                        self.tableView.reloadData()
-                }
-            }
-        }
+//        NetworkManager.shared.getRequest(of: Topics.self,
+//                                         path: "topics.json") { result in
+//            
+//            switch result {
+//            case .failure(let error):
+//                    if error is DataError {
+//                        print(error)
+//                    } else {
+//                        print(error.localizedDescription)
+//                    }
+//                    print(error.localizedDescription)
+//                    
+//                case .success(let topics):
+//                    DispatchQueue.main.async {
+//                        self.topics = topics
+//                        self.tableView.reloadData()
+//                }
+//            }
+//        }
     }
 
     // MARK: - Table view data source

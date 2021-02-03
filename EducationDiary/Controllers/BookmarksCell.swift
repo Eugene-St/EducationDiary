@@ -8,8 +8,6 @@
 import UIKit
 
 class BookmarksCell: UITableViewCell {
-
-    // long tap to edit
     
     override func awakeFromNib() {
         super.awakeFromNib()

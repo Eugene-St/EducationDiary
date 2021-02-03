@@ -7,10 +7,11 @@
 
 import UIKit
 
-class BookmarksViewController: UITableViewController {
+class BookmarksViewController: UITableViewController, DataUpdateableController {
     
     // MARK: - Private Properties
     private var bookmarks = Bookmarks()
+    var interactor: Interactor?
     
     // MARK: - View Did Load
     override func viewDidLoad() {
@@ -20,25 +21,19 @@ class BookmarksViewController: UITableViewController {
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed(sender:)))
         self.tableView.addGestureRecognizer(longPressRecognizer)
         
-        // fetch data from network
-        NetworkManager.shared.getRequest(of: Bookmarks.self, path: "bookmarks.json") { result in
-            switch result {
-            case .failure(let error):
-                if error is DataError {
-                    print(error)
-                } else {
-                    print(error.localizedDescription)
-                }
-                print(error.localizedDescription)
-                
-            case .success(let bookmarks):
-                DispatchQueue.main.async {
-                    self.bookmarks = bookmarks
-                    self.tableView.reloadData()
-                }
-            }
-        }
+        interactor = BookmarksInteractor(controller: self)
+        interactor?.fetchData()
     }
+    
+    // MARK: - updateUI
+        func updateUI(with data: Any) {
+            guard let data = data as? Bookmarks else {
+                print("Get new INcorrect data")
+                return
+            }
+            self.bookmarks = data
+            self.tableView.reloadData()
+        }
     
     // MARK: - Table view data source methods
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

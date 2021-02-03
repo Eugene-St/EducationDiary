@@ -16,24 +16,24 @@ class TasksViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NetworkManager.shared.getRequest(of: Tasks.self, path: "tasks.json") { result in
-            
-            switch result {
-            case .failure(let error):
-                    if error is DataError {
-                        print(error)
-                    } else {
-                        print(error.localizedDescription)
-                    }
-                    print(error.localizedDescription)
-                    
-                case .success(let tasks):
-                    DispatchQueue.main.async {
-                        self.tasks = tasks
-                        self.tableView.reloadData()
-                }
-            }
-        }
+//        NetworkManager.shared.getRequest(of: Tasks.self, path: "tasks.json") { result in
+//            
+//            switch result {
+//            case .failure(let error):
+//                    if error is DataError {
+//                        print(error)
+//                    } else {
+//                        print(error.localizedDescription)
+//                    }
+//                    print(error.localizedDescription)
+//                    
+//                case .success(let tasks):
+//                    DispatchQueue.main.async {
+//                        self.tasks = tasks
+//                        self.tableView.reloadData()
+//                }
+//            }
+//        }
     }
 
     // MARK: - Table view data source
