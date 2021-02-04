@@ -1,5 +1,5 @@
 //
-//  BookmarksInteractor.swift
+//  BookmarksMediator.swift
 //  EducationDiary
 //
 //  Created by Eugene St on 01.02.2021.
@@ -7,23 +7,20 @@
 
 import Foundation
 
-class BookmarksInteractor {
+class BookmarksMediator: Mediator {
 
-    var mediator: DataMediator
-    
-    init() {
-        self.mediator = DataMediator.shared
-    }
-    
     func fetchData( _ completionError: @escaping (Error) -> Void, _ completionSuccess: @escaping (Bookmarks) -> Void) {
-        if mediator.networkAvaible {
+        
+        if networkAvaible {
             NetworkManager.shared.getRequest(path: "bookmarks.json") { result in
+                
                 switch result {
+                
                 case .failure(let error):
                     completionError(error)
                 
                 case .success(let data):
-                    if let decodedData = NetworkManager.shared.parseJSON(data: data, type: Bookmarks.self) {
+                    if let decodedData = self.parseJSON(data: data, type: Bookmarks.self) {
                         DispatchQueue.main.async {
                             completionSuccess(decodedData)
                         }
@@ -39,6 +36,7 @@ class BookmarksInteractor {
                 print("Failed to put", err)
                 return
             }
+            
             DispatchQueue.main.async {
                 completion(true)
             }

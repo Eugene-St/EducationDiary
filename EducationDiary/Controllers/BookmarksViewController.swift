@@ -11,7 +11,7 @@ class BookmarksViewController: UITableViewController {
     
     // MARK: - Private Properties
     private var bookmarks = Bookmarks()
-    var interactor: BookmarksInteractor?
+    var interactor: BookmarksMediator?
     
     // MARK: - View Did Load
     override func viewDidLoad() {
@@ -21,11 +21,14 @@ class BookmarksViewController: UITableViewController {
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed(sender:)))
         self.tableView.addGestureRecognizer(longPressRecognizer)
 
-        interactor = BookmarksInteractor()
+        interactor = BookmarksMediator()
+        
         interactor?.fetchData({ error in
             print("BookmarksInteractor ERROR:\(error.localizedDescription)")
-        }, { bookmarks in
+        },
+        { bookmarks in
             self.bookmarks = bookmarks
+            self.tableView.reloadData()
         })
     }
     
