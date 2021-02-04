@@ -7,11 +7,11 @@
 
 import UIKit
 
-class BookmarksViewController: UITableViewController, DataUpdateableController {
+class BookmarksViewController: UITableViewController {
     
     // MARK: - Private Properties
     private var bookmarks = Bookmarks()
-    var interactor: Interactor?
+    var interactor: BookmarksInteractor?
     
     // MARK: - View Did Load
     override func viewDidLoad() {
@@ -21,12 +21,12 @@ class BookmarksViewController: UITableViewController, DataUpdateableController {
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed(sender:)))
         self.tableView.addGestureRecognizer(longPressRecognizer)
 
-        interactor = BookmarksInteractor(updatedDataUI: { data in
-            self.bookmarks = data
-            self.tableView.reloadData()
+        interactor = BookmarksInteractor()
+        interactor?.fetchData({ error in
+            print("BookmarksInteractor ERROR:\(error.localizedDescription)")
+        }, { bookmarks in
+            self.bookmarks = bookmarks
         })
-        
-        interactor?.fetchData()
     }
     
     // MARK: - Table view data source methods
@@ -115,11 +115,15 @@ class BookmarksViewController: UITableViewController, DataUpdateableController {
                 
                 
                 
-                self.interactor?.putData(with: id, and: dataToPass)
+                self.interactor?.putData(with: id, and: dataToPass) { done in
+                   print("Closure \(done)")
+                        self.bookmarks[id] = Bookmark(name: dataToPass["name"], text: dataToPass["text"])
+                    
+                }
                 
                 
                 
-                self.bookmarks[id] = Bookmark(name: dataToPass["name"], text: dataToPass["text"])
+                
                 
                 //            let insertionIndexPath = IndexPath(row: self.bookmarks.count - 1, section: 0)
                 //            self.tableView.insertRows(at: [insertionIndexPath], with: .automatic)

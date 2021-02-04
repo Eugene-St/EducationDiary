@@ -15,7 +15,7 @@ protocol Interactor {
 //    func fetchData(_ completion: @escaping (Data) -> Void)
     func didUpdate(with data: Data)
     func didFail(with error: Error)
-    func putData(with id: String, and body: [String: String])
+    func putData(with id: String, and body: [String: String], _ completion: @escaping (Bool) -> ())
 }
 
 protocol DataUpdateableController {

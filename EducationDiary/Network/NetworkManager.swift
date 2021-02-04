@@ -47,6 +47,16 @@ class NetworkManager {
         }.resume()
     }
     
+    // MARK: - Parse JSON
+    func parseJSON<T: Decodable>(data: Data, type: T.Type) -> T? {
+        let decoder = JSONDecoder()
+        do {
+            return try decoder.decode(T.self, from: data)
+        } catch {
+            return nil
+        }
+    }
+    
     // MARK: - DELETE
     func deleteRequest(path: String, id: String, _ completion: @escaping (Error?) -> Void) {
         

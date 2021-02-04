@@ -7,38 +7,40 @@
 
 import Foundation
 
-class BookmarksInteractor: Interactor {
+class BookmarksInteractor {
 
     var mediator: DataMediator
-    var updateUICompletion: ((Bookmarks) -> Void)
     
-    init(updatedDataUI: @escaping ((Bookmarks) -> Void)) {
+    init() {
         self.mediator = DataMediator.shared
-        self.updateUICompletion = updatedDataUI
     }
     
-    
-    func fetchData() {
-        mediator.fetchData(with: "bookmarks.json", interactor: self)
-    }
-    
-    func didUpdate(with data: Data) {
-        if let decodedData = parseJSON(data: data, type: Bookmarks.self) {
-            DispatchQueue.main.async {
-                self.updateUICompletion(decodedData)
+    func fetchData( _ completionError: @escaping (Error) -> Void, _ completionSuccess: @escaping (Bookmarks) -> Void) {
+        if mediator.networkAvaible {
+            NetworkManager.shared.getRequest(path: "bookmarks.json") { result in
+                switch result {
+                case .failure(let error):
+                    completionError(error)
+                
+                case .success(let data):
+                    if let decodedData = NetworkManager.shared.parseJSON(data: data, type: Bookmarks.self) {
+                        DispatchQueue.main.async {
+                            completionSuccess(decodedData)
+                        }
+                    }
+                }
             }
         }
     }
     
-    func didFail(with error: Error) {
-        print("BookmarksInteractor ERROR:\(error.localizedDescription)")
-    }
-    
-    func putData(with id: String, and body: [String: String]) {
+    func putData(with id: String, and body: [String: String], _ completion: @escaping (Bool) -> ()) {
         NetworkManager.shared.putRequest(path: "/bookmarks/", id: id, body: body) { error in
             if let err = error {
                 print("Failed to put", err)
                 return
+            }
+            DispatchQueue.main.async {
+                completion(true)
             }
         }
     }
