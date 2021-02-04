@@ -7,11 +7,12 @@
 
 import Foundation
 
+typealias result<T> = (Result<T, Error>) -> Void
+
 class NetworkManager {
     
     static let shared = NetworkManager()
     private let hostURL = URL(string:"https://testapp-3135f-default-rtdb.firebaseio.com/")
-    typealias result<T> = (Result<T, Error>) -> Void
     private init() {}
     
     // MARK: - GET

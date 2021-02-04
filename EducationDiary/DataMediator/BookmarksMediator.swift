@@ -11,7 +11,7 @@ class BookmarksMediator: Mediator {
 
     func fetchData( _ completionError: @escaping (Error) -> Void, _ completionSuccess: @escaping (Bookmarks) -> Void) {
         
-        if networkAvaible {
+        if networkIsAvaible {
             NetworkManager.shared.getRequest(path: "bookmarks.json") { result in
                 
                 switch result {
@@ -30,17 +30,19 @@ class BookmarksMediator: Mediator {
         }
     }
     
-    func putData(with id: String, and body: [String: String], _ completion: @escaping (URLResponse) -> ()) {
+    func putData(with id: String, and body: [String: String], _ completion: @escaping result<URLResponse>) {
         NetworkManager.shared.putRequest(path: "/bookmarks/", id: id, body: body) { result in
             
             switch result {
             
             case .success(let response):
                 DispatchQueue.main.async {
-                    completion(response)
+                    completion(.success(response))
                 }
             case .failure(let error):
-                print("could not put the data", error)
+                DispatchQueue.main.async {
+                completion(.failure(error))
+                }
             }
         }
     }

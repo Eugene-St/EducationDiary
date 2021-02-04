@@ -9,7 +9,7 @@ import Foundation
 
 class Mediator {
     
-    var networkAvaible: Bool {
+    var networkIsAvaible: Bool {
             return NetworkMonitor.shared.isReachable
         }
         

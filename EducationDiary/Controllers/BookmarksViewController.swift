@@ -116,10 +116,20 @@ class BookmarksViewController: UITableViewController {
                     dataToPass["text"] = text
                 }
                 
-                self.interactor?.putData(with: id, and: dataToPass) { done in
-                    self.bookmarks[id] = Bookmark(name: dataToPass["name"], text: dataToPass["text"])
-                    self.tableView.reloadData()
+                self.interactor?.putData(with: id, and: dataToPass) { result in
                     
+                    switch result {
+                    
+                    case .success(_):
+                        self.bookmarks[id] = Bookmark(name: dataToPass["name"], text: dataToPass["text"])
+                        self.tableView.reloadData()
+                    case .failure(let error):
+                        let ac = UIAlertController(title: "No network connection", message: "We cannot add the record, re-check internet, \(error)", preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "Ok", style: .default)
+                        ac.addAction(okAction)
+                        self.present(ac, animated: true)
+                    }
+                        
                 }
                 
                 //            let insertionIndexPath = IndexPath(row: self.bookmarks.count - 1, section: 0)
