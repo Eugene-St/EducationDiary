@@ -12,6 +12,7 @@ class TasksMediator: Mediator {
     func fetchData(_ completion: @escaping result<Tasks>) {
         
         if networkIsAvaible {
+            
             fetchDataFromNetwork(of: Tasks.self, path: .tasks) { result in
                 switch result {
                 

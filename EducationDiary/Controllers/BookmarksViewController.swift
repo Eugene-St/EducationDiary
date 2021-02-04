@@ -9,6 +9,9 @@ import UIKit
 
 class BookmarksViewController: UITableViewController {
     
+    // todo: move alert controller to a separate file/class
+    // todo: UX 
+    
     // MARK: - Private Properties
     private var bookmarks = Bookmarks()
     private var interactor: BookmarksMediator?

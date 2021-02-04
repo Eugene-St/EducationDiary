@@ -11,6 +11,8 @@ protocol Mediator {}
 
 extension Mediator {
     
+    // todo: universal PUT, DELETE, PATCH methods
+    
     var networkIsAvaible: Bool {
         return NetworkMonitor.shared.isReachable
     }
