@@ -11,7 +11,7 @@ class BookmarksViewController: UITableViewController {
     
     // MARK: - Private Properties
     private var bookmarks = Bookmarks()
-    var interactor: BookmarksMediator?
+    private var interactor: BookmarksMediator?
     
     // MARK: - View Did Load
     override func viewDidLoad() {
@@ -20,15 +20,17 @@ class BookmarksViewController: UITableViewController {
         // add long press gesture
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed(sender:)))
         self.tableView.addGestureRecognizer(longPressRecognizer)
-
+        
         interactor = BookmarksMediator()
         
-        interactor?.fetchData({ error in
-            print("BookmarksInteractor ERROR:\(error.localizedDescription)")
-        },
-        { bookmarks in
-            self.bookmarks = bookmarks
-            self.tableView.reloadData()
+        interactor?.fetchData({ result in
+            switch result {
+            case .success(let bookmarks):
+                self.bookmarks = bookmarks
+                self.tableView.reloadData()
+            case .failure(let error):
+                print("BookmarksInteractor ERROR:\(error.localizedDescription)")
+            }
         })
     }
     
@@ -123,13 +125,13 @@ class BookmarksViewController: UITableViewController {
                     case .success(_):
                         self.bookmarks[id] = Bookmark(name: dataToPass["name"], text: dataToPass["text"])
                         self.tableView.reloadData()
+                        
                     case .failure(let error):
                         let ac = UIAlertController(title: "No network connection", message: "We cannot add the record, re-check internet, \(error)", preferredStyle: .alert)
                         let okAction = UIAlertAction(title: "Ok", style: .default)
                         ac.addAction(okAction)
                         self.present(ac, animated: true)
                     }
-                        
                 }
                 
                 //            let insertionIndexPath = IndexPath(row: self.bookmarks.count - 1, section: 0)

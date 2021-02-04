@@ -48,16 +48,6 @@ class NetworkManager {
         }.resume()
     }
     
-    // MARK: - Parse JSON
-    func parseJSON<T: Decodable>(data: Data, type: T.Type) -> T? {
-        let decoder = JSONDecoder()
-        do {
-            return try decoder.decode(T.self, from: data)
-        } catch {
-            return nil
-        }
-    }
-    
     // MARK: - DELETE
     func deleteRequest(path: String, id: String, _ completion: @escaping (Error?) -> Void) {
         
@@ -73,11 +63,11 @@ class NetworkManager {
         
         URLSession.shared.dataTask(with: request) { data, response, error in
             
-                guard error == nil else {
-                    print("Error: error calling DELETE")
-                    completion(error)
-                    return
-                }
+            guard error == nil else {
+                print("Error: error calling DELETE")
+                completion(error)
+                return
+            }
             
             if let response = response as? HTTPURLResponse, response.statusCode != 200 {
                 let errorString = String(data: data ?? Data(), encoding: .utf8) ?? ""
@@ -85,11 +75,11 @@ class NetworkManager {
                 return
             }
             
-//                guard let response = response as? HTTPURLResponse, (200 ..< 299) ~= response.statusCode else {
-//                    print("Error: HTTP request failed")
-//                    completion(NSError(domain: "", code: , userInfo: [NSLocalizedDescriptionKey: ""]))
-//                    return
-//                }
+            //                guard let response = response as? HTTPURLResponse, (200 ..< 299) ~= response.statusCode else {
+            //                    print("Error: HTTP request failed")
+            //                    completion(NSError(domain: "", code: , userInfo: [NSLocalizedDescriptionKey: ""]))
+            //                    return
+            //                }
             
             completion(nil)
             
@@ -126,7 +116,7 @@ class NetworkManager {
                             completion(.success(response))
                         } else {
                             completion(.failure(DataError.invalidData))
-    //                guard let data = data else { return }
+                            //                guard let data = data else { return }
                         }
                     } else {
                         completion(.failure(DataError.serverError))

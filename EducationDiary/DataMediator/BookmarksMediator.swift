@@ -8,25 +8,20 @@
 import Foundation
 
 class BookmarksMediator: Mediator {
-
-    func fetchData( _ completionError: @escaping (Error) -> Void, _ completionSuccess: @escaping (Bookmarks) -> Void) {
-        
+    
+    func fetchData(_ completion: @escaping result<Bookmarks>) {
         if networkIsAvaible {
-            NetworkManager.shared.getRequest(path: "bookmarks.json") { result in
-                
+            fetchDataFromNetwork(of: Bookmarks.self, path: .bookmarks) { result in
                 switch result {
                 
+                case .success(let bookmarks):
+                    completion(.success(bookmarks))
                 case .failure(let error):
-                    completionError(error)
-                
-                case .success(let data):
-                    if let decodedData = self.parseJSON(data: data, type: Bookmarks.self) {
-                        DispatchQueue.main.async {
-                            completionSuccess(decodedData)
-                        }
-                    }
+                    completion(.failure(error))
                 }
             }
+        } else {
+            print("fetch data from DB")
         }
     }
     
@@ -41,7 +36,7 @@ class BookmarksMediator: Mediator {
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
-                completion(.failure(error))
+                    completion(.failure(error))
                 }
             }
         }
