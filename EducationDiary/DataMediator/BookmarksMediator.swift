@@ -30,15 +30,17 @@ class BookmarksMediator: Mediator {
         }
     }
     
-    func putData(with id: String, and body: [String: String], _ completion: @escaping (Bool) -> ()) {
-        NetworkManager.shared.putRequest(path: "/bookmarks/", id: id, body: body) { error in
-            if let err = error {
-                print("Failed to put", err)
-                return
-            }
+    func putData(with id: String, and body: [String: String], _ completion: @escaping (URLResponse) -> ()) {
+        NetworkManager.shared.putRequest(path: "/bookmarks/", id: id, body: body) { result in
             
-            DispatchQueue.main.async {
-                completion(true)
+            switch result {
+            
+            case .success(let response):
+                DispatchQueue.main.async {
+                    completion(response)
+                }
+            case .failure(let error):
+                print("could not put the data", error)
             }
         }
     }

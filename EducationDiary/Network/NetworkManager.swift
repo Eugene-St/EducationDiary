@@ -96,7 +96,7 @@ class NetworkManager {
     }
     
     // MARK: - PUT
-    func putRequest(path: String, id: String, body: [String: String], _ completion: @escaping (Error?) -> Void) {
+    func putRequest(path: String, id: String, body: [String: String], _ completion: @escaping result<URLResponse>) {
         
         guard let hostURL = hostURL else { return }
         let url = hostURL.appendingPathComponent(path + id + ".json")
@@ -115,29 +115,27 @@ class NetworkManager {
             URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
                 
                 if let error = error {
-                    print(error); completion(error)
+                    print(error); completion(.failure(error))
                 }
                 
-                guard let response = response as? HTTPURLResponse else {
-                    completion(DataError.invalidResponse)
-                    return
-                }
-                
-                if 200...299 ~= response.statusCode {
-                    if data != nil {
-                        print("success put")
+                if let response = response as? HTTPURLResponse {
+                    
+                    if 200...299 ~= response.statusCode {
+                        if data != nil {
+                            completion(.success(response))
+                        } else {
+                            completion(.failure(DataError.invalidData))
+    //                guard let data = data else { return }
+                        }
                     } else {
-                        completion(DataError.invalidData)
-//                guard let data = data else { return }
+                        completion(.failure(DataError.serverError))
                     }
                 } else {
-                    completion(DataError.serverError)
+                    completion(.failure(DataError.invalidResponse))
                 }
-           
-            
             }.resume()
         } catch {
-            completion(error)
+            completion(.failure(error))
         }
     }
     

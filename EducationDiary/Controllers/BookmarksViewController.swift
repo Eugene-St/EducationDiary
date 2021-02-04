@@ -116,23 +116,14 @@ class BookmarksViewController: UITableViewController {
                     dataToPass["text"] = text
                 }
                 
-                
-                
                 self.interactor?.putData(with: id, and: dataToPass) { done in
-                   print("Closure \(done)")
-                        self.bookmarks[id] = Bookmark(name: dataToPass["name"], text: dataToPass["text"])
+                    self.bookmarks[id] = Bookmark(name: dataToPass["name"], text: dataToPass["text"])
+                    self.tableView.reloadData()
                     
                 }
                 
-                
-                
-                
-                
                 //            let insertionIndexPath = IndexPath(row: self.bookmarks.count - 1, section: 0)
                 //            self.tableView.insertRows(at: [insertionIndexPath], with: .automatic)
-                
-                
-                self.tableView.reloadData()
             }
             
             ac.addTextField { nameTextfield in
