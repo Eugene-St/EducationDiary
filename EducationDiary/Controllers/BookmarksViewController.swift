@@ -20,20 +20,14 @@ class BookmarksViewController: UITableViewController, DataUpdateableController {
         // add long press gesture
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed(sender:)))
         self.tableView.addGestureRecognizer(longPressRecognizer)
-        
-        interactor = BookmarksInteractor(controller: self)
-        interactor?.fetchData()
-    }
-    
-    // MARK: - updateUI
-        func updateUI(with data: Any) {
-            guard let data = data as? Bookmarks else {
-                print("Get new INcorrect data")
-                return
-            }
+
+        interactor = BookmarksInteractor(updatedDataUI: { data in
             self.bookmarks = data
             self.tableView.reloadData()
-        }
+        })
+        
+        interactor?.fetchData()
+    }
     
     // MARK: - Table view data source methods
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -119,12 +113,11 @@ class BookmarksViewController: UITableViewController, DataUpdateableController {
                     dataToPass["text"] = text
                 }
                 
-                NetworkManager.shared.putRequest(path: "/bookmarks/", id: id, body: dataToPass) { error in
-                    if let err = error {
-                        print("Failed to put", err)
-                        return
-                    }
-                }
+                
+                
+                self.interactor?.putData(with: id, and: dataToPass)
+                
+                
                 
                 self.bookmarks[id] = Bookmark(name: dataToPass["name"], text: dataToPass["text"])
                 

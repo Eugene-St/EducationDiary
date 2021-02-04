@@ -11,12 +11,7 @@ class DataMediator {
     
     static let shared = DataMediator()
     private init(){}
-    
-//    var bookmarksInteractor: Interactor?
-//    var questionsInteractor: Interactor?
-//    var topicsInteractor: Interactor?
-//    var tasksInteractor: Interactor?
-    
+
     var networkAvaible: Bool {
         return NetworkMonitor.shared.isReachable
     }
@@ -39,7 +34,6 @@ class DataMediator {
             print("No network, fetch data from Core Data")
         }
     }
-    // todo: fetch data from defined data source (remote or local DB)
 }
 
 

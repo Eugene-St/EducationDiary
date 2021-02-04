@@ -9,16 +9,17 @@ import Foundation
 
 // component of mediator
 protocol Interactor {
-    var viewController: DataUpdateableController { get set }
     var mediator: DataMediator { get set }
+    var updateUICompletion: ((Bookmarks) -> Void) { get set }
     func fetchData()
+//    func fetchData(_ completion: @escaping (Data) -> Void)
     func didUpdate(with data: Data)
     func didFail(with error: Error)
+    func putData(with id: String, and body: [String: String])
 }
 
 protocol DataUpdateableController {
     var interactor: Interactor? { get set }
-    func updateUI(with data: Any)
 }
 
 extension Interactor {
@@ -31,3 +32,9 @@ extension Interactor {
         }
     }
 }
+
+
+
+
+
+

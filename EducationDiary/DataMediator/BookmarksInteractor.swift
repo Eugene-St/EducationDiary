@@ -8,13 +8,15 @@
 import Foundation
 
 class BookmarksInteractor: Interactor {
+
     var mediator: DataMediator
-    var viewController: DataUpdateableController
+    var updateUICompletion: ((Bookmarks) -> Void)
     
-    init(controller: DataUpdateableController) {
-        self.viewController = controller
+    init(updatedDataUI: @escaping ((Bookmarks) -> Void)) {
         self.mediator = DataMediator.shared
+        self.updateUICompletion = updatedDataUI
     }
+    
     
     func fetchData() {
         mediator.fetchData(with: "bookmarks.json", interactor: self)
@@ -23,13 +25,22 @@ class BookmarksInteractor: Interactor {
     func didUpdate(with data: Data) {
         if let decodedData = parseJSON(data: data, type: Bookmarks.self) {
             DispatchQueue.main.async {
-                self.viewController.updateUI(with: decodedData)
+                self.updateUICompletion(decodedData)
             }
         }
     }
     
     func didFail(with error: Error) {
         print("BookmarksInteractor ERROR:\(error.localizedDescription)")
+    }
+    
+    func putData(with id: String, and body: [String: String]) {
+        NetworkManager.shared.putRequest(path: "/bookmarks/", id: id, body: body) { error in
+            if let err = error {
+                print("Failed to put", err)
+                return
+            }
+        }
     }
     
 }
