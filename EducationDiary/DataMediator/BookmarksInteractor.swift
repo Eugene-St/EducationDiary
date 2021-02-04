@@ -21,7 +21,7 @@ class BookmarksInteractor: Interactor {
     }
     
     func didUpdate(with data: Data) {
-        if let decodedData = parseJSON(data: data, type: Bookmarks.self){
+        if let decodedData = parseJSON(data: data, type: Bookmarks.self) {
             DispatchQueue.main.async {
                 self.viewController.updateUI(with: decodedData)
             }

@@ -21,7 +21,6 @@ class DataMediator {
         return NetworkMonitor.shared.isReachable
     }
     
-    //todo: create method to define data source
     func fetchData(with path: String, interactor: Interactor) {
         if networkAvaible {
             print("Network available, fetch data from BE")

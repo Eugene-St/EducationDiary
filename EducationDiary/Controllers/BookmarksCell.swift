@@ -9,8 +9,11 @@ import UIKit
 
 class BookmarksCell: UITableViewCell {
     
+    @IBOutlet weak var copyToClipboardView: UIView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
+        copyToClipboardView.isHidden = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -23,6 +26,12 @@ class BookmarksCell: UITableViewCell {
                     UIApplication.shared.open(url)
                 }
                 UIPasteboard.general.string = text
+                UIImpactFeedbackGenerator(style: .light).impactOccurred()
+                UIView.transition(with: copyToClipboardView, duration: 0.5, options: .transitionFlipFromTop) {
+                    self.copyToClipboardView.isHidden = false
+                } completion: { _ in
+                        self.copyToClipboardView.isHidden = true
+                }
             }
         }
     }

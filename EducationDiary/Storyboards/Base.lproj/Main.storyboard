@@ -376,6 +376,21 @@
             </objects>
             <point key="canvasLocation" x="3671" y="-378"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="1CS-Ta-Yle">
+            <objects>
+                <viewController id="wNq-Ob-lva" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="NE0-aO-Z5p">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="fFI-HN-ODx"/>
+                        <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="O4e-w5-mcn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2287" y="1076"/>
+        </scene>
         <!--2.1-->
         <scene sceneID="VMt-Hf-nQP">
             <objects>
@@ -494,6 +509,26 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="55.666667938232422"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
+                                        <view alpha="0.69999999999999996" contentMode="scaleToFill" id="18I-EA-FSg">
+                                            <rect key="frame" x="0.0" y="12" width="414" height="31"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copied to clipboard" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nUv-TU-T0k">
+                                                    <rect key="frame" x="10" y="1" width="394" height="29"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <viewLayoutGuide key="safeArea" id="9ba-6d-QjG"/>
+                                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstItem="nUv-TU-T0k" firstAttribute="top" secondItem="9ba-6d-QjG" secondAttribute="top" constant="1" id="64t-xo-fbS"/>
+                                                <constraint firstItem="9ba-6d-QjG" firstAttribute="trailing" secondItem="nUv-TU-T0k" secondAttribute="trailing" constant="10" id="Vj4-Fv-ooP"/>
+                                                <constraint firstItem="nUv-TU-T0k" firstAttribute="leading" secondItem="9ba-6d-QjG" secondAttribute="leading" constant="10" id="coa-Ao-rMa"/>
+                                                <constraint firstItem="9ba-6d-QjG" firstAttribute="bottom" secondItem="nUv-TU-T0k" secondAttribute="bottom" constant="1" id="v3c-FB-WaR"/>
+                                            </constraints>
+                                        </view>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AL5-82-ffE">
                                             <rect key="frame" x="20" y="8.9999999999999982" width="33" height="20.333333333333332"/>
                                             <autoresizingMask key="autoresizingMask"/>
@@ -510,6 +545,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="copyToClipboardView" destination="18I-EA-FSg" id="KrZ-Dq-aTf"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -634,6 +672,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemIndigoColor">
+            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

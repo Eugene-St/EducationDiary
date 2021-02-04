@@ -99,6 +99,7 @@ class BookmarksViewController: UITableViewController, DataUpdateableController {
     }
     
     private func callAlertController(longTap: Bool = false) {
+        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
         if longTap == false {
             
             var dataToPass: [String: String] = [:]
