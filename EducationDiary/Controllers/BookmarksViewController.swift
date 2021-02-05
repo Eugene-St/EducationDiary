@@ -10,10 +10,11 @@ import UIKit
 class BookmarksViewController: UITableViewController {
     
     // todo: move alert controller to a separate file/class
-    // todo: UX 
+    // todo: UX
+    // todo: Delete request call from mediator
     
     // MARK: - Private Properties
-    private var bookmarks = Bookmarks()
+    var bookmarks = Bookmarks()
     private var interactor: BookmarksMediator?
     
     // MARK: - View Did Load
@@ -63,6 +64,7 @@ class BookmarksViewController: UITableViewController {
             let bookMarKey = bookmarkKeys[indexPath.row]
             let bookMArkID = "\(bookMarKey).json"
             
+            // todo: Delete request call from mediator
             NetworkManager.shared.deleteRequest(path: "bookmarks/", id: bookMArkID) { error in
                 if let err = error {
                     print("Failed to delete", err)
@@ -81,7 +83,7 @@ class BookmarksViewController: UITableViewController {
     
     // MARK: - IBActions
     @IBAction func addBookmarkPressed(_ sender: UIBarButtonItem) {
-        callAlertController()
+        addAlertController()
     }
     
     // MARK: - Private methods
@@ -95,101 +97,20 @@ class BookmarksViewController: UITableViewController {
                 let cell = tableView.cellForRow(at: indexPath)
                 
                 print("Long pressed row: \(cell?.detailTextLabel?.text ?? "No details")")
-                callAlertController(longTap: true)
+                
+                editAlertController(with: cell?.textLabel?.text,
+                                    and: cell?.detailTextLabel?.text)
             }
         }
     }
     
-    private func callAlertController(longTap: Bool = false) {
+    private func addAlertController() {
         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-        if longTap == false {
-            
-            var dataToPass: [String: String] = [:]
-            
-            let timeStamp = String(format: "%.0f", Date.timeIntervalSinceReferenceDate)
-            let id = "\(timeStamp)"
-            
-            let ac = UIAlertController(title: "Add bookmark", message: "Please enter Bookmark name and text", preferredStyle: .alert)
-            
-            let okAction = UIAlertAction(title: "Ok", style: .default) { _ in
-                
-                if let name = ac.textFields?.first?.text {
-                    dataToPass["name"] = name
-                }
-                
-                if let text = ac.textFields?.last?.text {
-                    dataToPass["text"] = text
-                }
-                
-                self.interactor?.putData(with: id, and: dataToPass) { result in
-                    
-                    switch result {
-                    
-                    case .success(_):
-                        self.bookmarks[id] = Bookmark(name: dataToPass["name"], text: dataToPass["text"])
-                        self.tableView.reloadData()
-                        
-                    case .failure(let error):
-                        let ac = UIAlertController(title: "No network connection", message: "We cannot add the record, re-check internet, \(error)", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "Ok", style: .default)
-                        ac.addAction(okAction)
-                        self.present(ac, animated: true)
-                    }
-                }
-                
-                //            let insertionIndexPath = IndexPath(row: self.bookmarks.count - 1, section: 0)
-                //            self.tableView.insertRows(at: [insertionIndexPath], with: .automatic)
-            }
-            
-            ac.addTextField { nameTextfield in
-                nameTextfield.placeholder = "name - optional"
-                nameTextfield.autocapitalizationType = .sentences
-            }
-            
-            ac.addTextField { textField in
-                textField.placeholder = "text - required"
-                textField.autocapitalizationType = .sentences
-                
-                NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: textField, queue: OperationQueue.main) { _ in
-                    
-                    let textCount = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines).count ?? 0
-                    
-                    let textIsNotEmpty = textCount > 0
-                    
-                    okAction.isEnabled = textIsNotEmpty
-                }
-            }
-            
-            let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
-            
-            ac.addAction(cancelAction)
-            okAction.isEnabled = false
-            ac.addAction(okAction)
-            present(ac, animated: true)
-        } else {
-            
-            let ac = UIAlertController(title: "Edit bookmark", message: "You may edit the bookmark", preferredStyle: .alert)
-            
-            let okAction = UIAlertAction(title: "Ok", style: .default) { _ in
-                
-                print("Ok pressed")
-            }
-            
-            ac.addTextField { nameTextfield in
-                nameTextfield.placeholder = "name - optional"
-                nameTextfield.autocapitalizationType = .sentences
-            }
-            
-            ac.addTextField { textField in
-                textField.placeholder = "text - required"
-                textField.autocapitalizationType = .sentences
-            }
-            
-            let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
-            
-            ac.addAction(cancelAction)
-            ac.addAction(okAction)
-            present(ac, animated: true)
-        }
+        Alert.showAlert(title: "Add bookmark", message: "Please enter Bookmark name and text", on: self, mediator: interactor)
+    }
+    
+    private func editAlertController(with name: String?, and text: String?) {
+        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        Alert.showAlert(title: "Edit bookmark", message: "You may edit the bookmark", on: self, mediator: interactor, name: name, text: text)
     }
 }

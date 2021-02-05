@@ -36,6 +36,7 @@
 		58369FE725C7FE2F00296493 /* BookmarksMediator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FE625C7FE2F00296493 /* BookmarksMediator.swift */; };
 		58369FEA25C7FE3A00296493 /* QuestionsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FE925C7FE3A00296493 /* QuestionsInteractor.swift */; };
 		58369FEE25C8081D00296493 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FED25C8081D00296493 /* NetworkMonitor.swift */; };
+		58A1F6DA25CD0FA100C62AB9 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A1F6D925CD0FA100C62AB9 /* AlertController.swift */; };
 		58D5C8A825C92BE6008402BE /* DataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D5C8A725C92BE6008402BE /* DataError.swift */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +72,7 @@
 		58369FE625C7FE2F00296493 /* BookmarksMediator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksMediator.swift; sourceTree = "<group>"; };
 		58369FE925C7FE3A00296493 /* QuestionsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsInteractor.swift; sourceTree = "<group>"; };
 		58369FED25C8081D00296493 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		58A1F6D925CD0FA100C62AB9 /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
 		58D5C8A725C92BE6008402BE /* DataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -127,6 +129,7 @@
 				58369FA925C30D9F00296493 /* TasksSecondViewController.swift */,
 				58369FA625C30D4C00296493 /* BookmarksViewController.swift */,
 				5829570D25CACCA300F68CA7 /* BookmarksCell.swift */,
+				58A1F6D925CD0FA100C62AB9 /* AlertController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -269,6 +272,7 @@
 				58369FBE25C30FBF00296493 /* Topic.swift in Sources */,
 				58369FEA25C7FE3A00296493 /* QuestionsInteractor.swift in Sources */,
 				58369FE725C7FE2F00296493 /* BookmarksMediator.swift in Sources */,
+				58A1F6DA25CD0FA100C62AB9 /* AlertController.swift in Sources */,
 				5829571625CAFFD100F68CA7 /* Protocols.swift in Sources */,
 				58369FEE25C8081D00296493 /* NetworkMonitor.swift in Sources */,
 				58369FA725C30D4C00296493 /* BookmarksViewController.swift in Sources */,

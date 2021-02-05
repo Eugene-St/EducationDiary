@@ -11,6 +11,8 @@ typealias result<T> = (Result<T, Error>) -> Void
 
 class NetworkManager {
     
+    // todo: realize PATCH method
+    
     static let shared = NetworkManager()
     private let hostURL = URL(string:"https://testapp-3135f-default-rtdb.firebaseio.com/")
     private init() {}
