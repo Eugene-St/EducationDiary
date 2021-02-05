@@ -15,7 +15,7 @@ class BookmarksViewController: UITableViewController {
     
     // MARK: - Private Properties
     var bookmarks = Bookmarks()
-    private var interactor: BookmarksMediator?
+    private var mediator: BookmarksMediator?
     
     // MARK: - View Did Load
     override func viewDidLoad() {
@@ -25,9 +25,9 @@ class BookmarksViewController: UITableViewController {
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed(sender:)))
         self.tableView.addGestureRecognizer(longPressRecognizer)
         
-        interactor = BookmarksMediator()
+        mediator = BookmarksMediator()
         
-        interactor?.fetchData({ result in
+        mediator?.fetchData({ result in
             switch result {
             case .success(let bookmarks):
                 self.bookmarks = bookmarks
@@ -64,16 +64,20 @@ class BookmarksViewController: UITableViewController {
             let bookMarKey = bookmarkKeys[indexPath.row]
             let bookMArkID = "\(bookMarKey).json"
             
-            // todo: Delete request call from mediator
-            NetworkManager.shared.deleteRequest(path: "bookmarks/", id: bookMArkID) { error in
-                if let err = error {
-                    print("Failed to delete", err)
-                    return
+            mediator?.deleteData(with: bookMArkID, { result in
+                switch result {
+                
+                case .success(_):
+                        self.bookmarks.removeValue(forKey: bookmarkKeys[indexPath.row])
+                        tableView.deleteRows(at: [indexPath], with: .automatic)
+                
+                case .failure(let error):
+                    let ac = UIAlertController(title: "No network connection", message: "We cannot delete the record, re-check internet, \(error)", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "Ok", style: .default)
+                    ac.addAction(okAction)
+                    self.present(ac, animated: true)
                 }
-            }
-            
-            self.bookmarks.removeValue(forKey: bookmarkKeys[indexPath.row])
-            tableView.deleteRows(at: [indexPath], with: .automatic)
+            })
         }
     }
     
@@ -106,11 +110,11 @@ class BookmarksViewController: UITableViewController {
     
     private func addAlertController() {
         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-        Alert.showAlert(title: "Add bookmark", message: "Please enter Bookmark name and text", on: self, mediator: interactor)
+        Alert.showAlert(title: "Add bookmark", message: "Please enter Bookmark name and text", on: self, mediator: mediator)
     }
     
     private func editAlertController(with name: String?, and text: String?) {
         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-        Alert.showAlert(title: "Edit bookmark", message: "You may edit the bookmark", on: self, mediator: interactor, name: name, text: text)
+        Alert.showAlert(title: "Edit bookmark", message: "You may edit the bookmark", on: self, mediator: mediator, name: name, text: text)
     }
 }

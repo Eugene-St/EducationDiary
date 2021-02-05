@@ -51,7 +51,7 @@ class NetworkManager {
     }
     
     // MARK: - DELETE
-    func deleteRequest(path: String, id: String, _ completion: @escaping (Error?) -> Void) {
+    func deleteRequest(path: String, id: String, _ completion: @escaping result<URLResponse>) {
         
         guard let hostURL = hostURL else {
             print(DataError.invalidURL)
@@ -65,26 +65,18 @@ class NetworkManager {
         
         URLSession.shared.dataTask(with: request) { data, response, error in
             
-            guard error == nil else {
+            if let error = error {
                 print("Error: error calling DELETE")
-                completion(error)
+                completion(.failure(error))
                 return
             }
             
-            if let response = response as? HTTPURLResponse, response.statusCode != 200 {
-                let errorString = String(data: data ?? Data(), encoding: .utf8) ?? ""
-                completion(NSError(domain: "", code: response.statusCode, userInfo: [NSLocalizedDescriptionKey: errorString]))
+            guard let response = response as? HTTPURLResponse, (200 ..< 299) ~= response.statusCode else {
+                print("Error: HTTP request failed")
+                completion(.failure(DataError.serverError))
                 return
             }
-            
-            //                guard let response = response as? HTTPURLResponse, (200 ..< 299) ~= response.statusCode else {
-            //                    print("Error: HTTP request failed")
-            //                    completion(NSError(domain: "", code: , userInfo: [NSLocalizedDescriptionKey: ""]))
-            //                    return
-            //                }
-            
-            completion(nil)
-            
+                completion(.success(response))
         }.resume()
     }
     

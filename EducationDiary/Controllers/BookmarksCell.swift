@@ -27,7 +27,7 @@ class BookmarksCell: UITableViewCell {
                 }
                 UIPasteboard.general.string = text
                 UIImpactFeedbackGenerator(style: .light).impactOccurred()
-                UIView.transition(with: copyToClipboardView, duration: 1.2, options: .transitionFlipFromTop) {
+                UIView.transition(with: copyToClipboardView, duration: 0.5, options: .transitionFlipFromTop) {
                     self.copyToClipboardView.isHidden = false
                 } completion: { _ in
                         self.copyToClipboardView.isHidden = true
