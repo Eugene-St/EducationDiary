@@ -11,7 +11,6 @@ class BookmarksViewController: UITableViewController {
     
     // todo: move alert controller to a separate file/class
     // todo: UX
-    // todo: Delete request call from mediator
     
     // MARK: - Private Properties
     var bookmarks = Bookmarks()
@@ -72,10 +71,13 @@ class BookmarksViewController: UITableViewController {
                         tableView.deleteRows(at: [indexPath], with: .automatic)
                 
                 case .failure(let error):
+                    print("NO internet!")
                     let ac = UIAlertController(title: "No network connection", message: "We cannot delete the record, re-check internet, \(error)", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "Ok", style: .default)
                     ac.addAction(okAction)
-                    self.present(ac, animated: true)
+                    DispatchQueue.main.async {
+                        self.present(ac, animated: true)
+                    }
                 }
             })
         }

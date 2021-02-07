@@ -28,8 +28,6 @@ class BookmarksMediator: Mediator {
     }
     
     func putData(with id: String, and body: [String: String], _ completion: @escaping result<URLResponse>) {
-        
-        if networkIsAvaible {
             
             NetworkManager.shared.putRequest(path: "/bookmarks/", id: id, body: body) { result in
                 
@@ -45,14 +43,9 @@ class BookmarksMediator: Mediator {
                     }
                 }
             }
-        } else {
-            print("Alert that does not allow to delete")
-        }
     }
     
     func deleteData(with id: String, _ completion: @escaping result<URLResponse>) {
-        
-        if networkIsAvaible {
             
             NetworkManager.shared.deleteRequest(path: "bookmarks/", id: id) { result in
                 switch result {
@@ -67,8 +60,5 @@ class BookmarksMediator: Mediator {
                     }
                 }
             }
-        } else {
-            print("Alert that does not allow to delete")
-        }
     }
 }

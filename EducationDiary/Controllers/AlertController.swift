@@ -39,10 +39,10 @@ class Alert {
                     bookmarksVC.tableView.reloadData()
                     
                 case .failure(let error):
-                    let ac = UIAlertController(title: "No network connection", message: "We cannot add the record, re-check internet, \(error)", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "Ok", style: .default)
-                    ac.addAction(okAction)
-                    bookmarksVC.present(ac, animated: true)
+                        let ac = UIAlertController(title: "No network connection", message: "We cannot add the record, re-check internet, \(error)", preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "Ok", style: .default)
+                        ac.addAction(okAction)
+                        bookmarksVC.present(ac, animated: true)
                 }
             }
             
