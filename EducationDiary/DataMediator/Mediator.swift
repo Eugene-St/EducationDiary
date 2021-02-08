@@ -10,13 +10,11 @@ import Foundation
 class Mediator<T: Decodable>{
     
     private let pathForFetch: EndType
-    private let pathForDelete: String
-    private let pathForPut: String
+    private let pathForUpdate: EndType
     
-    init(_ pathForFetch: EndType, _ pathForString: String, _ pathForPut: String) {
+    init(_ pathForFetch: EndType, pathForUpdate: EndType) {
         self.pathForFetch = pathForFetch
-        self.pathForDelete = pathForString
-        self.pathForPut = pathForPut
+        self.pathForUpdate = pathForUpdate
     }
     
     //MARK: networkIsAvaible

@@ -10,7 +10,6 @@ import Foundation
 class BookmarksMediator: Mediator<Bookmarks> {
     
     init() {
-        super.init(.bookmarks, "bookmarks/", "/bookmarks/")
+        super.init(.bookmarks, pathForUpdate: .bookmarksUpdate)
     }
-    
 }

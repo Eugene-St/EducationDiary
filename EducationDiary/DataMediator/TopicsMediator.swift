@@ -9,6 +9,6 @@ import Foundation
 
 class TopicsMediator: Mediator<Topics> {
     init() {
-        super.init(.topics, "", "")
+        super.init(.topics, pathForUpdate: .tasksUpdate)
     }
 }

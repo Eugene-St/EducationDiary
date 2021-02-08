@@ -10,6 +10,6 @@ import Foundation
 class TasksMediator: Mediator<Tasks> {
     
     init() {
-        super.init(.tasks, "", "")
+        super.init(.tasks, pathForUpdate: .tasksUpdate)
     }
 }

@@ -12,4 +12,9 @@ enum EndType: String {
     case topics = "topics.json"
     case questions = "questions.json"
     case tasks = "tasks.json"
+    
+    case bookmarksUpdate = "bookmarks/"
+    case topicsUpdate = "topics/"
+    case questionsUpdate = "questions/"
+    case tasksUpdate = "tasks/"
 }
