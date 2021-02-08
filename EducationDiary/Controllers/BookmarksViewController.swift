@@ -30,6 +30,7 @@ class BookmarksViewController: UITableViewController {
                 self.tableView.reloadData()
             case .failure(let error):
                 print("BookmarksInteractor ERROR:\(error.localizedDescription)")
+                self.noNetworkAlert(error: error)
             }
         })
     }
@@ -69,12 +70,7 @@ class BookmarksViewController: UITableViewController {
                     
                 case .failure(let error):
                     print("No internet!")
-                    let ac = UIAlertController(title: "No network connection", message: "We cannot delete the record, re-check internet, \(error)", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "Ok", style: .default)
-                    ac.addAction(okAction)
-                    DispatchQueue.main.async {
-                        self.present(ac, animated: true)
-                    }
+                    self.noNetworkAlert(error: error)
                 }
             })
         }

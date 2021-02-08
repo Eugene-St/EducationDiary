@@ -74,10 +74,11 @@ class Mediator<T: Decodable>{
     //MARK: Delete data
     func deleteData(with id: String, _ completion: @escaping result<URLResponse>) {
         if networkIsAvaible {
-            NetworkManager.shared.deleteRequest(path: pathForDelete, id: id) { result in
+            NetworkManager.shared.deleteRequest(path: pathForUpdate.rawValue, id: id) { result in
                 self.recogniseResult(result, completion)
             }
         } else {
+            completion(.failure(DataError.noNetwork))
             print("Remove from DB")
         }
     }
@@ -85,14 +86,14 @@ class Mediator<T: Decodable>{
     //MARK: Put data
     func updateData(with id: String, and body: [String: String], httpMethod: HTTPMethods, _ completion: @escaping result<URLResponse>){
         if networkIsAvaible {
-            NetworkManager.shared.updateRequest(path: pathForPut, id: id, body: body, httpMethod: httpMethod) { result in
+            NetworkManager.shared.updateRequest(path: pathForUpdate.rawValue, id: id, body: body, httpMethod: httpMethod) { result in
                 self.recogniseResult(result, completion)
             }
         } else {
+            completion(.failure(DataError.noNetwork))
             print("Put to DB")
         }
     }
-    
 }
 
 

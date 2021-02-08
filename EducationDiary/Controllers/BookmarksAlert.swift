@@ -48,13 +48,9 @@ extension BookmarksViewController {
                     }
                     
                 case .failure(let error):
-                    let ac = UIAlertController(title: "No network connection", message: "We cannot add the record, re-check internet, \(error)", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "Ok", style: .default)
-                    ac.addAction(okAction)
-                    self?.present(ac, animated: true)
+                    self?.noNetworkAlert(error: error)
                 }
             }
-            
         }
         
         ac.addTextField { nameTextfield in
@@ -100,6 +96,15 @@ extension BookmarksViewController {
             self.present(ac, animated: true, completion: nil)
         }
         
+    }
+    
+    func noNetworkAlert(error: Error) {
+        let ac = UIAlertController(title: "No network connection", message: "We cannot delete the record, re-check internet, \(error)", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default)
+        ac.addAction(okAction)
+        DispatchQueue.main.async {
+            self.present(ac, animated: true)
+        }
     }
 }
 

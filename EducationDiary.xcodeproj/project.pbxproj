@@ -178,8 +178,8 @@
 			isa = PBXGroup;
 			children = (
 				58369FCC25C3683B00296493 /* NetworkManager.swift */,
-				58369FD525C7F8A000296493 /* NetworkMethods.swift */,
 				58369FED25C8081D00296493 /* NetworkMonitor.swift */,
+				58369FD525C7F8A000296493 /* NetworkMethods.swift */,
 				58D5C8A725C92BE6008402BE /* DataError.swift */,
 				582B571625CC878900637760 /* NetworkEndType.swift */,
 			);
