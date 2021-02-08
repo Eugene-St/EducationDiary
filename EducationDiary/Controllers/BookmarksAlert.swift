@@ -95,7 +95,6 @@ extension BookmarksViewController {
         DispatchQueue.main.async {
             self.present(ac, animated: true, completion: nil)
         }
-        
     }
     
     func noNetworkAlert(error: Error) {
