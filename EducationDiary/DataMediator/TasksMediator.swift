@@ -8,7 +8,6 @@
 import Foundation
 
 class TasksMediator: Mediator<Tasks> {
-    
     init() {
         super.init(.tasks, pathForUpdate: .tasksUpdate)
     }
