@@ -8,8 +8,6 @@
 import UIKit
 
 class TasksViewController: UITableViewController {
-    
-    // todo: work on this controller
 
     // MARK: - Private Properties
     private var tasks = Tasks()
@@ -25,7 +23,6 @@ class TasksViewController: UITableViewController {
             switch result {
             
             case .success(let tasks):
-                print(tasks)
                 self.tasks = tasks
                 self.tableView.reloadData()
             case .failure(let error):

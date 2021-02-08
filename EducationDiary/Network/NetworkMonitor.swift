@@ -28,7 +28,6 @@ class NetworkMonitor {
         monitor.cancel()
     }
 }
-// Класс Singleton Network Availability - на протяжении жизни приложения живет (может быть как отдельная сущность или составляющая Network Manager)
 
 
 

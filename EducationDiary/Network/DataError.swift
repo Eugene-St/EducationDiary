@@ -13,5 +13,6 @@ enum DataError: Error {
     case decodingError
     case serverError
     case invalidURL
+    case noNetwork
 }
 

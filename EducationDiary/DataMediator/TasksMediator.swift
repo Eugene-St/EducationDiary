@@ -7,24 +7,9 @@
 
 import Foundation
 
-class TasksMediator: Mediator {
+class TasksMediator: Mediator<Tasks> {
     
-    func fetchData(_ completion: @escaping result<Tasks>) {
-        
-        if networkIsAvaible {
-            
-            fetchDataFromNetwork(of: Tasks.self, path: .tasks) { result in
-                switch result {
-                
-                case .success(let tasks):
-                    
-                    completion(.success(tasks))
-                case .failure(let error):
-                    completion(.failure(error))
-                }
-            }
-        } else {
-            print("fetch data from DB")
-        }
+    init() {
+        super.init(.tasks, "", "")
     }
 }

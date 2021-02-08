@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17511" systemVersion="20B29" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="DataTest" representedClassName="DataTest" syncable="YES" codeGenerationType="class">
-        <attribute name="newTestAttribute" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+    <entity name="BookmarkCoreData" representedClassName="BookmarkCoreData" syncable="YES" codeGenerationType="class">
+        <attribute name="idInDict" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="text" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="DataTest" positionX="-36" positionY="9" width="128" height="44"/>
+        <element name="BookmarkCoreData" positionX="-36" positionY="9" width="128" height="74"/>
     </elements>
 </model>

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		5829570E25CACCA300F68CA7 /* BookmarksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5829570D25CACCA300F68CA7 /* BookmarksCell.swift */; };
-		5829571625CAFFD100F68CA7 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5829571525CAFFD000F68CA7 /* Protocols.swift */; };
 		582B571725CC878900637760 /* NetworkEndType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582B571625CC878900637760 /* NetworkEndType.swift */; };
 		58369F8025C2DEC500296493 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369F7F25C2DEC500296493 /* AppDelegate.swift */; };
 		58369F8225C2DEC500296493 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369F8125C2DEC500296493 /* SceneDelegate.swift */; };
@@ -36,13 +35,13 @@
 		58369FE725C7FE2F00296493 /* BookmarksMediator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FE625C7FE2F00296493 /* BookmarksMediator.swift */; };
 		58369FEA25C7FE3A00296493 /* QuestionsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FE925C7FE3A00296493 /* QuestionsInteractor.swift */; };
 		58369FEE25C8081D00296493 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FED25C8081D00296493 /* NetworkMonitor.swift */; };
-		58A1F6DA25CD0FA100C62AB9 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A1F6D925CD0FA100C62AB9 /* AlertController.swift */; };
+		58A1F6DA25CD0FA100C62AB9 /* BookmarksAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A1F6D925CD0FA100C62AB9 /* BookmarksAlert.swift */; };
 		58D5C8A825C92BE6008402BE /* DataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D5C8A725C92BE6008402BE /* DataError.swift */; };
+		58FCE19625D124DC00654915 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FCE19525D124DC00654915 /* CoreDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5829570D25CACCA300F68CA7 /* BookmarksCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksCell.swift; sourceTree = "<group>"; };
-		5829571525CAFFD000F68CA7 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		582B571625CC878900637760 /* NetworkEndType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkEndType.swift; sourceTree = "<group>"; };
 		58369F7C25C2DEC500296493 /* EducationDiary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EducationDiary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		58369F7F25C2DEC500296493 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -72,8 +71,9 @@
 		58369FE625C7FE2F00296493 /* BookmarksMediator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksMediator.swift; sourceTree = "<group>"; };
 		58369FE925C7FE3A00296493 /* QuestionsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsInteractor.swift; sourceTree = "<group>"; };
 		58369FED25C8081D00296493 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
-		58A1F6D925CD0FA100C62AB9 /* AlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertController.swift; sourceTree = "<group>"; };
+		58A1F6D925CD0FA100C62AB9 /* BookmarksAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksAlert.swift; sourceTree = "<group>"; };
 		58D5C8A725C92BE6008402BE /* DataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataError.swift; sourceTree = "<group>"; };
+		58FCE19525D124DC00654915 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +106,7 @@
 		58369F7E25C2DEC500296493 /* EducationDiary */ = {
 			isa = PBXGroup;
 			children = (
+				58FCE19825D124F100654915 /* CoreDataManager */,
 				58369FD025C7EF8100296493 /* DataMediator */,
 				58369FCB25C3682900296493 /* Network */,
 				58369F9D25C2E7CA00296493 /* Model */,
@@ -129,7 +130,7 @@
 				58369FA925C30D9F00296493 /* TasksSecondViewController.swift */,
 				58369FA625C30D4C00296493 /* BookmarksViewController.swift */,
 				5829570D25CACCA300F68CA7 /* BookmarksCell.swift */,
-				58A1F6D925CD0FA100C62AB9 /* AlertController.swift */,
+				58A1F6D925CD0FA100C62AB9 /* BookmarksAlert.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -193,9 +194,16 @@
 				58369FE325C7FE1900296493 /* TopicsInteractor.swift */,
 				58369FE625C7FE2F00296493 /* BookmarksMediator.swift */,
 				58369FE925C7FE3A00296493 /* QuestionsInteractor.swift */,
-				5829571525CAFFD000F68CA7 /* Protocols.swift */,
 			);
 			path = DataMediator;
+			sourceTree = "<group>";
+		};
+		58FCE19825D124F100654915 /* CoreDataManager */ = {
+			isa = PBXGroup;
+			children = (
+				58FCE19525D124DC00654915 /* CoreDataManager.swift */,
+			);
+			path = CoreDataManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -272,8 +280,7 @@
 				58369FBE25C30FBF00296493 /* Topic.swift in Sources */,
 				58369FEA25C7FE3A00296493 /* QuestionsInteractor.swift in Sources */,
 				58369FE725C7FE2F00296493 /* BookmarksMediator.swift in Sources */,
-				58A1F6DA25CD0FA100C62AB9 /* AlertController.swift in Sources */,
-				5829571625CAFFD100F68CA7 /* Protocols.swift in Sources */,
+				58A1F6DA25CD0FA100C62AB9 /* BookmarksAlert.swift in Sources */,
 				58369FEE25C8081D00296493 /* NetworkMonitor.swift in Sources */,
 				58369FA725C30D4C00296493 /* BookmarksViewController.swift in Sources */,
 				5829570E25CACCA300F68CA7 /* BookmarksCell.swift in Sources */,
@@ -295,6 +302,7 @@
 				58369FBA25C30EAF00296493 /* QuestionDetailsViewController.swift in Sources */,
 				58369FC525C30FD500296493 /* Tasks.swift in Sources */,
 				58369FE125C7FE0D00296493 /* TasksMediator.swift in Sources */,
+				58FCE19625D124DC00654915 /* CoreDataManager.swift in Sources */,
 				58369F8225C2DEC500296493 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

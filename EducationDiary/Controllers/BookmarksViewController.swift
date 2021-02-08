@@ -9,14 +9,11 @@ import UIKit
 
 class BookmarksViewController: UITableViewController {
     
-    // todo: move alert controller to a separate file/class
-    // todo: UX
-    
     // MARK: - Private Properties
     var bookmarks = Bookmarks()
-    private var mediator: BookmarksMediator?
+    var mediator: BookmarksMediator?
     
-    // MARK: - View Did Load
+    // MARK: - View DidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -67,11 +64,11 @@ class BookmarksViewController: UITableViewController {
                 switch result {
                 
                 case .success(_):
-                        self.bookmarks.removeValue(forKey: bookmarkKeys[indexPath.row])
-                        tableView.deleteRows(at: [indexPath], with: .automatic)
-                
+                    self.bookmarks.removeValue(forKey: bookmarkKeys[indexPath.row])
+                    tableView.deleteRows(at: [indexPath], with: .automatic)
+                    
                 case .failure(let error):
-                    print("NO internet!")
+                    print("No internet!")
                     let ac = UIAlertController(title: "No network connection", message: "We cannot delete the record, re-check internet, \(error)", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "Ok", style: .default)
                     ac.addAction(okAction)
@@ -102,21 +99,22 @@ class BookmarksViewController: UITableViewController {
                 
                 let cell = tableView.cellForRow(at: indexPath)
                 
-                print("Long pressed row: \(cell?.detailTextLabel?.text ?? "No details")")
+                let bookmarkKeys = Array(bookmarks.keys)
+                let bookmarkKey = bookmarkKeys[indexPath.row]
                 
                 editAlertController(with: cell?.textLabel?.text,
-                                    and: cell?.detailTextLabel?.text)
+                                    and: cell?.detailTextLabel?.text, id: bookmarkKey)
             }
         }
     }
     
     private func addAlertController() {
         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-        Alert.showAlert(title: "Add bookmark", message: "Please enter Bookmark name and text", on: self, mediator: mediator)
+        showAlert(title: "Add bookmark", message: "Please enter Bookmark name and text", id: nil, httpMethod: .put)
     }
     
-    private func editAlertController(with name: String?, and text: String?) {
+    private func editAlertController(with name: String?, and text: String?, id: String) {
         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-        Alert.showAlert(title: "Edit bookmark", message: "You may edit the bookmark", on: self, mediator: mediator, name: name, text: text)
+        showAlert(title: "Edit bookmark", message: "You may edit the bookmark", name: name, text: text, id: id, httpMethod: .patch)
     }
 }

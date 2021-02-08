@@ -11,8 +11,6 @@ typealias result<T> = (Result<T, Error>) -> Void
 
 class NetworkManager {
     
-    // todo: realize PATCH method
-    
     static let shared = NetworkManager()
     private let hostURL = URL(string:"https://testapp-3135f-default-rtdb.firebaseio.com/")
     private init() {}
@@ -76,12 +74,12 @@ class NetworkManager {
                 completion(.failure(DataError.serverError))
                 return
             }
-                completion(.success(response))
+            completion(.success(response))
         }.resume()
     }
     
     // MARK: - PUT
-    func putRequest(path: String, id: String, body: [String: String], _ completion: @escaping result<URLResponse>) {
+    func updateRequest(path: String, id: String, body: [String: String], httpMethod: HTTPMethods, _ completion: @escaping result<URLResponse>) {
         
         guard let hostURL = hostURL else { return }
         let url = hostURL.appendingPathComponent(path + id + ".json")
@@ -89,7 +87,7 @@ class NetworkManager {
         let putData = body
         
         var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = HTTPMethods.put.rawValue
+        urlRequest.httpMethod = httpMethod.rawValue
         
         do {
             let data = try JSONSerialization.data(withJSONObject: putData, options: [])
@@ -110,7 +108,6 @@ class NetworkManager {
                             completion(.success(response))
                         } else {
                             completion(.failure(DataError.invalidData))
-                            //                guard let data = data else { return }
                         }
                     } else {
                         completion(.failure(DataError.serverError))
@@ -122,14 +119,6 @@ class NetworkManager {
         } catch {
             completion(.failure(error))
         }
-    }
-    
-    // MARK: - PATCH
-    func patchRequest(path: String) {
-        
-        guard let hostURL = hostURL else { return }
-        
-        let url = hostURL.appendingPathComponent(path)
     }
 }
 
