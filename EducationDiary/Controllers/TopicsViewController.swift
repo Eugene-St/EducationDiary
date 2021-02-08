@@ -11,30 +11,25 @@ class TopicsViewController: UITableViewController {
 
     // MARK: - Private Properties
     private var topics = Topics()
+    var mediator: TopicsMediator?
     
     // MARK: - View DidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        NetworkManager.shared.getRequest(of: Topics.self,
-//                                         path: "topics.json") { result in
-//            
-//            switch result {
-//            case .failure(let error):
-//                    if error is DataError {
-//                        print(error)
-//                    } else {
-//                        print(error.localizedDescription)
-//                    }
-//                    print(error.localizedDescription)
-//                    
-//                case .success(let topics):
-//                    DispatchQueue.main.async {
-//                        self.topics = topics
-//                        self.tableView.reloadData()
-//                }
-//            }
-//        }
+        mediator = TopicsMediator()
+        
+        mediator?.fetchData({ result in
+            switch result {
+            
+            case .success(let topics):
+                self.topics = topics
+                self.tableView.reloadData()
+            case .failure(let error):
+                print("TopicsMediator ERROR:\(error.localizedDescription)")
+            }
+        })
+        
     }
 
     // MARK: - Table view data source

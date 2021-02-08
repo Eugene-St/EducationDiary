@@ -26,7 +26,7 @@ class TasksViewController: UITableViewController {
                 self.tasks = tasks
                 self.tableView.reloadData()
             case .failure(let error):
-                print("BookmarksInteractor ERROR:\(error.localizedDescription)")
+                print("BookmarksMediator ERROR:\(error.localizedDescription)")
             }
         })
     }

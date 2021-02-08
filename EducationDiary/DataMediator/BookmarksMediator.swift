@@ -7,58 +7,10 @@
 
 import Foundation
 
-class BookmarksMediator: Mediator {
+class BookmarksMediator: Mediator<Bookmarks> {
     
-    func fetchData(_ completion: @escaping result<Bookmarks>) {
-        
-        if networkIsAvaible {
-            
-            fetchDataFromNetwork(of: Bookmarks.self, path: .bookmarks) { result in
-                switch result {
-                
-                case .success(let bookmarks):
-                    completion(.success(bookmarks))
-                case .failure(let error):
-                    completion(.failure(error))
-                }
-            }
-        } else {
-            print("fetch data from DB")
-        }
+    init() {
+        super.init(.bookmarks, "bookmarks/", "/bookmarks/")
     }
     
-    func putData(with id: String, and body: [String: String], _ completion: @escaping result<URLResponse>) {
-            
-            NetworkManager.shared.putRequest(path: "/bookmarks/", id: id, body: body) { result in
-                
-                switch result {
-                
-                case .success(let response):
-                    DispatchQueue.main.async {
-                        completion(.success(response))
-                    }
-                case .failure(let error):
-                    DispatchQueue.main.async {
-                        completion(.failure(error))
-                    }
-                }
-            }
-    }
-    
-    func deleteData(with id: String, _ completion: @escaping result<URLResponse>) {
-            
-            NetworkManager.shared.deleteRequest(path: "bookmarks/", id: id) { result in
-                switch result {
-                
-                case .success(let response):
-                    DispatchQueue.main.async {
-                        completion(.success(response))
-                    }
-                case .failure(let error):
-                    DispatchQueue.main.async {
-                        completion(.failure(error))
-                    }
-                }
-            }
-    }
 }
