@@ -388,7 +388,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.92374064757798802" green="0.92374064757798802" blue="0.92374064757798802" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskCell" textLabel="MjT-s1-vas" detailTextLabel="El8-ZJ-5SR" rowHeight="80" style="IBUITableViewCellStyleSubtitle" id="7eB-oj-i8N">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskCell" textLabel="MjT-s1-vas" rowHeight="80" style="IBUITableViewCellStyleDefault" id="7eB-oj-i8N">
                                 <rect key="frame" x="0.0" y="28" width="414" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7eB-oj-i8N" id="OOD-NH-oQV">
@@ -396,16 +396,9 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="MjT-s1-vas">
-                                            <rect key="frame" x="20" y="20" width="33" height="20.333333333333332"/>
+                                            <rect key="frame" x="20" y="0.0" width="374" height="80"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="El8-ZJ-5SR">
-                                            <rect key="frame" x="19.999999999999996" y="43.333333333333329" width="43.666666666666664" height="14.333333333333334"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -422,8 +415,14 @@
                     <navigationItem key="navigationItem" title="Tasks" id="Twb-NO-ODu">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="gfs-s6-IEc">
                             <color key="tintColor" red="0.80648976559999996" green="0.7222248912" blue="0.56821578740000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="addTaskButtonPressed:" destination="2I2-0T-YzL" id="9Ac-Kv-t74"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="addTaskButton" destination="gfs-s6-IEc" id="NnS-CP-vE8"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vbf-h7-YEv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -432,23 +431,24 @@
         <!--2.2-->
         <scene sceneID="xtz-hH-dJZ">
             <objects>
-                <viewController id="sMo-av-O7u" userLabel="2.2" customClass="TasksSecondViewController" customModule="EducationDiary" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="tasksPopVC" id="sMo-av-O7u" userLabel="2.2" customClass="TasksSecondViewController" customModule="EducationDiary" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="J30-pV-rtN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Description" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Bc2-vf-S1T">
                                 <rect key="frame" x="20" y="418" width="374" height="60"/>
-                                <color key="backgroundColor" red="0.58517313000000004" green="0.4606387019" blue="0.90832060579999996" alpha="0.55413589996545498" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.80648976559999996" green="0.7222248912" blue="0.56821578740000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="Pym-Yu-VMN"/>
                                 </constraints>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="20"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qXG-eC-sXu">
                                 <rect key="frame" x="132" y="518" width="150" height="50"/>
-                                <color key="backgroundColor" red="0.58517313000000004" green="0.4606387019" blue="0.90832060579999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.80648976559999996" green="0.7222248912" blue="0.56821578740000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="DCc-e5-xbu"/>
                                     <constraint firstAttribute="height" constant="50" id="pAG-rY-Q9i"/>
@@ -456,15 +456,27 @@
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="23"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Save"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="saveButtonPressed:" destination="sMo-av-O7u" eventType="touchUpInside" id="jRw-aH-fSf"/>
+                                </connections>
                             </button>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="50" minValue="0.0" maxValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="f0K-N7-fGl">
                                 <rect key="frame" x="18" y="348" width="378" height="31"/>
                                 <color key="minimumTrackTintColor" red="0.2395803332" green="0.69150143860000002" blue="0.4762094617" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="thumbTintColor" red="0.58517313000000004" green="0.4606387019" blue="0.90832060579999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="maximumTrackTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="thumbTintColor" red="0.80648976559999996" green="0.7222248912" blue="0.56821578740000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="progressSliderPressed:" destination="sMo-av-O7u" eventType="valueChanged" id="s1b-ii-IIQ"/>
+                                </connections>
                             </slider>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="mqP-Xk-sfh"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.41607838870000002" green="0.44104415180000001" blue="0.46968036889999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Bc2-vf-S1T" firstAttribute="centerY" secondItem="J30-pV-rtN" secondAttribute="centerY" id="1Qm-j9-yN3"/>
                             <constraint firstItem="mqP-Xk-sfh" firstAttribute="trailing" secondItem="f0K-N7-fGl" secondAttribute="trailing" constant="20" id="1tc-rn-c25"/>
@@ -477,6 +489,11 @@
                             <constraint firstItem="Bc2-vf-S1T" firstAttribute="leading" secondItem="mqP-Xk-sfh" secondAttribute="leading" constant="20" id="oeg-kS-nWy"/>
                         </constraints>
                     </view>
+                    <size key="freeformSize" width="414" height="896"/>
+                    <connections>
+                        <outlet property="descriptionTextField" destination="Bc2-vf-S1T" id="spa-Pu-riz"/>
+                        <outlet property="saveButton" destination="qXG-eC-sXu" id="hfl-G6-Vww"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OqG-KQ-aYf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

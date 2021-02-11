@@ -7,9 +7,9 @@
 
 import Foundation
 
-typealias Tasks = [String : TaskProperties]
+typealias Tasks = [String : Task]
 
-struct TaskProperties: Codable {
+struct Task: Codable {
     let created_on: Float?
     let description, id: String?
     let progress: Float?

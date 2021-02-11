@@ -10,6 +10,7 @@ import UIKit
 
 extension BookmarksViewController {
     
+    //todo: refactor (swiftlint)
     func showAlert(title: String, message: String, name: String? = nil, text: String? = nil, id: String?, httpMethod: HTTPMethods){
         
         var dataToPass: [String: String] = [:]

@@ -33,8 +33,9 @@
 		58369FE125C7FE0D00296493 /* TasksMediator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FE025C7FE0D00296493 /* TasksMediator.swift */; };
 		58369FE425C7FE1900296493 /* TopicsMediator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FE325C7FE1900296493 /* TopicsMediator.swift */; };
 		58369FE725C7FE2F00296493 /* BookmarksMediator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FE625C7FE2F00296493 /* BookmarksMediator.swift */; };
-		58369FEA25C7FE3A00296493 /* QuestionsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FE925C7FE3A00296493 /* QuestionsInteractor.swift */; };
+		58369FEA25C7FE3A00296493 /* QuestionsMediator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FE925C7FE3A00296493 /* QuestionsMediator.swift */; };
 		58369FEE25C8081D00296493 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FED25C8081D00296493 /* NetworkMonitor.swift */; };
+		586077EF25D4356700495AB3 /* TasksSecondViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586077EE25D4356700495AB3 /* TasksSecondViewControllerDelegate.swift */; };
 		58A1F6DA25CD0FA100C62AB9 /* BookmarksAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A1F6D925CD0FA100C62AB9 /* BookmarksAlert.swift */; };
 		58D5C8A825C92BE6008402BE /* DataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D5C8A725C92BE6008402BE /* DataError.swift */; };
 		58FCE19625D124DC00654915 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FCE19525D124DC00654915 /* CoreDataManager.swift */; };
@@ -69,8 +70,9 @@
 		58369FE025C7FE0D00296493 /* TasksMediator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksMediator.swift; sourceTree = "<group>"; };
 		58369FE325C7FE1900296493 /* TopicsMediator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsMediator.swift; sourceTree = "<group>"; };
 		58369FE625C7FE2F00296493 /* BookmarksMediator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksMediator.swift; sourceTree = "<group>"; };
-		58369FE925C7FE3A00296493 /* QuestionsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsInteractor.swift; sourceTree = "<group>"; };
+		58369FE925C7FE3A00296493 /* QuestionsMediator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsMediator.swift; sourceTree = "<group>"; };
 		58369FED25C8081D00296493 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		586077EE25D4356700495AB3 /* TasksSecondViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksSecondViewControllerDelegate.swift; sourceTree = "<group>"; };
 		58A1F6D925CD0FA100C62AB9 /* BookmarksAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksAlert.swift; sourceTree = "<group>"; };
 		58D5C8A725C92BE6008402BE /* DataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataError.swift; sourceTree = "<group>"; };
 		58FCE19525D124DC00654915 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 		58369F7E25C2DEC500296493 /* EducationDiary */ = {
 			isa = PBXGroup;
 			children = (
+				586077ED25D4355000495AB3 /* Protocols */,
 				58FCE19825D124F100654915 /* CoreDataManager */,
 				58369FD025C7EF8100296493 /* DataMediator */,
 				58369FCB25C3682900296493 /* Network */,
@@ -193,9 +196,17 @@
 				58369FE025C7FE0D00296493 /* TasksMediator.swift */,
 				58369FE325C7FE1900296493 /* TopicsMediator.swift */,
 				58369FE625C7FE2F00296493 /* BookmarksMediator.swift */,
-				58369FE925C7FE3A00296493 /* QuestionsInteractor.swift */,
+				58369FE925C7FE3A00296493 /* QuestionsMediator.swift */,
 			);
 			path = DataMediator;
+			sourceTree = "<group>";
+		};
+		586077ED25D4355000495AB3 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				586077EE25D4356700495AB3 /* TasksSecondViewControllerDelegate.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		58FCE19825D124F100654915 /* CoreDataManager */ = {
@@ -278,7 +289,7 @@
 			files = (
 				58369FAD25C30DD400296493 /* TopicsViewController.swift in Sources */,
 				58369FBE25C30FBF00296493 /* Topic.swift in Sources */,
-				58369FEA25C7FE3A00296493 /* QuestionsInteractor.swift in Sources */,
+				58369FEA25C7FE3A00296493 /* QuestionsMediator.swift in Sources */,
 				58369FE725C7FE2F00296493 /* BookmarksMediator.swift in Sources */,
 				58A1F6DA25CD0FA100C62AB9 /* BookmarksAlert.swift in Sources */,
 				58369FEE25C8081D00296493 /* NetworkMonitor.swift in Sources */,
@@ -294,6 +305,7 @@
 				582B571725CC878900637760 /* NetworkEndType.swift in Sources */,
 				58369FA325C30D2A00296493 /* TasksViewController.swift in Sources */,
 				58369FB725C30E7A00296493 /* QuestionsViewController.swift in Sources */,
+				586077EF25D4356700495AB3 /* TasksSecondViewControllerDelegate.swift in Sources */,
 				58369FC225C30FCA00296493 /* Question.swift in Sources */,
 				58369F8025C2DEC500296493 /* AppDelegate.swift in Sources */,
 				58369FD225C7EF9300296493 /* Mediator.swift in Sources */,

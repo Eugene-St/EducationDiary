@@ -28,12 +28,13 @@ class Mediator<T: Decodable>{
         do {
             return try decoder.decode(T.self, from: data)
         } catch {
+            // todo
             return nil
         }
     }
     
     //MARK: Recognise result
-    private func recogniseResult(_ result: Result<Data, Error>, _ completion: @escaping (result<T>)) {
+    private func recogniseResult(_ result: Result<Data, Error>, _ completion: @escaping (ResultClosure<T>)) {
         switch result {
         case .failure(let error):
             completion(.failure(error))
@@ -46,7 +47,7 @@ class Mediator<T: Decodable>{
         }
     }
     
-    private func recogniseResult<T>(_ result: Result<T, Error>, _ completion: @escaping (result<T>)) {
+    private func recogniseResult<T>(_ result: Result<T, Error>, _ completion: @escaping (ResultClosure<T>)) {
         switch result {
         case .success(let response):
             DispatchQueue.main.async {
@@ -60,7 +61,7 @@ class Mediator<T: Decodable>{
     }
     
     //MARK: Fetch data
-    func fetchData(_ completion: @escaping result<T>) {
+    func fetchData(_ completion: @escaping ResultClosure<T>) {
         if networkIsAvaible {
             NetworkManager.shared.getRequest(path: pathForFetch.rawValue) { result in
                 self.recogniseResult(result, completion)
@@ -72,7 +73,7 @@ class Mediator<T: Decodable>{
     }
     
     //MARK: Delete data
-    func deleteData(with id: String, _ completion: @escaping result<URLResponse>) {
+    func deleteData(with id: String, _ completion: @escaping ResultClosure<URLResponse>) {
         if networkIsAvaible {
             NetworkManager.shared.deleteRequest(path: pathForUpdate.rawValue, id: id) { result in
                 self.recogniseResult(result, completion)
@@ -84,7 +85,7 @@ class Mediator<T: Decodable>{
     }
     
     //MARK: Put data
-    func updateData(with id: String, and body: [String: String], httpMethod: HTTPMethods, _ completion: @escaping result<URLResponse>){
+    func updateData(with id: String, and body: [String: Any], httpMethod: HTTPMethods, _ completion: @escaping ResultClosure<URLResponse>){
         if networkIsAvaible {
             NetworkManager.shared.updateRequest(path: pathForUpdate.rawValue, id: id, body: body, httpMethod: httpMethod) { result in
                 self.recogniseResult(result, completion)

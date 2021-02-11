@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias result<T> = (Result<T, Error>) -> Void
+typealias ResultClosure<T> = (Result<T, Error>) -> Void
 
 class NetworkManager {
     
@@ -17,7 +17,7 @@ class NetworkManager {
     
     // MARK: - GET
     func getRequest(path: String,
-                    _ completion: @escaping result<Data>) {
+                    _ completion: @escaping ResultClosure<Data>) {
         
         guard let hostURL = hostURL else { return }
         
@@ -27,6 +27,7 @@ class NetworkManager {
             
             if let error = error {
                 print(error); completion(.failure(error))
+                return
             }
             
             guard let response = response as? HTTPURLResponse else {
@@ -49,7 +50,7 @@ class NetworkManager {
     }
     
     // MARK: - DELETE
-    func deleteRequest(path: String, id: String, _ completion: @escaping result<URLResponse>) {
+    func deleteRequest(path: String, id: String, _ completion: @escaping ResultClosure<URLResponse>) {
         
         guard let hostURL = hostURL else {
             print(DataError.invalidURL)
@@ -79,7 +80,7 @@ class NetworkManager {
     }
     
     // MARK: - PUT
-    func updateRequest(path: String, id: String, body: [String: String], httpMethod: HTTPMethods, _ completion: @escaping result<URLResponse>) {
+    func updateRequest(path: String, id: String, body: [String: Any], httpMethod: HTTPMethods, _ completion: @escaping ResultClosure<URLResponse>) {
         
         guard let hostURL = hostURL else { return }
         let url = hostURL.appendingPathComponent(path + id + ".json")

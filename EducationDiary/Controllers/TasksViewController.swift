@@ -8,7 +8,10 @@
 import UIKit
 
 class TasksViewController: UITableViewController {
-
+    
+    // MARK: - IBOutlets
+    @IBOutlet weak var addTaskButton: UIBarButtonItem!
+    
     // MARK: - Private Properties
     private var tasks = Tasks()
     private var mediator: TasksMediator?
@@ -43,7 +46,7 @@ class TasksViewController: UITableViewController {
         let task = tasks[taskKeys[indexPath.row]]
 
         cell.textLabel?.text = task?.description
-        cell.detailTextLabel?.text = "Progress = \(task?.progress ?? 0.0)"
+//        cell.detailTextLabel?.text = "Progress = \(task?.progress ?? 0.0)"
 
         return cell
     }
@@ -55,19 +58,83 @@ class TasksViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            print("Deleted")
-//            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            print("Edited")
+            
+            let tasksKeys = Array(tasks.keys)
+            let taskKey = tasksKeys[indexPath.row]
+            let taskID = "\(taskKey).json"
+            
+            mediator?.deleteData(with: taskID, { result in
+                switch result {
+                
+                case .success(_):
+                    self.tasks.removeValue(forKey: tasksKeys[indexPath.row])
+                    tableView.deleteRows(at: [indexPath], with: .automatic)
+                case .failure(let error):
+                    print("No internet!")
+//                    self.noNetworkAlert(error: error)
+                }
+            })
         }
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        presentPopOver(with: indexPath)
+//        performSegue(withIdentifier: "tasksPopVC", sender: indexPath)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
     // MARK: - IBActions
+    @IBAction func addTaskButtonPressed(_ sender: UIBarButtonItem) {
+        presentPopOver(for: sender)
+    }
+    
+    // MARK: - Private Methods
+    private func presentPopOver(for button: UIBarButtonItem? = nil, with indexPath: IndexPath? = nil) {
+        guard let vc = storyboard?.instantiateViewController(identifier: "tasksPopVC") else { return }
+        
+        vc.modalPresentationStyle = .popover
+        guard let popover = vc.popoverPresentationController else { return }
+        popover.delegate = self
+        
+        if button != nil {
+            popover.barButtonItem = button
+            present(vc, animated: true)
+        } else {
+            guard let indexPath = indexPath else { return }
+            popover.sourceView = tableView.cellForRow(at: indexPath)
+            present(vc, animated: true)
+        }
+    }
+    
+    // MARK: - Navigation
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "EditTaskSegue" {
+//            let popoverTaskVC = segue.destination as! TasksSecondViewController
+//            popoverTaskVC.modalPresentationStyle = .popover
+//            guard let popover = popoverTaskVC.popoverPresentationController else { return }
+//            popover.delegate = self
+//
+//            popover.permittedArrowDirections = .down
+//            guard let cell = tableView.cellForRow(at: sender as! IndexPath) else { return }
+//            popover.sourceView = cell
+//            popover.sourceRect = cell.bounds
+//        }
+//    }
+}
+
+extension TasksViewController: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        .none
+    }
+}
+
+extension TasksViewController: TasksSecondViewControllerDelegate {
+    func saveData(for task: Task, with id: String) {
+        print("saved")
+        self.tasks[id] = task
+        self.tableView.reloadData()
+    }
     
     
-    // MARK: - Private methods
 }
