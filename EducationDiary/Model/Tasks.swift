@@ -10,7 +10,8 @@ import Foundation
 typealias Tasks = [String : Task]
 
 struct Task: Codable {
-    let created_on: Float?
-    let description, id: String?
-    let progress: Float?
+    let createdOn: Int?
+    let description: String?
+    let sld: String?
+    let progress: Int?
 }

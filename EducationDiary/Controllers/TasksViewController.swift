@@ -20,6 +20,10 @@ class TasksViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // add long press gesture
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed(sender:)))
+        self.tableView.addGestureRecognizer(longPressRecognizer)
+        
         mediator = TasksMediator()
         
         mediator?.fetchData({ result in
@@ -45,9 +49,14 @@ class TasksViewController: UITableViewController {
         let taskKeys = Array(tasks.keys)
         let task = tasks[taskKeys[indexPath.row]]
 
-        cell.textLabel?.text = task?.description
-//        cell.detailTextLabel?.text = "Progress = \(task?.progress ?? 0.0)"
-
+        if task?.progress == 100 {
+            cell.textLabel?.attributedText = task?.description?.strikeThrough()
+            cell.accessoryType = .checkmark
+            cell.tintColor = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
+        } else {
+            cell.textLabel?.text = task?.description
+        }
+        
         return cell
     }
 
@@ -78,8 +87,7 @@ class TasksViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        presentPopOver(with: indexPath)
-//        performSegue(withIdentifier: "tasksPopVC", sender: indexPath)
+        presentPopOver(with: indexPath)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -93,6 +101,8 @@ class TasksViewController: UITableViewController {
         guard let vc = storyboard?.instantiateViewController(identifier: "tasksPopVC") else { return }
         
         vc.modalPresentationStyle = .popover
+        let tasksVC = vc as! TasksSecondViewController
+        tasksVC.delegate = self
         guard let popover = vc.popoverPresentationController else { return }
         popover.delegate = self
         
@@ -106,35 +116,49 @@ class TasksViewController: UITableViewController {
         }
     }
     
-    // MARK: - Navigation
+    @objc private func longPressed(sender: UILongPressGestureRecognizer) {
+        
+        if sender.state == UIGestureRecognizer.State.began {
+            
+            let touchPoint = sender.location(in: self.tableView)
+            if let indexPath = tableView.indexPathForRow(at: touchPoint) {
+                
+//                let cell = tableView.cellForRow(at: indexPath)
+                
+                let taskKeys = Array(tasks.keys)
+                let task = tasks[taskKeys[indexPath.row]]
+                
+                mediator?.updateData(with: task?.sld, body: ["progress": 100], httpMethod: .patch, { result in
+                    
+                    switch result {
+                    
+                    case .success(_):
+                        print("success")
+                        self.tableView.reloadRows(at: [indexPath], with: UITableView.RowAnimation.top)
+                    case .failure(_):
+                        print("failure")
+                    }
+                })
+            }
+        }
+    }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "EditTaskSegue" {
-//            let popoverTaskVC = segue.destination as! TasksSecondViewController
-//            popoverTaskVC.modalPresentationStyle = .popover
-//            guard let popover = popoverTaskVC.popoverPresentationController else { return }
-//            popover.delegate = self
-//
-//            popover.permittedArrowDirections = .down
-//            guard let cell = tableView.cellForRow(at: sender as! IndexPath) else { return }
-//            popover.sourceView = cell
-//            popover.sourceRect = cell.bounds
-//        }
-//    }
+    // MARK: - Navigation
+
 }
 
+// MARK: - Popover Delegate
 extension TasksViewController: UIPopoverPresentationControllerDelegate {
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         .none
     }
 }
 
+// MARK: - TasksSecondViewControllerDelegate
 extension TasksViewController: TasksSecondViewControllerDelegate {
     func saveData(for task: Task, with id: String) {
-        print("saved")
+        print(task)
         self.tasks[id] = task
         self.tableView.reloadData()
     }
-    
-    
 }

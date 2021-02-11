@@ -85,7 +85,7 @@ class Mediator<T: Decodable>{
     }
     
     //MARK: Put data
-    func updateData(with id: String, and body: [String: Any], httpMethod: HTTPMethods, _ completion: @escaping ResultClosure<URLResponse>){
+    func updateData(with id: String?, body: [String: Any], httpMethod: HTTPMethods, _ completion: @escaping ResultClosure<URLResponse>){
         if networkIsAvaible {
             NetworkManager.shared.updateRequest(path: pathForUpdate.rawValue, id: id, body: body, httpMethod: httpMethod) { result in
                 self.recogniseResult(result, completion)

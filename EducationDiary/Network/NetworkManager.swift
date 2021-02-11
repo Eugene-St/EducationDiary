@@ -80,10 +80,10 @@ class NetworkManager {
     }
     
     // MARK: - PUT
-    func updateRequest(path: String, id: String, body: [String: Any], httpMethod: HTTPMethods, _ completion: @escaping ResultClosure<URLResponse>) {
+    func updateRequest(path: String, id: String?, body: [String: Any], httpMethod: HTTPMethods, _ completion: @escaping ResultClosure<URLResponse>) {
         
         guard let hostURL = hostURL else { return }
-        let url = hostURL.appendingPathComponent(path + id + ".json")
+        let url = hostURL.appendingPathComponent(path + (id ?? "") + ".json")
         
         let putData = body
         

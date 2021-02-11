@@ -36,7 +36,7 @@ extension BookmarksViewController {
                 dataToPass["text"] = text
             }
             
-            self?.mediator?.updateData(with: idForHttp, and: dataToPass, httpMethod: httpMethod) { [weak self] result in
+            self?.mediator?.updateData(with: idForHttp, body: dataToPass, httpMethod: httpMethod) { [weak self] result in
                 
                 switch result {
                 

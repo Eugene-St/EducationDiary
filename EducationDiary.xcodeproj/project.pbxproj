@@ -36,6 +36,8 @@
 		58369FEA25C7FE3A00296493 /* QuestionsMediator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FE925C7FE3A00296493 /* QuestionsMediator.swift */; };
 		58369FEE25C8081D00296493 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FED25C8081D00296493 /* NetworkMonitor.swift */; };
 		586077EF25D4356700495AB3 /* TasksSecondViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586077EE25D4356700495AB3 /* TasksSecondViewControllerDelegate.swift */; };
+		586077F325D5594000495AB3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586077F225D5594000495AB3 /* Extensions.swift */; };
+		586077F825D58D2700495AB3 /* TasksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586077F725D58D2700495AB3 /* TasksCell.swift */; };
 		58A1F6DA25CD0FA100C62AB9 /* BookmarksAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A1F6D925CD0FA100C62AB9 /* BookmarksAlert.swift */; };
 		58D5C8A825C92BE6008402BE /* DataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D5C8A725C92BE6008402BE /* DataError.swift */; };
 		58FCE19625D124DC00654915 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FCE19525D124DC00654915 /* CoreDataManager.swift */; };
@@ -73,6 +75,8 @@
 		58369FE925C7FE3A00296493 /* QuestionsMediator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsMediator.swift; sourceTree = "<group>"; };
 		58369FED25C8081D00296493 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		586077EE25D4356700495AB3 /* TasksSecondViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksSecondViewControllerDelegate.swift; sourceTree = "<group>"; };
+		586077F225D5594000495AB3 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		586077F725D58D2700495AB3 /* TasksCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksCell.swift; sourceTree = "<group>"; };
 		58A1F6D925CD0FA100C62AB9 /* BookmarksAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksAlert.swift; sourceTree = "<group>"; };
 		58D5C8A725C92BE6008402BE /* DataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataError.swift; sourceTree = "<group>"; };
 		58FCE19525D124DC00654915 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
@@ -117,6 +121,7 @@
 				58369F9825C2E79800296493 /* Controllers */,
 				58369F9A25C2E7B500296493 /* SupportingFiles */,
 				58369F9C25C2E7C000296493 /* Source */,
+				586077F525D5594700495AB3 /* Extensions */,
 			);
 			path = EducationDiary;
 			sourceTree = "<group>";
@@ -134,6 +139,7 @@
 				58369FA625C30D4C00296493 /* BookmarksViewController.swift */,
 				5829570D25CACCA300F68CA7 /* BookmarksCell.swift */,
 				58A1F6D925CD0FA100C62AB9 /* BookmarksAlert.swift */,
+				586077F725D58D2700495AB3 /* TasksCell.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -207,6 +213,14 @@
 				586077EE25D4356700495AB3 /* TasksSecondViewControllerDelegate.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		586077F525D5594700495AB3 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				586077F225D5594000495AB3 /* Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		58FCE19825D124F100654915 /* CoreDataManager */ = {
@@ -300,6 +314,7 @@
 				58369FCD25C3683B00296493 /* NetworkManager.swift in Sources */,
 				58369FAA25C30D9F00296493 /* TasksSecondViewController.swift in Sources */,
 				58369FE425C7FE1900296493 /* TopicsMediator.swift in Sources */,
+				586077F825D58D2700495AB3 /* TasksCell.swift in Sources */,
 				58369FC825C30FE800296493 /* Bookmark.swift in Sources */,
 				58369F8A25C2DEC500296493 /* EducationDiary.xcdatamodeld in Sources */,
 				582B571725CC878900637760 /* NetworkEndType.swift in Sources */,
@@ -312,6 +327,7 @@
 				58369FD625C7F8A000296493 /* NetworkMethods.swift in Sources */,
 				58369FB125C30E2400296493 /* TopicDetailsViewController.swift in Sources */,
 				58369FBA25C30EAF00296493 /* QuestionDetailsViewController.swift in Sources */,
+				586077F325D5594000495AB3 /* Extensions.swift in Sources */,
 				58369FC525C30FD500296493 /* Tasks.swift in Sources */,
 				58369FE125C7FE0D00296493 /* TasksMediator.swift in Sources */,
 				58FCE19625D124DC00654915 /* CoreDataManager.swift in Sources */,

@@ -8,46 +8,39 @@
 import UIKit
 
 class TasksSecondViewController: UIViewController {
+    
+    // MARK: - IBOutlets
     @IBOutlet weak var descriptionTextField: UITextField!
     @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var progressLabel: UILabel!
     
+    // MARK: - Public Properties
     var task: Task!
+    var delegate: TasksSecondViewControllerDelegate?
+    
+    // MARK: - Private Properties
     private var mediator: TasksMediator?
     private var dataToPass: [String: Any] = [:]
-    var delegate: TasksSecondViewControllerDelegate?
-//    var completionHandler: (Task) -> Void?
     
+    // MARK: - View Didload
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         mediator = TasksMediator()
-        descriptionTextField.placeholder = "description - required"
-        descriptionTextField.autocapitalizationType = .sentences
-        descriptionTextField.delegate = self
+//        saveButton.isEnabled = false
     }
     
+    // MARK: - IBActions
     @IBAction func progressSliderPressed(_ sender: UISlider) {
-        dataToPass["progress"] = sender.value as Float
+        dataToPass["progress"] = Int(sender.value)
+        progressLabel.text = "\(Int(sender.value))%"
     }
 
     @IBAction func saveButtonPressed(_ sender: UIButton) {
-        
-        var idForHttp: String
-//        var httpMethod: HTTPMethods!
-        let date = Date()
-        let calendar = Calendar.current
-        let createdOn = Float(calendar.component(.day, from: date))
-        let timeStamp = String(format: "%.0f", Date.timeIntervalSinceReferenceDate)
-        idForHttp = "\(timeStamp)"
-        
-//        var dataToPass: [String: String] = [:]
-        dataToPass["created_on"] = createdOn as Float
-//        dataToPass["description"] = descriptionTextField.text ?? "" as String
-        dataToPass["id"] = idForHttp as String
-        dataToPass["progress"] = 0.8 as Float
-        
-        
-        
+
+        let idForHttp = String(Int(Date.timeIntervalSinceReferenceDate))
+        dataToPass["createdOn"] = Int(Date.timeIntervalSinceReferenceDate)
+        dataToPass["sld"] = String(Int(Date.timeIntervalSinceReferenceDate))
+
 //        if task.id == nil {
 //            let timeStamp = String(format: "%.0f", Date.timeIntervalSinceReferenceDate)
 //            idForHttp = "\(timeStamp)"
@@ -56,25 +49,18 @@ class TasksSecondViewController: UIViewController {
 //            idForHttp = task.id!
 //            httpMethod = .patch
 //        }
+        let newTask = Task(createdOn: self.dataToPass["createdOn"] as? Int,
+                           description: self.dataToPass["description"] as? String,
+                           sld: self.dataToPass["sld"] as? String,
+                           progress: self.dataToPass["progress"] as? Int)
         
-        
-        
-//        let task = Task(created_on: createdOn, description: dataToPass["description"], id: idForHttp, progress: 0.5)
-        
-        
-        mediator?.updateData(with: idForHttp, and: dataToPass, httpMethod: HTTPMethods.put, { result in
+        mediator?.updateData(with: idForHttp, body: dataToPass, httpMethod: HTTPMethods.put, { result in
             switch result {
             
             case .success(_):
-            print("Saved")
-            
-//            self?.bookmarks[idForHttp] = Bookmark(name: dataToPass["name"], text: dataToPass["text"])
-//            self?.tableView.reloadData()
-            
-            
-            
-//                self.delegate?.saveData(for: task, with: idForHttp)
                 
+                self.delegate?.saveData(for: newTask, with: idForHttp)
+                self.dismiss(animated: true, completion: nil)
                 
                 DispatchQueue.global(qos: .background).async {
                     // todo: save to core data here
@@ -82,22 +68,26 @@ class TasksSecondViewController: UIViewController {
                 
             case .failure(let error):
 //                self?.noNetworkAlert(error: error)
-            print("error")
+            print(error)
+                self.dismiss(animated: true, completion: nil)
             }
         })
     }
 }
 
+// MARK: - UITextFieldDelegate Extension
 extension TasksSecondViewController: UITextFieldDelegate {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         view.endEditing(true)
     }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
 
-    func textFieldDidEndEditing(_ textField: UITextField) {
-
-        guard let text = textField.text else { return }
+        let text = textField.text
         dataToPass["description"] = text
+        
+        return true
     }
 }
