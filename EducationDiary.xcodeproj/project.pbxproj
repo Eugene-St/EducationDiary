@@ -138,8 +138,8 @@
 				58369FA925C30D9F00296493 /* TasksSecondViewController.swift */,
 				58369FA625C30D4C00296493 /* BookmarksViewController.swift */,
 				5829570D25CACCA300F68CA7 /* BookmarksCell.swift */,
-				58A1F6D925CD0FA100C62AB9 /* BookmarksAlert.swift */,
 				586077F725D58D2700495AB3 /* TasksCell.swift */,
+				58A1F6D925CD0FA100C62AB9 /* BookmarksAlert.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";

@@ -13,6 +13,7 @@ class TasksSecondViewController: UIViewController {
     @IBOutlet weak var descriptionTextField: UITextField!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var progressLabel: UILabel!
+    @IBOutlet weak var progressSlider: UISlider!
     
     // MARK: - Public Properties
     var task: Task!
@@ -26,7 +27,11 @@ class TasksSecondViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         mediator = TasksMediator()
-//        saveButton.isEnabled = false
+        if let task = task {
+            descriptionTextField.text = task.description
+            progressSlider.value = Float(task.progress ?? 1)
+            progressLabel.text = "\(task.progress ?? 1)"
+        }
     }
     
     // MARK: - IBActions
@@ -37,24 +42,25 @@ class TasksSecondViewController: UIViewController {
 
     @IBAction func saveButtonPressed(_ sender: UIButton) {
 
-        let idForHttp = String(Int(Date.timeIntervalSinceReferenceDate))
+        var httpMethod: HTTPMethods
+        var idForHttp: String
         dataToPass["createdOn"] = Int(Date.timeIntervalSinceReferenceDate)
         dataToPass["sld"] = String(Int(Date.timeIntervalSinceReferenceDate))
 
-//        if task.id == nil {
-//            let timeStamp = String(format: "%.0f", Date.timeIntervalSinceReferenceDate)
-//            idForHttp = "\(timeStamp)"
-//            httpMethod = .put
-//        } else {
-//            idForHttp = task.id!
-//            httpMethod = .patch
-//        }
+        if task == nil {
+            idForHttp = String(Int(Date.timeIntervalSinceReferenceDate))
+            httpMethod = .put
+        } else {
+            idForHttp = task.sld ?? ""
+            httpMethod = .patch
+        }
+        
         let newTask = Task(createdOn: self.dataToPass["createdOn"] as? Int,
                            description: self.dataToPass["description"] as? String,
                            sld: self.dataToPass["sld"] as? String,
                            progress: self.dataToPass["progress"] as? Int)
         
-        mediator?.updateData(with: idForHttp, body: dataToPass, httpMethod: HTTPMethods.put, { result in
+        mediator?.updateData(with: idForHttp, body: dataToPass, httpMethod: httpMethod, { result in
             switch result {
             
             case .success(_):

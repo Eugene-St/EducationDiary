@@ -44,19 +44,9 @@ class TasksViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "taskCell", for: indexPath)
         
-        let taskKeys = Array(tasks.keys)
-        let task = tasks[taskKeys[indexPath.row]]
-
-        if task?.progress == 100 {
-            cell.textLabel?.attributedText = task?.description?.strikeThrough()
-            cell.accessoryType = .checkmark
-            cell.tintColor = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
-        } else {
-            cell.textLabel?.text = task?.description
-        }
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "taskCell", for: indexPath) as! TasksCell
+        cell.configure(with: tasks, indexPath: indexPath)
         return cell
     }
 
@@ -110,8 +100,12 @@ class TasksViewController: UITableViewController {
             popover.barButtonItem = button
             present(vc, animated: true)
         } else {
+            
             guard let indexPath = indexPath else { return }
+            let taskKeys = Array(tasks.keys)
+            let task = tasks[taskKeys[indexPath.row]]
             popover.sourceView = tableView.cellForRow(at: indexPath)
+            tasksVC.task = task
             present(vc, animated: true)
         }
     }
@@ -123,7 +117,7 @@ class TasksViewController: UITableViewController {
             let touchPoint = sender.location(in: self.tableView)
             if let indexPath = tableView.indexPathForRow(at: touchPoint) {
                 
-//                let cell = tableView.cellForRow(at: indexPath)
+                let cell = tableView.cellForRow(at: indexPath)
                 
                 let taskKeys = Array(tasks.keys)
                 let task = tasks[taskKeys[indexPath.row]]
@@ -133,8 +127,9 @@ class TasksViewController: UITableViewController {
                     switch result {
                     
                     case .success(_):
-                        print("success")
-                        self.tableView.reloadRows(at: [indexPath], with: UITableView.RowAnimation.top)
+                        cell?.textLabel?.attributedText = task?.description?.strikeThrough()
+                        cell?.accessoryType = .checkmark
+                        cell?.tintColor = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
                     case .failure(_):
                         print("failure")
                     }
@@ -157,7 +152,6 @@ extension TasksViewController: UIPopoverPresentationControllerDelegate {
 // MARK: - TasksSecondViewControllerDelegate
 extension TasksViewController: TasksSecondViewControllerDelegate {
     func saveData(for task: Task, with id: String) {
-        print(task)
         self.tasks[id] = task
         self.tableView.reloadData()
     }

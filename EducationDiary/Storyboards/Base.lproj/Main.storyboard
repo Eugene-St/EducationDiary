@@ -388,7 +388,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.92374064757798802" green="0.92374064757798802" blue="0.92374064757798802" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskCell" textLabel="MjT-s1-vas" rowHeight="80" style="IBUITableViewCellStyleDefault" id="7eB-oj-i8N">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskCell" textLabel="MjT-s1-vas" rowHeight="80" style="IBUITableViewCellStyleDefault" id="7eB-oj-i8N" customClass="TasksCell" customModule="EducationDiary" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7eB-oj-i8N" id="OOD-NH-oQV">
@@ -530,6 +530,7 @@
                     <connections>
                         <outlet property="descriptionTextField" destination="Bc2-vf-S1T" id="spa-Pu-riz"/>
                         <outlet property="progressLabel" destination="toZ-T5-dkd" id="Nsf-yq-q9m"/>
+                        <outlet property="progressSlider" destination="f0K-N7-fGl" id="Lom-aQ-dei"/>
                         <outlet property="saveButton" destination="qXG-eC-sXu" id="hfl-G6-Vww"/>
                     </connections>
                 </viewController>

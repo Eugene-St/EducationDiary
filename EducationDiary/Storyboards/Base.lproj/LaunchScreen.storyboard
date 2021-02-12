@@ -15,26 +15,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="diary_launchscreen" translatesAutoresizingMaskIntoConstraints="NO" id="JLF-CE-mfb">
-                                <rect key="frame" x="0.0" y="44" width="414" height="400"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="400" id="Pc3-tu-mXJ"/>
-                                </constraints>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Education Diary" translatesAutoresizingMaskIntoConstraints="NO" id="d5a-M4-y5U">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Education Diary" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e9T-x3-gGp">
-                                <rect key="frame" x="108" y="531" width="203" height="36"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-SemiBold" family="Apple SD Gothic Neo" pointSize="30"/>
-                                <color key="textColor" red="0.48038053510000001" green="0.580822587" blue="0.86619329450000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="JLF-CE-mfb" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="4Ln-kL-O5m"/>
-                            <constraint firstItem="JLF-CE-mfb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="MNX-9X-pyu"/>
-                            <constraint firstItem="JLF-CE-mfb" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Wqn-58-qY5"/>
+                            <constraint firstItem="d5a-M4-y5U" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="9Ek-0c-GsF"/>
+                            <constraint firstItem="d5a-M4-y5U" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="MBx-TB-coM"/>
+                            <constraint firstItem="d5a-M4-y5U" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="hiO-7g-1TA"/>
+                            <constraint firstAttribute="bottom" secondItem="d5a-M4-y5U" secondAttribute="bottom" id="oGK-SU-WB7"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -44,6 +35,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="diary_launchscreen" width="1200" height="800"/>
+        <image name="Education Diary" width="1191" height="1684"/>
     </resources>
 </document>
