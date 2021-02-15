@@ -13,9 +13,5 @@ class TasksMediator: Mediator<Tasks> {
     }
     
     // MARK: - Methods
-//    func description(for task: Task, with text: String) -> String {
-//        if task.progress == 100 {
-//            return text.strikeThrough()
-//        }
-//    }
+
 }

@@ -39,5 +39,5 @@ class TasksCell: UITableViewCell {
         } else {
             self.textLabel?.text = task?.description
         }
-    }
+    }    
 }

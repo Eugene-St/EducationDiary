@@ -47,6 +47,7 @@ class TasksViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "taskCell", for: indexPath) as! TasksCell
         cell.configure(with: tasks, indexPath: indexPath)
+        
         return cell
     }
 
@@ -58,7 +59,7 @@ class TasksViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
-            let tasksKeys = Array(tasks.keys)
+            var tasksKeys = Array(tasks.keys)
             let taskKey = tasksKeys[indexPath.row]
             let taskID = "\(taskKey).json"
             
@@ -67,7 +68,9 @@ class TasksViewController: UITableViewController {
                 
                 case .success(_):
                     self.tasks.removeValue(forKey: tasksKeys[indexPath.row])
+                    tasksKeys.remove(at: indexPath.row)
                     tableView.deleteRows(at: [indexPath], with: .automatic)
+                    
                 case .failure(let error):
                     print("No internet!")
 //                    self.noNetworkAlert(error: error)
@@ -87,12 +90,12 @@ class TasksViewController: UITableViewController {
     }
     
     // MARK: - Private Methods
+    // popover
     private func presentPopOver(for button: UIBarButtonItem? = nil, with indexPath: IndexPath? = nil) {
-        guard let vc = storyboard?.instantiateViewController(identifier: "tasksPopVC") else { return }
+        guard let vc = storyboard?.instantiateViewController(identifier: "tasksPopVC") as? TasksSecondViewController else { return }
         
         vc.modalPresentationStyle = .popover
-        let tasksVC = vc as! TasksSecondViewController
-        tasksVC.delegate = self
+        vc.delegate = self
         guard let popover = vc.popoverPresentationController else { return }
         popover.delegate = self
         
@@ -100,12 +103,12 @@ class TasksViewController: UITableViewController {
             popover.barButtonItem = button
             present(vc, animated: true)
         } else {
-            
             guard let indexPath = indexPath else { return }
+
             let taskKeys = Array(tasks.keys)
             let task = tasks[taskKeys[indexPath.row]]
             popover.sourceView = tableView.cellForRow(at: indexPath)
-            tasksVC.task = task
+            vc.task = task
             present(vc, animated: true)
         }
     }
@@ -130,6 +133,7 @@ class TasksViewController: UITableViewController {
                         cell?.textLabel?.attributedText = task?.description?.strikeThrough()
                         cell?.accessoryType = .checkmark
                         cell?.tintColor = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
+                        self.tableView.reloadRows(at: [indexPath], with: .top)
                     case .failure(_):
                         print("failure")
                     }
