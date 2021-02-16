@@ -20,6 +20,8 @@ class TasksViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
         // add long press gesture
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed(sender:)))
         self.tableView.addGestureRecognizer(longPressRecognizer)
@@ -34,6 +36,7 @@ class TasksViewController: UITableViewController {
                 self.tableView.reloadData()
             case .failure(let error):
                 print("BookmarksMediator ERROR:\(error.localizedDescription)")
+                Alert.noNetworkAlert(error: error)
             }
         })
     }
@@ -46,6 +49,7 @@ class TasksViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "taskCell", for: indexPath) as! TasksCell
+        
         cell.configure(with: tasks, indexPath: indexPath)
         
         return cell
@@ -57,25 +61,23 @@ class TasksViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
         if editingStyle == .delete {
             
             var tasksKeys = Array(tasks.keys)
             let taskKey = tasksKeys[indexPath.row]
             let taskID = "\(taskKey).json"
-//            print(tasksKeys)
             
             mediator?.deleteData(with: taskID, { result in
                 switch result {
                 
                 case .success(_):
-                    self.tasks.removeValue(forKey: tasksKeys[indexPath.row])
-//                    print("task key to remove \(tasksKeys[indexPath.row])")
+                    self.tasks.removeValue(forKey: taskKey)
                     tasksKeys.remove(at: indexPath.row)
                     tableView.deleteRows(at: [indexPath], with: .automatic)
-//                    print(tasksKeys)
                 case .failure(let error):
                     print("No internet!")
-//                    self.noNetworkAlert(error: error)
+                    Alert.noNetworkAlert(error: error)
                 }
             })
         }
@@ -94,10 +96,12 @@ class TasksViewController: UITableViewController {
     // MARK: - Private Methods
     // popover
     private func presentPopOver(for button: UIBarButtonItem? = nil, with indexPath: IndexPath? = nil) {
+        
         guard let vc = storyboard?.instantiateViewController(identifier: "tasksPopVC") as? TasksSecondViewController else { return }
         
         vc.modalPresentationStyle = .popover
         vc.delegate = self
+        
         guard let popover = vc.popoverPresentationController else { return }
         popover.delegate = self
         
@@ -124,13 +128,10 @@ class TasksViewController: UITableViewController {
                 
                 let cell = tableView.cellForRow(at: indexPath)
                 
-//                let cell = tableView.dequeueReusableCell(withIdentifier: "taskCell", for: indexPath) as! TasksCell
-                
                 let taskKeys = Array(tasks.keys)
                 let task = tasks[taskKeys[indexPath.row]]
                 
                 print("long press \(task?.description)")
-                print(cell?.textLabel?.text)
                 
                 mediator?.updateData(with: task?.sld, body: ["progress": 100], httpMethod: .patch, { result in
                     
@@ -141,10 +142,8 @@ class TasksViewController: UITableViewController {
                         cell?.textLabel?.attributedText = task?.description?.strikeThrough()
                         cell?.accessoryType = .checkmark
                         cell?.tintColor = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
-//                        self.tableView.reloadRows(at: [indexPath], with: .top)
-//                        self.tableView.reloadData()
-                    case .failure(_):
-                        print("failure")
+                    case .failure(let error):
+                        Alert.noNetworkAlert(error: error)
                     }
                 })
             }
@@ -165,7 +164,7 @@ extension TasksViewController: UIPopoverPresentationControllerDelegate {
 // MARK: - TasksSecondViewControllerDelegate
 extension TasksViewController: TasksSecondViewControllerDelegate {
     func saveData(for task: Task, with id: String) {
-        self.tasks[task.sld ?? ""] = task
+        self.tasks[id] = task
         self.tableView.reloadData()
     }
 }

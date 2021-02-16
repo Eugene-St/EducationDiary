@@ -30,8 +30,8 @@ class TasksSecondViewController: UIViewController {
         saveButton.isEnabled = false
         
         mediator = TasksMediator()
+        
         if let task = task {
-            print(task.description, task.progress)
             descriptionTextField.text = task.description
             progressSlider.value = Float(task.progress ?? 0)
             progressLabel.text = "\(task.progress ?? 0)"
@@ -42,17 +42,19 @@ class TasksSecondViewController: UIViewController {
     @IBAction func progressSliderPressed(_ sender: UISlider) {
         dataToPass["progress"] = Int(sender.value)
         progressLabel.text = "\(Int(sender.value))%"
+        saveButton.isEnabled = task != nil ? true : false
     }
 
     @IBAction func saveButtonPressed(_ sender: UIButton) {
 
         var httpMethod: HTTPMethods
         var idForHttp: String
-        dataToPass["createdOn"] = Int(Date.timeIntervalSinceReferenceDate)
-        dataToPass["sld"] = String(Int(Date.timeIntervalSinceReferenceDate))
+        let timeStamp = Int(Date.timeIntervalSinceReferenceDate)
 
         if task == nil {
-            idForHttp = String(Int(Date.timeIntervalSinceReferenceDate))
+            idForHttp = String(timeStamp)
+            dataToPass["createdOn"] = timeStamp
+            dataToPass["sld"] = String(timeStamp)
             httpMethod = .put
         } else {
             idForHttp = task?.sld ?? ""
@@ -78,7 +80,7 @@ class TasksSecondViewController: UIViewController {
                 }
                 
             case .failure(let error):
-//                self?.noNetworkAlert(error: error)
+                Alert.noNetworkAlert(error: error)
             print(error)
                 self.dismiss(animated: true, completion: nil)
             }
@@ -110,6 +112,4 @@ extension TasksSecondViewController: UITextFieldDelegate {
         
         return true
     }
-    
-    
 }

@@ -13,4 +13,10 @@ extension String {
         attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: NSUnderlineStyle.single.rawValue, range: NSMakeRange(0, attributeString.length))
         return attributeString
     }
+    
+    func regular() -> NSAttributedString {
+        let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: self)
+        attributeString.addAttribute(.accessibilityTextCustom, value: NSUnderlineStyle.single.rawValue, range: NSMakeRange(0, attributeString.length))
+        return attributeString
+    }
 }

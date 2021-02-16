@@ -30,7 +30,7 @@ class BookmarksViewController: UITableViewController {
                 self.tableView.reloadData()
             case .failure(let error):
                 print("BookmarksInteractor ERROR:\(error.localizedDescription)")
-                self.noNetworkAlert(error: error)
+                Alert.noNetworkAlert(error: error)
             }
         })
     }
@@ -70,7 +70,7 @@ class BookmarksViewController: UITableViewController {
                     
                 case .failure(let error):
                     print("No internet!")
-                    self.noNetworkAlert(error: error)
+                    Alert.noNetworkAlert(error: error)
                 }
             })
         }
