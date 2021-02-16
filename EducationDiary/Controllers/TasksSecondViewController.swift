@@ -31,7 +31,6 @@ class TasksSecondViewController: UIViewController {
         
         mediator = TasksMediator()
         if let task = task {
-//            saveButton.isEnabled = true
             print(task.description, task.progress)
             descriptionTextField.text = task.description
             progressSlider.value = Float(task.progress ?? 0)
@@ -69,7 +68,7 @@ class TasksSecondViewController: UIViewController {
             switch result {
             
             case .success(_):
-                
+
                 self.delegate?.saveData(for: newTask, with: idForHttp)
                 self.dismiss(animated: true) {
                 }

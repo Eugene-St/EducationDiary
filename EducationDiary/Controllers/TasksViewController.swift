@@ -62,15 +62,17 @@ class TasksViewController: UITableViewController {
             var tasksKeys = Array(tasks.keys)
             let taskKey = tasksKeys[indexPath.row]
             let taskID = "\(taskKey).json"
+//            print(tasksKeys)
             
             mediator?.deleteData(with: taskID, { result in
                 switch result {
                 
                 case .success(_):
                     self.tasks.removeValue(forKey: tasksKeys[indexPath.row])
+//                    print("task key to remove \(tasksKeys[indexPath.row])")
                     tasksKeys.remove(at: indexPath.row)
                     tableView.deleteRows(at: [indexPath], with: .automatic)
-                    
+//                    print(tasksKeys)
                 case .failure(let error):
                     print("No internet!")
 //                    self.noNetworkAlert(error: error)
@@ -122,18 +124,25 @@ class TasksViewController: UITableViewController {
                 
                 let cell = tableView.cellForRow(at: indexPath)
                 
+//                let cell = tableView.dequeueReusableCell(withIdentifier: "taskCell", for: indexPath) as! TasksCell
+                
                 let taskKeys = Array(tasks.keys)
                 let task = tasks[taskKeys[indexPath.row]]
+                
+                print("long press \(task?.description)")
+                print(cell?.textLabel?.text)
                 
                 mediator?.updateData(with: task?.sld, body: ["progress": 100], httpMethod: .patch, { result in
                     
                     switch result {
                     
                     case .success(_):
+                        
                         cell?.textLabel?.attributedText = task?.description?.strikeThrough()
                         cell?.accessoryType = .checkmark
                         cell?.tintColor = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
-                        self.tableView.reloadRows(at: [indexPath], with: .top)
+//                        self.tableView.reloadRows(at: [indexPath], with: .top)
+//                        self.tableView.reloadData()
                     case .failure(_):
                         print("failure")
                     }
@@ -156,7 +165,7 @@ extension TasksViewController: UIPopoverPresentationControllerDelegate {
 // MARK: - TasksSecondViewControllerDelegate
 extension TasksViewController: TasksSecondViewControllerDelegate {
     func saveData(for task: Task, with id: String) {
-        self.tasks[id] = task
+        self.tasks[task.sld ?? ""] = task
         self.tableView.reloadData()
     }
 }
