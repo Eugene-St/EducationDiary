@@ -16,7 +16,7 @@ class TasksSecondViewController: UIViewController {
     @IBOutlet weak var progressSlider: UISlider!
     
     // MARK: - Public Properties
-    var task: Task?
+    var taskViewModel: TaskViewModel?
     var delegate: TasksSecondViewControllerDelegate?
     
     // MARK: - Private Properties
@@ -31,10 +31,10 @@ class TasksSecondViewController: UIViewController {
         
         mediator = TasksMediator()
         
-        if let task = task {
-            descriptionTextField.text = task.description
-            progressSlider.value = Float(task.progress ?? 0)
-            progressLabel.text = "\(task.progress ?? 0)"
+        if let taskViewModel = taskViewModel {
+            descriptionTextField.text = taskViewModel.task.description
+            progressSlider.value = Float(taskViewModel.task.progress ?? 0)
+            progressLabel.text = "\(taskViewModel.task.progress ?? 0)"
         }
     }
     
@@ -42,23 +42,27 @@ class TasksSecondViewController: UIViewController {
     @IBAction func progressSliderPressed(_ sender: UISlider) {
         dataToPass["progress"] = Int(sender.value)
         progressLabel.text = "\(Int(sender.value))%"
-        saveButton.isEnabled = task != nil ? true : false
+        saveButton.isEnabled = taskViewModel != nil ? true : false
     }
 
     @IBAction func saveButtonPressed(_ sender: UIButton) {
-
+        
         var httpMethod: HTTPMethods
         var idForHttp: String
         let timeStamp = Int(Date.timeIntervalSinceReferenceDate)
-
-        if task == nil {
+        
+        if taskViewModel == nil {
+            httpMethod = .put
             idForHttp = String(timeStamp)
             dataToPass["createdOn"] = timeStamp
             dataToPass["sld"] = String(timeStamp)
-            httpMethod = .put
         } else {
-            idForHttp = task?.sld ?? ""
+            idForHttp = taskViewModel?.key ?? ""
             httpMethod = .patch
+        }
+        
+        if descriptionTextField == nil {
+            dataToPass["description"] = taskViewModel?.task.description
         }
         
         let newTask = Task(createdOn: self.dataToPass["createdOn"] as? Int,
@@ -66,14 +70,23 @@ class TasksSecondViewController: UIViewController {
                            sld: self.dataToPass["sld"] as? String,
                            progress: self.dataToPass["progress"] as? Int)
         
+        let updatedTask = Task(createdOn: taskViewModel?.task.createdOn,
+                               description: dataToPass["description"] as? String,
+                               sld: taskViewModel?.key,
+                               progress: dataToPass["progress"] as? Int)
+        
         mediator?.updateData(with: idForHttp, body: dataToPass, httpMethod: httpMethod, { result in
             switch result {
             
             case .success(_):
 
-                self.delegate?.saveData(for: newTask, with: idForHttp)
-                self.dismiss(animated: true) {
+                if httpMethod == .put {
+                    self.delegate?.saveData(for: newTask, with: idForHttp)
+                } else {
+                    self.delegate?.saveData(for: updatedTask, with: idForHttp)
                 }
+                
+                self.dismiss(animated: true)
                 
                 DispatchQueue.global(qos: .background).async {
                     // todo: save to core data here
@@ -81,7 +94,7 @@ class TasksSecondViewController: UIViewController {
                 
             case .failure(let error):
                 Alert.noNetworkAlert(error: error)
-            print(error)
+                print(error)
                 self.dismiss(animated: true, completion: nil)
             }
         })

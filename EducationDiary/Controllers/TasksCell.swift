@@ -9,18 +9,17 @@ import UIKit
 
 class TasksCell: UITableViewCell {
     
-    func configure(with tasks: Tasks, indexPath: IndexPath) {
-        
-        let taskKeys = Array(tasks.keys)
-        let task = tasks[taskKeys[indexPath.row]]
+    func configure(with taskViewModel: TaskViewModel) {
 
-        if task?.progress == 100 {
-            self.textLabel?.attributedText = task?.description?.strikeThrough()
-            self.accessoryType = .checkmark
-            self.tintColor = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
+        if taskViewModel.task.progress == 100 {
+            textLabel?.attributedText = taskViewModel.task.description?.strikeThrough()
+            taskViewModel.accessoryType = .checkmark
+            taskViewModel.tintColor = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
+            accessoryType = taskViewModel.accessoryType
+            tintColor = taskViewModel.tintColor
         } else {
-            self.textLabel?.attributedText = task?.description?.regular()
-            self.accessoryType = .none
+            textLabel?.attributedText = taskViewModel.task.description?.regular()
+            accessoryType = .none
         }
-    }    
+    }
 }

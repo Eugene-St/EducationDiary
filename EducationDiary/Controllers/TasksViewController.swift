@@ -13,14 +13,12 @@ class TasksViewController: UITableViewController {
     @IBOutlet weak var addTaskButton: UIBarButtonItem!
     
     // MARK: - Private Properties
-    private var tasks = Tasks()
     private var mediator: TasksMediator?
+    private var tasksViewModels = [TaskViewModel]()
     
     // MARK: - View DidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         
         // add long press gesture
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed(sender:)))
@@ -32,57 +30,58 @@ class TasksViewController: UITableViewController {
             switch result {
             
             case .success(let tasks):
-                self.tasks = tasks
+                tasks.forEach { key, task in
+                    self.tasksViewModels.append(TaskViewModel(task: task, key: key))
+                }
                 self.tableView.reloadData()
+           
             case .failure(let error):
                 print("BookmarksMediator ERROR:\(error.localizedDescription)")
                 Alert.noNetworkAlert(error: error)
             }
         })
     }
-
+    
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        tasks.count
+        tasksViewModels.count
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "taskCell", for: indexPath) as! TasksCell
         
-        cell.configure(with: tasks, indexPath: indexPath)
+        cell.configure(with: tasksViewModels[indexPath.row])
         
         return cell
     }
-
+    
     // MARK: - Table View Delegate
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
-
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         if editingStyle == .delete {
-            
-            var tasksKeys = Array(tasks.keys)
-            let taskKey = tasksKeys[indexPath.row]
-            let taskID = "\(taskKey).json"
-            
-            mediator?.deleteData(with: taskID, { result in
+
+            let taskViewModel = tasksViewModels[indexPath.row]
+
+            mediator?.deleteData(with: taskViewModel.key, { result in
                 switch result {
-                
+
                 case .success(_):
-                    self.tasks.removeValue(forKey: taskKey)
-                    tasksKeys.remove(at: indexPath.row)
-                    tableView.deleteRows(at: [indexPath], with: .automatic)
+                    self.tasksViewModels.remove(at: indexPath.row)
+                    self.tableView.deleteRows(at: [indexPath], with: .automatic)
+
                 case .failure(let error):
-                    print("No internet!")
+                    print("No internet!", error)
                     Alert.noNetworkAlert(error: error)
                 }
             })
         }
     }
-
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presentPopOver(with: indexPath)
         tableView.deselectRow(at: indexPath, animated: true)
@@ -111,10 +110,8 @@ class TasksViewController: UITableViewController {
         } else {
             guard let indexPath = indexPath else { return }
 
-            let taskKeys = Array(tasks.keys)
-            let task = tasks[taskKeys[indexPath.row]]
             popover.sourceView = tableView.cellForRow(at: indexPath)
-            vc.task = task
+            vc.taskViewModel = tasksViewModels[indexPath.row]
             present(vc, animated: true)
         }
     }
@@ -128,20 +125,19 @@ class TasksViewController: UITableViewController {
                 
                 let cell = tableView.cellForRow(at: indexPath)
                 
-                let taskKeys = Array(tasks.keys)
-                let task = tasks[taskKeys[indexPath.row]]
+                let taskViewModel = tasksViewModels[indexPath.row]
                 
-                print("long press \(task?.description)")
-                
-                mediator?.updateData(with: task?.sld, body: ["progress": 100], httpMethod: .patch, { result in
+                mediator?.updateData(with: taskViewModel.key, body: ["progress": 100], httpMethod: .patch, { result in
                     
                     switch result {
                     
                     case .success(_):
                         
-                        cell?.textLabel?.attributedText = task?.description?.strikeThrough()
-                        cell?.accessoryType = .checkmark
-                        cell?.tintColor = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
+                        taskViewModel.isCompleted = true
+                        cell?.accessoryType = taskViewModel.accessoryType
+                        cell?.textLabel?.attributedText = taskViewModel.task.description?.strikeThrough()
+                        cell?.tintColor = taskViewModel.tintColor
+
                     case .failure(let error):
                         Alert.noNetworkAlert(error: error)
                     }
@@ -151,7 +147,7 @@ class TasksViewController: UITableViewController {
     }
     
     // MARK: - Navigation
-
+    
 }
 
 // MARK: - Popover Delegate
@@ -163,8 +159,19 @@ extension TasksViewController: UIPopoverPresentationControllerDelegate {
 
 // MARK: - TasksSecondViewControllerDelegate
 extension TasksViewController: TasksSecondViewControllerDelegate {
+    
     func saveData(for task: Task, with id: String) {
-        self.tasks[id] = task
+        
+        let newTaskModel = TaskViewModel(task: task, key: id)
+        
+        if let index = tasksViewModels.firstIndex(where: { $0.key == newTaskModel.key }) {
+            tasksViewModels[index] = newTaskModel
+        }
+        
+        let newModels = tasksViewModels.filter { $0.key == newTaskModel.key }
+        if newModels.count == 0 {
+            tasksViewModels.append(newTaskModel)
+        }
         self.tableView.reloadData()
     }
 }

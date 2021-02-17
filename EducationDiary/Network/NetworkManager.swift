@@ -56,7 +56,7 @@ class NetworkManager {
             print(DataError.invalidURL)
             return }
         
-        let url = hostURL.appendingPathComponent(path + id)
+        let url = hostURL.appendingPathComponent(path + id + ".json")
         
         var request = URLRequest(url: url)
         
