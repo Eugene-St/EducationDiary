@@ -27,7 +27,7 @@ class TasksSecondViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        saveButton.isEnabled = false
+        //        saveButton.isEnabled = false
         
         mediator = TasksMediator()
         
@@ -44,7 +44,7 @@ class TasksSecondViewController: UIViewController {
         progressLabel.text = "\(Int(sender.value))%"
         saveButton.isEnabled = taskViewModel != nil ? true : false
     }
-
+    
     @IBAction func saveButtonPressed(_ sender: UIButton) {
         
         var httpMethod: HTTPMethods
@@ -59,10 +59,8 @@ class TasksSecondViewController: UIViewController {
         } else {
             idForHttp = taskViewModel?.key ?? ""
             httpMethod = .patch
-        }
-        
-        if descriptionTextField == nil {
             dataToPass["description"] = taskViewModel?.task.description
+            // dataToPass["progress"] = taskViewModel?.task.progress // updates task name with saved progress
         }
         
         let newTask = Task(createdOn: self.dataToPass["createdOn"] as? Int,
@@ -79,7 +77,7 @@ class TasksSecondViewController: UIViewController {
             switch result {
             
             case .success(_):
-
+                
                 if httpMethod == .put {
                     self.delegate?.saveData(for: newTask, with: idForHttp)
                 } else {
@@ -109,17 +107,17 @@ extension TasksSecondViewController: UITextFieldDelegate {
         view.endEditing(true)
     }
     
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-
-        let text = textField.text
+        
+        let text = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+        
         dataToPass["description"] = text
         
         NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: descriptionTextField, queue: OperationQueue.main) { _ in
             
             let textCount = self.descriptionTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).count ?? 0
-            
             let textIsNotEmpty = textCount > 0
-            
             self.saveButton.isEnabled = textIsNotEmpty
         }
         
