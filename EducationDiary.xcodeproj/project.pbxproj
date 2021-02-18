@@ -40,6 +40,7 @@
 		586077F825D58D2700495AB3 /* TasksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586077F725D58D2700495AB3 /* TasksCell.swift */; };
 		58A1F6DA25CD0FA100C62AB9 /* BookmarksAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A1F6D925CD0FA100C62AB9 /* BookmarksAlert.swift */; };
 		58D5C8A825C92BE6008402BE /* DataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D5C8A725C92BE6008402BE /* DataError.swift */; };
+		58F6D2F025DE4801004441C4 /* DataToPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58F6D2EF25DE4800004441C4 /* DataToPass.swift */; };
 		58FCE19625D124DC00654915 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FCE19525D124DC00654915 /* CoreDataManager.swift */; };
 /* End PBXBuildFile section */
 
@@ -79,6 +80,7 @@
 		586077F725D58D2700495AB3 /* TasksCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksCell.swift; sourceTree = "<group>"; };
 		58A1F6D925CD0FA100C62AB9 /* BookmarksAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksAlert.swift; sourceTree = "<group>"; };
 		58D5C8A725C92BE6008402BE /* DataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataError.swift; sourceTree = "<group>"; };
+		58F6D2EF25DE4800004441C4 /* DataToPass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataToPass.swift; sourceTree = "<group>"; };
 		58FCE19525D124DC00654915 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -191,6 +193,7 @@
 				58369FD525C7F8A000296493 /* NetworkMethods.swift */,
 				58D5C8A725C92BE6008402BE /* DataError.swift */,
 				582B571625CC878900637760 /* NetworkEndType.swift */,
+				58F6D2EF25DE4800004441C4 /* DataToPass.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -332,6 +335,7 @@
 				58369FE125C7FE0D00296493 /* TasksMediator.swift in Sources */,
 				58FCE19625D124DC00654915 /* CoreDataManager.swift in Sources */,
 				58369F8225C2DEC500296493 /* SceneDelegate.swift in Sources */,
+				58F6D2F025DE4801004441C4 /* DataToPass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

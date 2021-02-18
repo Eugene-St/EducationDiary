@@ -127,7 +127,7 @@ class TasksViewController: UITableViewController {
                 
                 let taskViewModel = tasksViewModels[indexPath.row]
                 
-                mediator?.updateData(with: taskViewModel.key, body: ["progress": 100], httpMethod: .patch, { result in
+                mediator?.updateData(with: taskViewModel.key, body: [Key.progress.rawValue: 100], httpMethod: .patch, { result in
                     
                     switch result {
                     

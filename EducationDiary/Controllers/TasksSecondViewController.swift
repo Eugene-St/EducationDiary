@@ -21,13 +21,13 @@ class TasksSecondViewController: UIViewController {
     
     // MARK: - Private Properties
     private var mediator: TasksMediator?
-    private var dataToPass: [String: Any] = [:]
+    private var dataToPass: [String : Any] = [:]
     
     // MARK: - View Didload
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //        saveButton.isEnabled = false
+        saveButton.isEnabled = false
         
         mediator = TasksMediator()
         
@@ -40,9 +40,12 @@ class TasksSecondViewController: UIViewController {
     
     // MARK: - IBActions
     @IBAction func progressSliderPressed(_ sender: UISlider) {
-        dataToPass["progress"] = Int(sender.value)
+        dataToPass[Key.progress.rawValue] = Int(sender.value)
         progressLabel.text = "\(Int(sender.value))%"
-        saveButton.isEnabled = taskViewModel != nil ? true : false
+        
+        if taskViewModel != nil && !(descriptionTextField.text?.isEmpty ?? false) {
+            saveButton.isEnabled = true
+        }
     }
     
     @IBAction func saveButtonPressed(_ sender: UIButton) {
@@ -51,37 +54,48 @@ class TasksSecondViewController: UIViewController {
         var idForHttp: String
         let timeStamp = Int(Date.timeIntervalSinceReferenceDate)
         
+        // for new task
         if taskViewModel == nil {
             httpMethod = .put
             idForHttp = String(timeStamp)
-            dataToPass["createdOn"] = timeStamp
-            dataToPass["sld"] = String(timeStamp)
+            dataToPass[Key.createdOn.rawValue] = timeStamp
+            dataToPass[Key.sld.rawValue] = String(timeStamp)
+        
+            // to update task
         } else {
             idForHttp = taskViewModel?.key ?? ""
             httpMethod = .patch
-            dataToPass["description"] = taskViewModel?.task.description
-            // dataToPass["progress"] = taskViewModel?.task.progress // updates task name with saved progress
+             
+            // if description is not edited, will return initial text
+            if descriptionTextField.text == taskViewModel?.task.description {
+                dataToPass[Key.description.rawValue] = taskViewModel?.task.description
+            }
+            
+            // if progress is not edited, will return initial value
+            if progressSlider.value == Float(taskViewModel?.task.progress ?? 0) {
+                dataToPass[Key.progress.rawValue] = taskViewModel?.task.progress
+            }
         }
         
-        let newTask = Task(createdOn: self.dataToPass["createdOn"] as? Int,
-                           description: self.dataToPass["description"] as? String,
-                           sld: self.dataToPass["sld"] as? String,
-                           progress: self.dataToPass["progress"] as? Int)
+        let newTask = Task(createdOn: self.dataToPass[Key.createdOn.rawValue] as? Int,
+                           description: self.dataToPass[Key.description.rawValue] as? String,
+                           sld: self.dataToPass[Key.sld.rawValue] as? String,
+                           progress: self.dataToPass[Key.progress.rawValue] as? Int)
         
         let updatedTask = Task(createdOn: taskViewModel?.task.createdOn,
-                               description: dataToPass["description"] as? String,
+                               description: dataToPass[Key.description.rawValue] as? String,
                                sld: taskViewModel?.key,
-                               progress: dataToPass["progress"] as? Int)
+                               progress: dataToPass[Key.progress.rawValue] as? Int)
         
         mediator?.updateData(with: idForHttp, body: dataToPass, httpMethod: httpMethod, { result in
             switch result {
             
             case .success(_):
                 
-                if httpMethod == .put {
-                    self.delegate?.saveData(for: newTask, with: idForHttp)
-                } else {
-                    self.delegate?.saveData(for: updatedTask, with: idForHttp)
+                switch httpMethod {
+                case .put: self.delegate?.saveData(for: newTask, with: idForHttp)
+                case .patch: self.delegate?.saveData(for: updatedTask, with: idForHttp)
+                default: break
                 }
                 
                 self.dismiss(animated: true)
@@ -112,15 +126,13 @@ extension TasksSecondViewController: UITextFieldDelegate {
         
         let text = (textField.text! as NSString).replacingCharacters(in: range, with: string)
         
-        dataToPass["description"] = text
-        
-        NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: descriptionTextField, queue: OperationQueue.main) { _ in
-            
-            let textCount = self.descriptionTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).count ?? 0
-            let textIsNotEmpty = textCount > 0
-            self.saveButton.isEnabled = textIsNotEmpty
+        if !text.isEmpty {
+            saveButton.isEnabled = true
+        } else {
+            saveButton.isEnabled = false
         }
         
+        dataToPass[Key.description.rawValue] = text
         return true
     }
 }

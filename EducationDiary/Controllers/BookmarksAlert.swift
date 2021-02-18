@@ -13,7 +13,7 @@ extension BookmarksViewController {
     //todo: refactor (swiftlint)
     func showAlert(title: String, message: String, name: String? = nil, text: String? = nil, id: String?, httpMethod: HTTPMethods){
         
-        var dataToPass: [String: String] = [:]
+        var dataToPass: [String : String] = [:]
         
         var idForHttp: String
         
@@ -29,11 +29,11 @@ extension BookmarksViewController {
         let okAction = UIAlertAction(title: "Ok", style: .default) { [weak self] _ in
             
             if let name = ac.textFields?.first?.text {
-                dataToPass["name"] = name
+                dataToPass[Key.name.rawValue] = name
             }
             
             if let text = ac.textFields?.last?.text {
-                dataToPass["text"] = text
+                dataToPass[Key.text.rawValue] = text
             }
             
             self?.mediator?.updateData(with: idForHttp, body: dataToPass, httpMethod: httpMethod) { [weak self] result in
@@ -41,7 +41,7 @@ extension BookmarksViewController {
                 switch result {
                 
                 case .success(_):
-                    self?.bookmarks[idForHttp] = Bookmark(name: dataToPass["name"], text: dataToPass["text"])
+                    self?.bookmarks[idForHttp] = Bookmark(name: dataToPass[Key.name.rawValue], text: dataToPass[Key.text.rawValue])
                     self?.tableView.reloadData()
                     
                     DispatchQueue.global(qos: .background).async {
