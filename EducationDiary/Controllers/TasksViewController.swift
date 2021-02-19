@@ -19,7 +19,7 @@ class TasksViewController: UITableViewController {
     // MARK: - View DidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // add long press gesture
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed(sender:)))
         self.tableView.addGestureRecognizer(longPressRecognizer)
@@ -41,6 +41,13 @@ class TasksViewController: UITableViewController {
             }
         })
     }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        print(view.bounds.width)
+    }
+    
+    
     
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -93,6 +100,7 @@ class TasksViewController: UITableViewController {
     }
     
     // MARK: - Private Methods
+    
     // popover
     private func presentPopOver(for button: UIBarButtonItem? = nil, with indexPath: IndexPath? = nil) {
         
@@ -133,6 +141,7 @@ class TasksViewController: UITableViewController {
                     
                     case .success(_):
                         
+//                        self.tableView.reloadRows(at: [indexPath], with: .automatic)
                         taskViewModel.isCompleted = true
                         cell?.accessoryType = taskViewModel.accessoryType
                         cell?.textLabel?.attributedText = taskViewModel.task.description?.strikeThrough()

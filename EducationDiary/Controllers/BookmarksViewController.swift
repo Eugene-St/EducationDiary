@@ -59,9 +59,8 @@ class BookmarksViewController: UITableViewController {
             
             let bookmarkKeys = Array(bookmarks.keys)
             let bookMarKey = bookmarkKeys[indexPath.row]
-            let bookMArkID = "\(bookMarKey).json"
             
-            mediator?.deleteData(with: bookMArkID, { result in
+            mediator?.deleteData(with: bookMarKey, { result in
                 switch result {
                 
                 case .success(_):

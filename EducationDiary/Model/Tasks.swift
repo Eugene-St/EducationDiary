@@ -32,15 +32,6 @@ class TaskViewModel {
         self.task = task
         self.key = key
     }
-    
-//    func configureCompletedTask(for cell: UITableViewCell?) {
-//        task.progress = 100
-//        isCompleted = true
-//        accessoryType = .checkmark
-//        cell?.textLabel?.attributedText = task.description?.strikeThrough()
-//        cell?.accessoryType = accessoryType
-//        cell?.tintColor = tintColor
-//    }
 }
 
 
