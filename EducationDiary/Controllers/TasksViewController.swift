@@ -41,14 +41,7 @@ class TasksViewController: UITableViewController {
             }
         })
     }
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        print(view.bounds.width)
-    }
-    
-    
-    
+
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         tasksViewModels.count
@@ -131,7 +124,7 @@ class TasksViewController: UITableViewController {
             let touchPoint = sender.location(in: self.tableView)
             if let indexPath = tableView.indexPathForRow(at: touchPoint) {
                 
-                let cell = tableView.cellForRow(at: indexPath)
+                let cell = tableView.cellForRow(at: indexPath) as? TasksCell
                 
                 let taskViewModel = tasksViewModels[indexPath.row]
                 
@@ -141,7 +134,7 @@ class TasksViewController: UITableViewController {
                     
                     case .success(_):
                         
-//                        self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                        cell?.progressView.backgroundColor = nil
                         taskViewModel.isCompleted = true
                         cell?.accessoryType = taskViewModel.accessoryType
                         cell?.textLabel?.attributedText = taskViewModel.task.description?.strikeThrough()
