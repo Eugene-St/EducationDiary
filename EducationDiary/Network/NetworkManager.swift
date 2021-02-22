@@ -80,7 +80,7 @@ class NetworkManager {
     }
     
     // MARK: - PUT
-    func updateRequest(path: String, id: String?, body: [String: Any], httpMethod: HTTPMethods, _ completion: @escaping ResultClosure<URLResponse>) {
+    func putRequest(path: String, id: String?, body: [String: Any], _ completion: @escaping ResultClosure<URLResponse>) {
         
         guard let hostURL = hostURL else { return }
         let url = hostURL.appendingPathComponent(path + (id ?? "") + ".json")
@@ -88,7 +88,50 @@ class NetworkManager {
         let putData = body
         
         var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = httpMethod.rawValue
+        urlRequest.httpMethod = HTTPMethods.put.rawValue
+        
+        do {
+            let data = try JSONSerialization.data(withJSONObject: putData, options: [])
+            
+            urlRequest.httpBody = data
+            urlRequest.setValue("application/json", forHTTPHeaderField: "content-type")
+            
+            URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+                
+                if let error = error {
+                    print(error); completion(.failure(error))
+                }
+                
+                if let response = response as? HTTPURLResponse {
+                    
+                    if 200...299 ~= response.statusCode {
+                        if data != nil {
+                            completion(.success(response))
+                        } else {
+                            completion(.failure(DataError.invalidData))
+                        }
+                    } else {
+                        completion(.failure(DataError.serverError))
+                    }
+                } else {
+                    completion(.failure(DataError.invalidResponse))
+                }
+            }.resume()
+        } catch {
+            completion(.failure(error))
+        }
+    }
+    
+    // MARK: - PATCH
+    func patchRequest(path: String, id: String?, body: [String: Any], _ completion: @escaping ResultClosure<URLResponse>) {
+        
+        guard let hostURL = hostURL else { return }
+        let url = hostURL.appendingPathComponent(path + (id ?? "") + ".json")
+        
+        let putData = body
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = HTTPMethods.patch.rawValue
         
         do {
             let data = try JSONSerialization.data(withJSONObject: putData, options: [])

@@ -9,7 +9,23 @@ import Foundation
 
 typealias Bookmarks = [String: Bookmark]
 
-struct Bookmark: Codable {
-    let name: String?
-    let text: String?
+struct Bookmark: Model {
+    
+    var name: String?
+    var text: String?
+    let sld: String?
+    
+    var modelId: String {
+        return sld ?? ""
+    }
+}
+
+class BookmarkViewModel {
+    var bookmark: Bookmark
+    let key: String
+    
+    init(bookmark: Bookmark, key: String) {
+        self.bookmark = bookmark
+        self.key = key
+    }
 }

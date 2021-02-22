@@ -73,9 +73,10 @@ class Mediator<T: Decodable>{
     }
     
     //MARK: Delete data
-    func deleteData(with id: String, _ completion: @escaping ResultClosure<URLResponse>) {
+    
+    func deleteData(for model: Model, _ completion: @escaping ResultClosure<URLResponse>) {
         if networkIsAvaible {
-            NetworkManager.shared.deleteRequest(path: pathForUpdate.rawValue, id: id) { result in
+            NetworkManager.shared.deleteRequest(path: pathForUpdate.rawValue, id: model.modelId) { result in
                 self.recogniseResult(result, completion)
             }
         } else {
@@ -84,10 +85,57 @@ class Mediator<T: Decodable>{
         }
     }
     
+    
     //MARK: Put data
-    func updateData(with id: String?, body: [String: Any], httpMethod: HTTPMethods, _ completion: @escaping ResultClosure<URLResponse>){
+    /*
+    func updateData(with id: String?, body: [String: Any], httpMethod: HTTPMethods, _ completion: @escaping
+                       // todo: updateData for Task и медиатор будет брать айдишник или генерить новый
+                        // todo: генерация свойств перенести в модель
+                        
+                        ResultClosure<URLResponse>){
         if networkIsAvaible {
-            NetworkManager.shared.updateRequest(path: pathForUpdate.rawValue, id: id, body: body, httpMethod: httpMethod) { result in
+            NetworkManager.shared.putRequest(path: pathForUpdate.rawValue, id: id, body: body, httpMethod: httpMethod) { result in
+                self.recogniseResult(result, completion)
+            }
+        } else {
+            completion(.failure(DataError.noNetwork))
+            print("Put to DB")
+        }
+    }
+ */
+    
+    
+    // MARK: - Save Data
+    func updateData<T: Codable>(for model: T, _ completion: @escaping ResultClosure<URLResponse>) {
+        
+        let encoder = JSONEncoder()
+        guard let data = try? encoder.encode(model) else { return }
+
+        guard let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any] else { return }
+        let model = model as! Model
+        
+        if networkIsAvaible {
+            NetworkManager.shared.patchRequest(path: pathForUpdate.rawValue, id: model.modelId, body: json) { result in
+                self.recogniseResult(result, completion)
+            }
+        } else {
+            completion(.failure(DataError.noNetwork))
+            print("Put to DB")
+        }
+    }
+    
+    
+    // MARK: - Create New Data
+    func createNewData<T: Codable>(for model: T, _ completion: @escaping ResultClosure<URLResponse>) {
+        
+        let encoder = JSONEncoder()
+        let data = try? encoder.encode(model)
+
+        guard let json = try? JSONSerialization.jsonObject(with: data!, options: []) as? [String : Any] else { return }
+        let model = model as! Model
+        
+        if networkIsAvaible {
+            NetworkManager.shared.putRequest(path: pathForUpdate.rawValue, id: model.modelId, body: json) { result in
                 self.recogniseResult(result, completion)
             }
         } else {

@@ -10,8 +10,8 @@ import UIKit
 class BookmarksViewController: UITableViewController {
     
     // MARK: - Private Properties
-    var bookmarks = Bookmarks()
-    var mediator: BookmarksMediator?
+    var bookmarkViewModels = [BookmarkViewModel]()
+    lazy var mediator = BookmarksMediator()
     
     // MARK: - View DidLoad
     override func viewDidLoad() {
@@ -21,29 +21,19 @@ class BookmarksViewController: UITableViewController {
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed(sender:)))
         self.tableView.addGestureRecognizer(longPressRecognizer)
         
-        mediator = BookmarksMediator()
-        
-        mediator?.fetchData({ result in
-            switch result {
-            case .success(let bookmarks):
-                self.bookmarks = bookmarks
-                self.tableView.reloadData()
-            case .failure(let error):
-                print("BookmarksInteractor ERROR:\(error.localizedDescription)")
-                Alert.noNetworkAlert(error: error)
-            }
-        })
+        loadData()
     }
     
     // MARK: - Table view data source methods
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        bookmarks.count
+        bookmarkViewModels.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "bookmarkCell", for: indexPath) as! BookmarksCell
         
-        cell.configure(with: bookmarks, indexPath: indexPath)
+        cell.configure(with: bookmarkViewModels[indexPath.row])
         
         return cell
     }
@@ -57,21 +47,20 @@ class BookmarksViewController: UITableViewController {
         
         if editingStyle == .delete {
             
-            let bookmarkKeys = Array(bookmarks.keys)
-            let bookMarKey = bookmarkKeys[indexPath.row]
+            let bookmarkViewModel = bookmarkViewModels[indexPath.row]
             
-            mediator?.deleteData(with: bookMarKey, { result in
+            mediator.deleteData(for: bookmarkViewModel.bookmark) { result in
                 switch result {
                 
                 case .success(_):
-                    self.bookmarks.removeValue(forKey: bookmarkKeys[indexPath.row])
-                    tableView.deleteRows(at: [indexPath], with: .automatic)
+                    self.bookmarkViewModels.remove(at: indexPath.row)
+                    self.tableView.deleteRows(at: [indexPath], with: .automatic)
                     
                 case .failure(let error):
-                    print("No internet!")
-                    Alert.noNetworkAlert(error: error)
+                    print("No internet!", error)
+                    Alert.errorAlert(error: error)
                 }
-            })
+            }
         }
     }
     
@@ -81,7 +70,7 @@ class BookmarksViewController: UITableViewController {
     
     // MARK: - IBActions
     @IBAction func addBookmarkPressed(_ sender: UIBarButtonItem) {
-        addAlertController()
+        showAddAlertController()
     }
     
     // MARK: - Private methods
@@ -92,24 +81,38 @@ class BookmarksViewController: UITableViewController {
             let touchPoint = sender.location(in: self.tableView)
             if let indexPath = tableView.indexPathForRow(at: touchPoint) {
                 
-                let cell = tableView.cellForRow(at: indexPath)
+                let bookmarkViewModel = bookmarkViewModels[indexPath.row]
                 
-                let bookmarkKeys = Array(bookmarks.keys)
-                let bookmarkKey = bookmarkKeys[indexPath.row]
-                
-                editAlertController(with: cell?.textLabel?.text,
-                                    and: cell?.detailTextLabel?.text, id: bookmarkKey)
+                showEditAlertController(for: bookmarkViewModel)
             }
         }
     }
     
-    private func addAlertController() {
+    private func showAddAlertController() {
         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-        showAlert(title: "Add bookmark", message: "Please enter Bookmark name and text", id: nil, httpMethod: .put)
+        showAlert(title: "Add bookmark", message: "Please enter Bookmark name and text")
     }
     
-    private func editAlertController(with name: String?, and text: String?, id: String) {
+    private func showEditAlertController(for bookmarkModel: BookmarkViewModel) {
         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-        showAlert(title: "Edit bookmark", message: "You may edit the bookmark", name: name, text: text, id: id, httpMethod: .patch)
+        showAlert(title: "Edit bookmark", message: "You may edit the bookmark", bookmark: bookmarkModel.bookmark)
+    }
+    
+    private func loadData() {
+        
+        mediator.fetchData({ result in
+            switch result {
+            
+            case .success(let bookmarks):
+                bookmarks.forEach { [weak self] key, bookmark in
+                    self?.bookmarkViewModels.append(BookmarkViewModel(bookmark: bookmark, key: key))
+                }
+                self.tableView.reloadData()
+                
+            case .failure(let error):
+                print("BookmarksInteractor ERROR:\(error.localizedDescription)")
+                Alert.errorAlert(error: error)
+            }
+        })
     }
 }

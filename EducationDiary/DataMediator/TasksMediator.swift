@@ -8,10 +8,10 @@
 import UIKit
 
 class TasksMediator: Mediator<Tasks> {
+    
     init() {
         super.init(.tasks, pathForUpdate: .tasksUpdate)
     }
     
     // MARK: - Methods
-
 }

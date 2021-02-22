@@ -7,9 +7,10 @@
 
 import Foundation
 
-typealias Topics = [String : TopicProperties]
+typealias Topics = [String : Topic]
 
-struct TopicProperties: Codable {
+struct Topic: Model {
+
     let id: String?
     let title: String?
     let links: [String]?
@@ -18,4 +19,8 @@ struct TopicProperties: Codable {
     let due_date: Float?
     let created_on: Float?
     let questions: [Question]?
+    
+    var modelId: String {
+        return id ?? ""
+    }
 }

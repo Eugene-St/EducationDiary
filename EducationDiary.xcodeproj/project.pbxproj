@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5819B60A25E3C1980062748C /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5819B60925E3C1980062748C /* Model.swift */; };
 		5829570E25CACCA300F68CA7 /* BookmarksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5829570D25CACCA300F68CA7 /* BookmarksCell.swift */; };
 		582B571725CC878900637760 /* NetworkEndType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582B571625CC878900637760 /* NetworkEndType.swift */; };
 		58369F8025C2DEC500296493 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369F7F25C2DEC500296493 /* AppDelegate.swift */; };
@@ -45,6 +46,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5819B60925E3C1980062748C /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		5829570D25CACCA300F68CA7 /* BookmarksCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksCell.swift; sourceTree = "<group>"; };
 		582B571625CC878900637760 /* NetworkEndType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkEndType.swift; sourceTree = "<group>"; };
 		58369F7C25C2DEC500296493 /* EducationDiary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EducationDiary.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -214,6 +216,7 @@
 			isa = PBXGroup;
 			children = (
 				586077EE25D4356700495AB3 /* TasksSecondViewControllerDelegate.swift */,
+				5819B60925E3C1980062748C /* Model.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -334,6 +337,7 @@
 				58369FC525C30FD500296493 /* Tasks.swift in Sources */,
 				58369FE125C7FE0D00296493 /* TasksMediator.swift in Sources */,
 				58FCE19625D124DC00654915 /* CoreDataManager.swift in Sources */,
+				5819B60A25E3C1980062748C /* Model.swift in Sources */,
 				58369F8225C2DEC500296493 /* SceneDelegate.swift in Sources */,
 				58F6D2F025DE4801004441C4 /* DataToPass.swift in Sources */,
 			);

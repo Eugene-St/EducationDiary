@@ -11,25 +11,12 @@ class TopicsViewController: UITableViewController {
     
     // MARK: - Private Properties
     private var topics = Topics()
-    var mediator: TopicsMediator?
+    private lazy var mediator = TopicsMediator()
     
     // MARK: - View DidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        mediator = TopicsMediator()
-        
-        mediator?.fetchData({ result in
-            switch result {
-            
-            case .success(let topics):
-                self.topics = topics
-                self.tableView.reloadData()
-            case .failure(let error):
-                print("TopicsMediator ERROR:\(error.localizedDescription)")
-            }
-        })
-        
+        loadData()
     }
     
     // MARK: - Table view data source
@@ -71,4 +58,16 @@ class TopicsViewController: UITableViewController {
     
     
     // MARK: - Private methods
+    private func loadData() {
+        mediator.fetchData { result in
+            switch result {
+            
+            case .success(let topics):
+                self.topics = topics
+                self.tableView.reloadData()
+            case .failure(let error):
+                print("TopicsMediator ERROR:\(error.localizedDescription)")
+            }
+        }
+    }
 }

@@ -9,11 +9,16 @@ import UIKit
 
 typealias Tasks = [String : Task]
 
-struct Task: Codable {
+struct Task: Model {
+
     let createdOn: Int?
     let description: String?
     let sld: String?
     var progress: Int?
+    
+    var modelId: String {
+        return sld ?? ""
+    }
 }
 
 class TaskViewModel {
@@ -32,6 +37,12 @@ class TaskViewModel {
         self.task = task
         self.key = key
     }
+    
+    func createNewTaskModel() {
+        
+    }
+    
+    // todo: создать метод create new task model (тут буду генериться айдишники автоматически)
 }
 
 

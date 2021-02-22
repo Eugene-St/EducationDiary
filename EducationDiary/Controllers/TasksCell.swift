@@ -11,7 +11,7 @@ class TasksCell: UITableViewCell {
     
     @IBOutlet weak var progressView: UIView!
     
-    var progressWidth: NSLayoutConstraint?
+    private var progressWidth: NSLayoutConstraint?
     
     override func awakeFromNib() {
         super.awakeFromNib()

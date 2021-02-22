@@ -13,8 +13,10 @@ class TasksViewController: UITableViewController {
     @IBOutlet weak var addTaskButton: UIBarButtonItem!
     
     // MARK: - Private Properties
-    private var mediator: TasksMediator?
-    private var tasksViewModels = [TaskViewModel]()
+    private lazy var mediator = TasksMediator()
+    private var taskViewModels = [TaskViewModel]()
+    
+    // todo: сохранение по enter добавить
     
     // MARK: - View DidLoad
     override func viewDidLoad() {
@@ -24,34 +26,20 @@ class TasksViewController: UITableViewController {
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed(sender:)))
         self.tableView.addGestureRecognizer(longPressRecognizer)
         
-        mediator = TasksMediator()
-        
-        mediator?.fetchData({ result in
-            switch result {
-            
-            case .success(let tasks):
-                tasks.forEach { key, task in
-                    self.tasksViewModels.append(TaskViewModel(task: task, key: key))
-                }
-                self.tableView.reloadData()
-           
-            case .failure(let error):
-                print("BookmarksMediator ERROR:\(error.localizedDescription)")
-                Alert.noNetworkAlert(error: error)
-            }
-        })
+        // todo: pull to refresh
+        loadData()
     }
 
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        tasksViewModels.count
+        taskViewModels.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "taskCell", for: indexPath) as! TasksCell
         
-        cell.configure(with: tasksViewModels[indexPath.row])
+        cell.configure(with: taskViewModels[indexPath.row])
         
         return cell
     }
@@ -65,37 +53,55 @@ class TasksViewController: UITableViewController {
         
         if editingStyle == .delete {
 
-            let taskViewModel = tasksViewModels[indexPath.row]
-
-            mediator?.deleteData(with: taskViewModel.key, { result in
+            let taskViewModel = taskViewModels[indexPath.row]
+            
+            mediator.deleteData(for: taskViewModel.task) { result in
                 switch result {
-
+                    
                 case .success(_):
-                    self.tasksViewModels.remove(at: indexPath.row)
+                    self.taskViewModels.remove(at: indexPath.row)
                     self.tableView.deleteRows(at: [indexPath], with: .automatic)
 
                 case .failure(let error):
                     print("No internet!", error)
-                    Alert.noNetworkAlert(error: error)
+                    Alert.errorAlert(error: error) // todo: не обязательно тут не будет интернета!!! првоерить
                 }
-            })
+            }
         }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presentPopOver(with: indexPath)
+        presentTasksSecondVCPopOver(for: taskViewModels[indexPath.row].task, with: indexPath)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
     // MARK: - IBActions
     @IBAction func addTaskButtonPressed(_ sender: UIBarButtonItem) {
-        presentPopOver(for: sender)
+        presentTasksSecondVCPopOver()
     }
     
     // MARK: - Private Methods
+    // fetch data
+    private func loadData() {
+        mediator.fetchData({ result in
+            switch result {
+            
+            case .success(let tasks):
+                tasks.forEach { [weak self] key, task in
+                    self?.taskViewModels.append(TaskViewModel(task: task, key: key))
+                }
+                self.tableView.reloadData()
+           
+            case .failure(let error):
+                print("BookmarksMediator ERROR:\(error.localizedDescription)")
+                Alert.errorAlert(error: error)
+            }
+        })
+    }
     
     // popover
-    private func presentPopOver(for button: UIBarButtonItem? = nil, with indexPath: IndexPath? = nil) {
+    
+    private func presentTasksSecondVCPopOver(for task: Task? = nil, with indexPath: IndexPath? = nil) {
         
         guard let vc = storyboard?.instantiateViewController(identifier: "tasksPopVC") as? TasksSecondViewController else { return }
         
@@ -105,14 +111,13 @@ class TasksViewController: UITableViewController {
         guard let popover = vc.popoverPresentationController else { return }
         popover.delegate = self
         
-        if button != nil {
-            popover.barButtonItem = button
+        if task != nil {
+            guard let indexPath = indexPath else { return }
+            popover.sourceView = tableView.cellForRow(at: indexPath)
+            vc.task = task
             present(vc, animated: true)
         } else {
-            guard let indexPath = indexPath else { return }
-
-            popover.sourceView = tableView.cellForRow(at: indexPath)
-            vc.taskViewModel = tasksViewModels[indexPath.row]
+            popover.barButtonItem = navigationItem.rightBarButtonItem
             present(vc, animated: true)
         }
     }
@@ -124,26 +129,23 @@ class TasksViewController: UITableViewController {
             let touchPoint = sender.location(in: self.tableView)
             if let indexPath = tableView.indexPathForRow(at: touchPoint) {
                 
-                let cell = tableView.cellForRow(at: indexPath) as? TasksCell
+                let taskViewModel = taskViewModels[indexPath.row]
                 
-                let taskViewModel = tasksViewModels[indexPath.row]
+                // todo: тут по хорошему должна быть блокировка интерфейса(экрана)
                 
-                mediator?.updateData(with: taskViewModel.key, body: [Key.progress.rawValue: 100], httpMethod: .patch, { result in
+                taskViewModel.task.progress = 100
+                
+                mediator.updateData(for: taskViewModel.task) { result in
                     
                     switch result {
                     
                     case .success(_):
-                        
-                        cell?.progressView.backgroundColor = nil
-                        taskViewModel.isCompleted = true
-                        cell?.accessoryType = taskViewModel.accessoryType
-                        cell?.textLabel?.attributedText = taskViewModel.task.description?.strikeThrough()
-                        cell?.tintColor = taskViewModel.tintColor
+                    self.tableView.reloadRows(at: [indexPath], with: .automatic)
 
                     case .failure(let error):
-                        Alert.noNetworkAlert(error: error)
+                        Alert.errorAlert(error: error)
                     }
-                })
+                }
             }
         }
     }
@@ -166,14 +168,15 @@ extension TasksViewController: TasksSecondViewControllerDelegate {
         
         let newTaskModel = TaskViewModel(task: task, key: id)
         
-        if let index = tasksViewModels.firstIndex(where: { $0.key == newTaskModel.key }) {
-            tasksViewModels[index] = newTaskModel
+        if let index = taskViewModels.firstIndex(where: { $0.key == newTaskModel.key }) {
+            taskViewModels[index] = newTaskModel
         }
         
-        let newModels = tasksViewModels.filter { $0.key == newTaskModel.key }
+        let newModels = taskViewModels.filter { $0.key == newTaskModel.key }
         if newModels.count == 0 {
-            tasksViewModels.append(newTaskModel)
+            taskViewModels.append(newTaskModel)
         }
-        self.tableView.reloadData()
+        self.tableView.reloadData() // reloadCell at indexPath
+                                    // or insertAt index
     }
 }
