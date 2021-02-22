@@ -174,9 +174,10 @@ extension TasksViewController: TasksSecondViewControllerDelegate {
         
         let newModels = taskViewModels.filter { $0.key == newTaskModel.key }
         if newModels.count == 0 {
-            taskViewModels.append(newTaskModel)
+            taskViewModels.insert(newTaskModel, at: 0)
         }
-        self.tableView.reloadData() // reloadCell at indexPath
+        
+        self.tableView.reloadData()// reloadCell at indexPath
                                     // or insertAt index
     }
 }
