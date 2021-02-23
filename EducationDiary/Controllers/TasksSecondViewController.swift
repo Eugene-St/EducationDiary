@@ -49,6 +49,7 @@ class TasksSecondViewController: UIViewController {
     }
     
     // MARK: - Private Methods
+    
     // Create new task
     private func createNewTask() {
         
@@ -64,11 +65,10 @@ class TasksSecondViewController: UIViewController {
             switch result {
             
             case .success(_):
-                print("success creation")
                 self.delegate?.saveData(for: task, with: String(timeStamp))
                 self.dismiss(animated: true)
             case .failure(let error):
-                Alert.errorAlert(error: error) //
+                Alert.errorAlert(error: error)
                 print("could not create")
                 self.dismiss(animated: true, completion: nil)
             }
@@ -87,7 +87,6 @@ class TasksSecondViewController: UIViewController {
             switch result {
             
             case .success(_):
-                print("updated Data")
                 self.delegate?.saveData(for: task, with: self.task?.sld ?? "")
                 self.dismiss(animated: true)
                 
@@ -129,6 +128,17 @@ extension TasksSecondViewController: UITextFieldDelegate {
             saveButton.isEnabled = true
         } else {
             saveButton.isEnabled = false
+        }
+        return true
+    }
+    
+    // return key validates input and saves changes
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        if task == nil {
+            createNewTask()
+        } else {
+            updateTask()
         }
         return true
     }

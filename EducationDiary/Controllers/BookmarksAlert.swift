@@ -5,11 +5,9 @@
 //  Created by Eugene St on 05.02.2021.
 //
 
-import Foundation
 import UIKit
 
 extension BookmarksViewController {
-    
     //todo: refactor (swiftlint)
     func showAlert(title: String, message: String, bookmark: Bookmark? = nil) {
         
@@ -117,16 +115,3 @@ extension BookmarksViewController {
         }
     }
 }
-
-class Alert {
-    
-    static func errorAlert(error: Error) {
-        let ac = UIAlertController(title: "Error", message: "We cannot proceed, \(error)", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Ok", style: .default)
-        ac.addAction(okAction)
-        DispatchQueue.main.async {
-            ac.present(ac, animated: true)
-        }
-    }
-}
-

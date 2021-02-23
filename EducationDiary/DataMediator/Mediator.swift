@@ -60,7 +60,7 @@ class Mediator<T: Decodable>{
         }
     }
     
-    //MARK: Fetch data
+    //MARK: FETCH data
     func fetchData(_ completion: @escaping ResultClosure<T>) {
         if networkIsAvaible {
             NetworkManager.shared.getRequest(path: pathForFetch.rawValue) { result in
@@ -72,8 +72,7 @@ class Mediator<T: Decodable>{
         }
     }
     
-    //MARK: Delete data
-    
+    //MARK: DELETE data
     func deleteData(for model: Model, _ completion: @escaping ResultClosure<URLResponse>) {
         if networkIsAvaible {
             NetworkManager.shared.deleteRequest(path: pathForUpdate.rawValue, id: model.modelId) { result in
@@ -85,32 +84,11 @@ class Mediator<T: Decodable>{
         }
     }
     
-    
-    //MARK: Put data
-    /*
-    func updateData(with id: String?, body: [String: Any], httpMethod: HTTPMethods, _ completion: @escaping
-                       // todo: updateData for Task и медиатор будет брать айдишник или генерить новый
-                        // todo: генерация свойств перенести в модель
-                        
-                        ResultClosure<URLResponse>){
-        if networkIsAvaible {
-            NetworkManager.shared.putRequest(path: pathForUpdate.rawValue, id: id, body: body, httpMethod: httpMethod) { result in
-                self.recogniseResult(result, completion)
-            }
-        } else {
-            completion(.failure(DataError.noNetwork))
-            print("Put to DB")
-        }
-    }
- */
-    
-    
-    // MARK: - Save Data
+    // MARK: - PATCH Data
     func updateData<T: Codable>(for model: T, _ completion: @escaping ResultClosure<URLResponse>) {
-        
+    
         let encoder = JSONEncoder()
         guard let data = try? encoder.encode(model) else { return }
-
         guard let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any] else { return }
         let model = model as! Model
         
@@ -125,13 +103,12 @@ class Mediator<T: Decodable>{
     }
     
     
-    // MARK: - Create New Data
+    // MARK: - PUT data
     func createNewData<T: Codable>(for model: T, _ completion: @escaping ResultClosure<URLResponse>) {
         
         let encoder = JSONEncoder()
-        let data = try? encoder.encode(model)
-
-        guard let json = try? JSONSerialization.jsonObject(with: data!, options: []) as? [String : Any] else { return }
+        guard let data = try? encoder.encode(model) else { return }
+        guard let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any] else { return }
         let model = model as! Model
         
         if networkIsAvaible {

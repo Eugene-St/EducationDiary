@@ -26,23 +26,11 @@ class TaskViewModel {
     let key: String
     var accessoryType: UITableViewCell.AccessoryType = .none
     var tintColor: UIColor? = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
-    var isCompleted: Bool = false {
-        willSet {
-            task.progress = 100
-            accessoryType = .checkmark
-        }
-    }
     
     init(task: Task, key: String) {
         self.task = task
         self.key = key
     }
-    
-    func createNewTaskModel() {
-        
-    }
-    
-    // todo: создать метод create new task model (тут буду генериться айдишники автоматически)
 }
 
 

@@ -16,8 +16,6 @@ class TasksViewController: UITableViewController {
     private lazy var mediator = TasksMediator()
     private var taskViewModels = [TaskViewModel]()
     
-    // todo: сохранение по enter добавить
-    
     // MARK: - View DidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,7 +79,8 @@ class TasksViewController: UITableViewController {
     }
     
     // MARK: - Private Methods
-    // fetch data
+    
+    // Load Data
     private func loadData() {
         mediator.fetchData({ result in
             switch result {
@@ -99,8 +98,7 @@ class TasksViewController: UITableViewController {
         })
     }
     
-    // popover
-    
+    // Popover
     private func presentTasksSecondVCPopOver(for task: Task? = nil, with indexPath: IndexPath? = nil) {
         
         guard let vc = storyboard?.instantiateViewController(identifier: "tasksPopVC") as? TasksSecondViewController else { return }
@@ -122,6 +120,7 @@ class TasksViewController: UITableViewController {
         }
     }
     
+    // Long press recognizer
     @objc private func longPressed(sender: UILongPressGestureRecognizer) {
         
         if sender.state == UIGestureRecognizer.State.began {
@@ -177,7 +176,7 @@ extension TasksViewController: TasksSecondViewControllerDelegate {
             taskViewModels.insert(newTaskModel, at: 0)
         }
         
-        self.tableView.reloadData()// reloadCell at indexPath
-                                    // or insertAt index
+//        self.tableView.insertRows(at: [IndexPath(item: index, section: 0)], with: .automatic)
+        self.tableView.reloadData()
     }
 }

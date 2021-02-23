@@ -8,6 +8,7 @@
 import Foundation
 
 class TopicsMediator: Mediator<Topics> {
+    
     init() {
         super.init(.topics, pathForUpdate: .topicsUpdate)
     }
