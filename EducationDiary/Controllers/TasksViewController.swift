@@ -70,8 +70,8 @@ class TasksViewController: UITableViewController {
                     self.tableView.deleteRows(at: [indexPath], with: .automatic)
 
                 case .failure(let error):
-                    print("No internet!", error)
-                    Alert.errorAlert(error: error) // todo: не обязательно тут не будет интернета!!! првоерить
+                    print(error)
+                    Alert.errorAlert(error: error)
                 }
             }
         }
@@ -139,7 +139,7 @@ class TasksViewController: UITableViewController {
                 
                 let taskViewModel = taskViewModels[indexPath.row]
                 
-                // todo: тут по хорошему должна быть блокировка интерфейса(экрана)
+                FreezeUIController.sharedInstance.freezeUI(for: self)
                 
                 taskViewModel.task.progress = 100
                 
@@ -149,6 +149,7 @@ class TasksViewController: UITableViewController {
                     
                     case .success(_):
                     self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                    FreezeUIController.sharedInstance.disableUIFreeze(for: self)
 
                     case .failure(let error):
                         Alert.errorAlert(error: error)

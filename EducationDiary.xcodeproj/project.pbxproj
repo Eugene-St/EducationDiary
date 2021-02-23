@@ -41,6 +41,7 @@
 		586077F825D58D2700495AB3 /* TasksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586077F725D58D2700495AB3 /* TasksCell.swift */; };
 		58A1F6DA25CD0FA100C62AB9 /* BookmarksAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A1F6D925CD0FA100C62AB9 /* BookmarksAlert.swift */; };
 		58AA939225E4EADE00793461 /* ErrorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AA939125E4EADE00793461 /* ErrorAlert.swift */; };
+		58AA939825E50E3200793461 /* FreezeUIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AA939725E50E3200793461 /* FreezeUIController.swift */; };
 		58D5C8A825C92BE6008402BE /* DataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D5C8A725C92BE6008402BE /* DataError.swift */; };
 		58FCE19625D124DC00654915 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FCE19525D124DC00654915 /* CoreDataManager.swift */; };
 /* End PBXBuildFile section */
@@ -82,6 +83,7 @@
 		586077F725D58D2700495AB3 /* TasksCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksCell.swift; sourceTree = "<group>"; };
 		58A1F6D925CD0FA100C62AB9 /* BookmarksAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksAlert.swift; sourceTree = "<group>"; };
 		58AA939125E4EADE00793461 /* ErrorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlert.swift; sourceTree = "<group>"; };
+		58AA939725E50E3200793461 /* FreezeUIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreezeUIController.swift; sourceTree = "<group>"; };
 		58D5C8A725C92BE6008402BE /* DataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataError.swift; sourceTree = "<group>"; };
 		58FCE19525D124DC00654915 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -145,6 +147,7 @@
 				586077F725D58D2700495AB3 /* TasksCell.swift */,
 				58A1F6D925CD0FA100C62AB9 /* BookmarksAlert.swift */,
 				58AA939125E4EADE00793461 /* ErrorAlert.swift */,
+				58AA939725E50E3200793461 /* FreezeUIController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -309,6 +312,7 @@
 			files = (
 				58369FAD25C30DD400296493 /* TopicsViewController.swift in Sources */,
 				58369FBE25C30FBF00296493 /* Topic.swift in Sources */,
+				58AA939825E50E3200793461 /* FreezeUIController.swift in Sources */,
 				58369FEA25C7FE3A00296493 /* QuestionsMediator.swift in Sources */,
 				58369FE725C7FE2F00296493 /* BookmarksMediator.swift in Sources */,
 				58AA939225E4EADE00793461 /* ErrorAlert.swift in Sources */,
