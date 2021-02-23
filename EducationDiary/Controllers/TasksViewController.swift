@@ -16,15 +16,24 @@ class TasksViewController: UITableViewController {
     private lazy var mediator = TasksMediator()
     private var taskViewModels = [TaskViewModel]()
     
+    private var refresh: UIRefreshControl = {
+            let refreshControl = UIRefreshControl()
+            refreshControl.addTarget(self, action:
+                         #selector(TasksViewController.handleRefresh(_:)),
+                                     for: UIControl.Event.valueChanged)
+            refreshControl.tintColor = #colorLiteral(red: 0.2709907293, green: 0.2985699177, blue: 0.3308950067, alpha: 1)
+            return refreshControl
+        }()
+    
     // MARK: - View DidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.tableView.addSubview(self.refresh)
         // add long press gesture
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPressed(sender:)))
         self.tableView.addGestureRecognizer(longPressRecognizer)
         
-        // todo: pull to refresh
         loadData()
     }
 
@@ -148,6 +157,12 @@ class TasksViewController: UITableViewController {
             }
         }
     }
+    
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        taskViewModels.removeAll()
+            loadData()
+            refreshControl.endRefreshing()
+        }
     
     // MARK: - Navigation
     
