@@ -67,7 +67,7 @@ class Mediator<T: Decodable>{
                 self.recogniseResult(result, completion)
             }
         } else {
-//            print("fetch data from DB")
+            //            print("fetch data from DB")
             completion(.failure(DataError.noNetwork))
         }
     }
@@ -86,10 +86,17 @@ class Mediator<T: Decodable>{
     
     // MARK: - PATCH Data
     func updateData<T: Codable>(for model: T, _ completion: @escaping ResultClosure<URLResponse>) {
-    
+        
         let encoder = JSONEncoder()
-        guard let data = try? encoder.encode(model) else { return }
-        guard let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any] else { return }
+        guard let data = try? encoder.encode(model) else {
+            completion(.failure(DataError.invalidData))
+            return
+        }
+        guard let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any] else {
+            completion(.failure(DataError.decodingError))
+            return
+        }
+        
         let model = model as! Model
         
         if networkIsAvaible {
@@ -107,8 +114,15 @@ class Mediator<T: Decodable>{
     func createNewData<T: Codable>(for model: T, _ completion: @escaping ResultClosure<URLResponse>) {
         
         let encoder = JSONEncoder()
-        guard let data = try? encoder.encode(model) else { return }
-        guard let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any] else { return }
+        guard let data = try? encoder.encode(model) else {
+            completion(.failure(DataError.invalidData))
+            return
+        }
+        guard let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any] else {
+            completion(.failure(DataError.decodingError))
+            return
+        }
+        
         let model = model as! Model
         
         if networkIsAvaible {

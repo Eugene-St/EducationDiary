@@ -62,12 +62,12 @@ class TasksViewController: UITableViewController {
 
             let taskViewModel = taskViewModels[indexPath.row]
             
-            mediator.deleteData(for: taskViewModel.task) { result in
+            mediator.deleteData(for: taskViewModel.task) { [weak self] result in
                 switch result {
                     
                 case .success(_):
-                    self.taskViewModels.remove(at: indexPath.row)
-                    self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                    self?.taskViewModels.remove(at: indexPath.row)
+                    self?.tableView.deleteRows(at: [indexPath], with: .automatic)
 
                 case .failure(let error):
                     print(error)

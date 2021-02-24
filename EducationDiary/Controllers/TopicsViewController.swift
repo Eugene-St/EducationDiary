@@ -12,6 +12,7 @@ class TopicsViewController: UITableViewController {
     // MARK: - Private Properties
     private var topics = Topics()
     private lazy var mediator = TopicsMediator()
+    var topicViewModels = [TopicViewModel]()
     
     // MARK: - View DidLoad
     override func viewDidLoad() {
@@ -21,17 +22,14 @@ class TopicsViewController: UITableViewController {
     
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        topics.count
+        topicViewModels.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "topicCell", for: indexPath)
         
-        let topicKeys = Array(topics.keys)
-        let topic = topics[topicKeys[indexPath.row]]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "topicCell", for: indexPath) as! TopicCell
         
-        cell.textLabel?.text = topic?.title
-        cell.detailTextLabel?.text = topic?.status
+        cell.configureFor(topicModel: topicViewModels[indexPath.row])
         
         return cell
     }
@@ -43,10 +41,21 @@ class TopicsViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            print("Deleted")
-            //            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            print("Edited")
+            
+            let topic = topicViewModels[indexPath.row].topic
+            
+            mediator.deleteData(for: topic) { [weak self] result in
+                switch result {
+                
+                case .success(_):
+                    self?.topicViewModels.remove(at: indexPath.row)
+                    self?.tableView.deleteRows(at: [indexPath], with: .automatic)
+                    
+                case .failure(let error):
+                    print("Deletion error", error)
+                    Alert.errorAlert(error: error)
+                }
+            }
         }
     }
     
@@ -55,16 +64,45 @@ class TopicsViewController: UITableViewController {
     }
     
     // MARK: - IBActions
+    @IBAction func addTopicPressed(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "AddNewTopic", sender: nil)
+        
+    }
     
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        switch segue.identifier {
+        case "AddNewTopic":
+            guard let vc = segue.destination as? TopicEditCreateViewController else { return }
+            vc.title = "Add new Topic"
+            print("AddNewTopic")
+        
+        case "TopicDetails":
+            guard let vc = segue.destination as? TopicDetailsViewController else { return }
+            vc.title = "Topic: name"
+//            vc.topicModel = TopicViewModel(topic: , key: <#T##String#>)
+        print("Topic Details ")
+        default:
+            break
+        }
+        
+        
+        
+    }
     
     // MARK: - Private methods
     private func loadData() {
-        mediator.fetchData { result in
+        
+        mediator.fetchData { [weak self] result in
             switch result {
             
             case .success(let topics):
-                self.topics = topics
-                self.tableView.reloadData()
+                topics.forEach { key, topic in
+                    self?.topicViewModels.append(TopicViewModel(topic: topic, key: key))
+                }
+            self?.tableView.reloadData()
+                
             case .failure(let error):
                 print("TopicsMediator ERROR:\(error.localizedDescription)")
             }

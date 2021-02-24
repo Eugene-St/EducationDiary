@@ -23,4 +23,19 @@ struct Topic: Model {
     var modelId: String {
         return id ?? ""
     }
+    
+    static func generateTimeStamp() -> Int {
+        let timeStamp = Int(Date.timeIntervalSinceReferenceDate)
+        return timeStamp
+    }
+}
+
+class TopicViewModel {
+    var topic: Topic
+    let key: String
+    
+    init(topic: Topic, key: String) {
+        self.topic = topic
+        self.key = key
+    }
 }
