@@ -181,18 +181,14 @@ extension TasksViewController: TasksSecondViewControllerDelegate {
     
     func saveData(for task: Task, with id: String) {
         
-        let newTaskModel = TaskViewModel(task: task, key: id)
+        if let index = taskViewModels.firstIndex(where: { $0.key == id }) {
+            taskViewModels[index].task = task
+            self.tableView.reloadRows(at: [IndexPath(item: index, section: 0)], with: .automatic)
         
-        if let index = taskViewModels.firstIndex(where: { $0.key == newTaskModel.key }) {
-            taskViewModels[index] = newTaskModel
-        }
-        
-        let newModels = taskViewModels.filter { $0.key == newTaskModel.key }
-        if newModels.count == 0 {
+        } else {
+            let newTaskModel = TaskViewModel(task: task, key: id)
             taskViewModels.insert(newTaskModel, at: 0)
+                self.tableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .automatic)
         }
-        
-//        self.tableView.insertRows(at: [IndexPath(item: index, section: 0)], with: .automatic)
-        self.tableView.reloadData()
     }
 }

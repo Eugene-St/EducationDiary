@@ -19,7 +19,9 @@ class NetworkManager {
     func getRequest(path: String,
                     _ completion: @escaping ResultClosure<Data>) {
         
-        guard let hostURL = hostURL else { return }
+        guard let hostURL = hostURL else {
+            completion(.failure(DataError.invalidURL))
+            return }
         
         let url = hostURL.appendingPathComponent(path)
         
@@ -53,6 +55,7 @@ class NetworkManager {
     func deleteRequest(path: String, id: String, _ completion: @escaping ResultClosure<URLResponse>) {
         
         guard let hostURL = hostURL else {
+            completion(.failure(DataError.invalidURL))
             print(DataError.invalidURL)
             return }
         
@@ -82,7 +85,10 @@ class NetworkManager {
     // MARK: - PUT
     func putRequest(path: String, id: String?, body: [String: Any], _ completion: @escaping ResultClosure<URLResponse>) {
         
-        guard let hostURL = hostURL else { return }
+        guard let hostURL = hostURL else {
+            completion(.failure(DataError.invalidURL))
+            return
+        }
         let url = hostURL.appendingPathComponent(path + (id ?? "") + ".json")
         
         let putData = body
@@ -125,7 +131,10 @@ class NetworkManager {
     // MARK: - PATCH
     func patchRequest(path: String, id: String?, body: [String: Any], _ completion: @escaping ResultClosure<URLResponse>) {
         
-        guard let hostURL = hostURL else { return }
+        guard let hostURL = hostURL else {
+            completion(.failure(DataError.invalidURL))
+            return
+        }
         let url = hostURL.appendingPathComponent(path + (id ?? "") + ".json")
         
         let putData = body

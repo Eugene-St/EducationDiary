@@ -61,6 +61,7 @@ class TopicsViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        performSegue(withIdentifier: "TopicDetails", sender: indexPath)
     }
     
     // MARK: - IBActions
@@ -76,13 +77,13 @@ class TopicsViewController: UITableViewController {
         case "AddNewTopic":
             guard let vc = segue.destination as? TopicEditCreateViewController else { return }
             vc.title = "Add new Topic"
-            print("AddNewTopic")
-        
+            vc.delegate = self
+            
         case "TopicDetails":
             guard let vc = segue.destination as? TopicDetailsViewController else { return }
-            vc.title = "Topic: name"
-//            vc.topicModel = TopicViewModel(topic: , key: <#T##String#>)
-        print("Topic Details ")
+            guard let indexpath = sender as? IndexPath else { return }
+            vc.title = "\(topicViewModels[indexpath.row].topic.title!)"
+            //            vc.topicModel = TopicViewModel(topic: , key: <#T##String#>)
         default:
             break
         }
@@ -101,11 +102,30 @@ class TopicsViewController: UITableViewController {
                 topics.forEach { key, topic in
                     self?.topicViewModels.append(TopicViewModel(topic: topic, key: key))
                 }
-            self?.tableView.reloadData()
+                self?.tableView.reloadData()
                 
             case .failure(let error):
-                print("TopicsMediator ERROR:\(error.localizedDescription)")
+                    Alert.errorAlert(error: error)
+                    print("TopicsMediator ERROR:\(error.localizedDescription)")
             }
+        }
+    }
+}
+
+extension TopicsViewController: ModelViewControllerDelegate {
+    func saveData(for object: Model, with id: String) {
+        
+        print("Data received!")
+        
+        if let index = topicViewModels.firstIndex(where: { $0.key == id }) {
+            topicViewModels[index].topic = object as! Topic
+            
+            self.tableView.reloadRows(at: [IndexPath(item: index, section: 0)], with: .automatic)
+            
+        } else {
+            let newTaskModel = TopicViewModel(topic: object as! Topic, key: id)
+            topicViewModels.insert(newTaskModel, at: 0)
+            self.tableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .automatic)
         }
     }
 }

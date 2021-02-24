@@ -69,7 +69,10 @@ extension BookmarksViewController {
     private func createNewBookmarkFor(alertController: UIAlertController) {
         
         let timeStamp = Int(Date.timeIntervalSinceReferenceDate)
-        let bookmark = Bookmark(name: alertController.textFields?.first?.text, text: alertController.textFields?.last?.text, sld: String(timeStamp))
+        let bookmark = Bookmark(name: alertController.textFields?.first?.text,
+                                text: alertController.textFields?.last?.text,
+                                sld: String(timeStamp))
+        
         let newBookmarkModel = BookmarkViewModel(bookmark: bookmark, key: String(timeStamp))
         
         mediator.createNewData(for: bookmark) { [weak self] result in

@@ -27,21 +27,26 @@ class FreezeUIController {
     
     private init() {}
     
-    func freezeUI(for controller: UITableViewController) {
-        freezeView.frame = controller.view.frame
+    // todo: call for window instead of controller
+    func freezeUI(for controller: UIViewController) {
+        freezeView.frame = controller.view.bounds
+        freezeView.backgroundColor = .black
         controller.view.addSubview(freezeView)
         freezeView.alpha = 0.1
+//        freezeView.backgroundColor = UIColor(hue: <#T##CGFloat#>, saturation: <#T##CGFloat#>, brightness: <#T##CGFloat#>, alpha: <#T##CGFloat#>) 0.1
+        
         controller.view.addSubview(loginSpinner)
+//        freezeView.addSubview(loginSpinner)
         loginSpinner.centerXAnchor.constraint(equalTo: controller.view.centerXAnchor).isActive = true
         loginSpinner.centerYAnchor.constraint(equalTo: controller.view.centerYAnchor).isActive = true
-        controller.tableView.alwaysBounceVertical = false
+//        controller.tableView.alwaysBounceVertical = false
         loginSpinner.startAnimating()
     }
     
     func disableUIFreeze(for controller: UITableViewController) {
-        freezeView.frame = controller.view.frame
+        freezeView.frame = controller.view.bounds
         freezeView.alpha = 0
         loginSpinner.stopAnimating()
-        controller.tableView.alwaysBounceVertical = true
+//        controller.tableView.alwaysBounceVertical = true
     }
 }

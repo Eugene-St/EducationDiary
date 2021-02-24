@@ -10,3 +10,7 @@ import Foundation
 protocol TasksSecondViewControllerDelegate {
     func saveData(for task: Task, with id: String)
 }
+
+protocol ModelViewControllerDelegate {
+    func saveData(for object: Model, with id: String)
+}

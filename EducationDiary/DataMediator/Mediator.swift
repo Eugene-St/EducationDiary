@@ -35,14 +35,20 @@ class Mediator<T: Decodable>{
     
     //MARK: Recognise result
     private func recogniseResult(_ result: Result<Data, Error>, _ completion: @escaping (ResultClosure<T>)) {
+        
         switch result {
+        
         case .failure(let error):
             completion(.failure(error))
+            
         case .success(let data):
-            if let decodedData = self.parseJSON(data: data) {
-                DispatchQueue.main.async {
-                    completion(.success(decodedData))
-                }
+            
+            guard let decodedData = self.parseJSON(data: data) else {
+                completion(.failure(DataError.decodingError))
+                return
+            }
+            DispatchQueue.main.async {
+                completion(.success(decodedData))
             }
         }
     }
@@ -88,6 +94,7 @@ class Mediator<T: Decodable>{
     func updateData<T: Codable>(for model: T, _ completion: @escaping ResultClosure<URLResponse>) {
         
         let encoder = JSONEncoder()
+        
         guard let data = try? encoder.encode(model) else {
             completion(.failure(DataError.invalidData))
             return
@@ -114,6 +121,7 @@ class Mediator<T: Decodable>{
     func createNewData<T: Codable>(for model: T, _ completion: @escaping ResultClosure<URLResponse>) {
         
         let encoder = JSONEncoder()
+        
         guard let data = try? encoder.encode(model) else {
             completion(.failure(DataError.invalidData))
             return

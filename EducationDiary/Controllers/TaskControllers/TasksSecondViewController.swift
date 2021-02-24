@@ -97,7 +97,7 @@ class TasksSecondViewController: UIViewController {
             case .failure(let error):
                 Alert.errorAlert(error: error)
                 print("Could not update data")
-                self.dismiss(animated: true, completion: nil)
+                self.dismiss(animated: true, completion: nil) // call in alert instead
             }
         }
     }
