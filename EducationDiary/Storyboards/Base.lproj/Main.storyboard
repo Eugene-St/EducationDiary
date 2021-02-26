@@ -83,6 +83,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Topics" id="Ld3-f3-0Oz">
+                        <barButtonItem key="leftBarButtonItem" title="Sort" id="Ava-za-4Ph">
+                            <connections>
+                                <action selector="sortButtonPressed:" destination="2sX-9E-qn0" id="gn8-UZ-e4g"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="d9U-1b-cSr">
                             <color key="tintColor" red="0.80648976559999996" green="0.7222248912" blue="0.56821578740000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
@@ -398,7 +403,7 @@
         <scene sceneID="jfo-Eh-mto">
             <objects>
                 <viewController id="kLM-Lg-0Va" userLabel="1.5" customClass="QuestionDetailsViewController" customModule="EducationDiary" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="slT-av-Raq">
+                    <view key="view" contentMode="scaleToFill" id="slT-av-Raq">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -419,8 +424,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="qR1-g0-C0r">
-                                <rect key="frame" x="87.666666666666686" y="678" width="200" height="31"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="qR1-g0-C0r">
+                                <rect key="frame" x="87.666666666666686" y="-134" width="200" height="31"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Completed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MMm-2H-KB0">
                                         <rect key="frame" x="0.0" y="0.0" width="131" height="31"/>
@@ -804,7 +809,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="a2f-5P-d2A"/>
-        <segue reference="obZ-Io-dNC"/>
+        <segue reference="ahc-1a-8kL"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="brain" width="30" height="30"/>

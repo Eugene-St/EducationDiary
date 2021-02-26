@@ -70,6 +70,12 @@ class TopicsViewController: UITableViewController {
         
     }
     
+    @IBAction func sortButtonPressed(_ sender: UIBarButtonItem) {
+        topicViewModels.sort(by: {$0.topic.due_date ?? 0 < $1.topic.due_date ?? 0})
+        tableView.reloadData()
+    }
+    
+    
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
