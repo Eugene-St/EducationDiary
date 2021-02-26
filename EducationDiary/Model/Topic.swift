@@ -10,7 +10,7 @@ import UIKit
 typealias Topics = [String : Topic]
 
 struct Topic: Model {
-
+    
     let id: String?
     let title: String?
     let links: [String]?
@@ -24,13 +24,6 @@ struct Topic: Model {
         return id ?? ""
     }
     
-//    var defaultDate: Int? = {
-//        var dueDate = 0
-//        let defaultDate = Date(timeIntervalSinceNow: 60 * 60 * 24 * 7)
-//        dueDate = Int(defaultDate.timeIntervalSince1970)
-//        return dueDate
-//    }()
-    
     static func generateTimeStamp() -> Int {
         let timeStamp = Int(Date.timeIntervalSinceReferenceDate)
         return timeStamp
@@ -40,10 +33,33 @@ struct Topic: Model {
 class TopicViewModel {
     var topic: Topic
     let key: String
-    var textColor: UIColor? = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+    var statusTextColor: UIColor? = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+    var dueDateColor: UIColor? = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+    var statusButtonBackColor: UIColor? = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
     
     init(topic: Topic, key: String) {
         self.topic = topic
         self.key = key
+    }
+    
+    func convertedDateToString() -> String {
+        var dueDateStr = ""
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM d, yyyy"
+        if let topicDueDate = topic.due_date {
+            let dueDate = NSDate(timeIntervalSince1970: TimeInterval(topicDueDate)) as Date
+            dueDateStr = "\(dateFormatter.string(from: dueDate))"
+        }
+        return dueDateStr
+    }
+    
+    func convertedTimeStampToDate() -> Date {
+        var pickerDate = Date()
+         
+        if let topicDueDate = topic.due_date {
+            let date = NSDate(timeIntervalSince1970: TimeInterval(topicDueDate))
+            pickerDate = date as Date
+        }
+        return pickerDate
     }
 }

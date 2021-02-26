@@ -15,7 +15,8 @@ class Alert {
         let okAction = UIAlertAction(title: "Ok", style: .default)
         ac.addAction(okAction)
         
-        var rootViewController = UIApplication.shared.keyWindow?.rootViewController
+        var rootViewController = UIApplication.shared.windows.first?.rootViewController
+//        keyWindow?.rootViewController
         
         if let navigationController = rootViewController as? UINavigationController {
             rootViewController = navigationController.viewControllers.first

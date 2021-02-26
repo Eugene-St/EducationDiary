@@ -43,7 +43,7 @@ class FreezeUIController {
         loginSpinner.startAnimating()
     }
     
-    func disableUIFreeze(for controller: UITableViewController) {
+    func disableUIFreeze(for controller: UIViewController) {
         freezeView.frame = controller.view.bounds
         freezeView.alpha = 0
         loginSpinner.stopAnimating()

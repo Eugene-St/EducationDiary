@@ -40,19 +40,12 @@ extension TopicEditCreateViewController {
     }
     
     private func configureStatusandStatusButton(with status: TopicStatus) {
-        
-        let title = "Status:" + " \(status.rawValue)"
-        topicStatusButton.setTitle(title, for: .normal)
-        self.status = status.rawValue
-
-        switch status {
-        case .done: topicStatusButton.backgroundColor = status.associatedColor
-        case .inProgress: topicStatusButton.backgroundColor = status.associatedColor
-        case .onHold: topicStatusButton.backgroundColor = status.associatedColor
-        case .unstarted: topicStatusButton.backgroundColor = status.associatedColor
-        case .noStatus: topicStatusButton.backgroundColor = status.associatedColor
-        }
-
+        topicStatusButton.setTitle(status.rawValue, for: .normal)
+        changesMade = true
+//        topicViewModel?.statusButtonTintColor = status.associatedColor
+//        topicViewModel?.statusTextColor = status.associatedColor
+//        topicStatusButton.backgroundColor = topicViewModel?.statusButtonTintColor
+        topicStatusButton.backgroundColor = status.associatedColor
     }
     
     func showInfoAlert() {
@@ -68,7 +61,7 @@ extension TopicEditCreateViewController {
         
         let message: String = {
             let message: String
-            if status != nil || dueDate != nil || topicTitle != nil {
+            if changesMade {
                 message = "You have unsaved changes"
             } else {
                 message = ""
@@ -76,12 +69,10 @@ extension TopicEditCreateViewController {
             return message
         }()
         
-        let ac = UIAlertController(title: "Are you sure?", message: message, preferredStyle: .alert)
+        let ac = UIAlertController(title: "Are you sure you want to cancel ?", message: message, preferredStyle: .alert)
         
         let okAction = UIAlertAction(title: "Yes", style: .default) { _ in
-            // dismiss changes here
-//            self.dismiss(animated: true)
-            self.navigationController?.popViewController(animated: true)
+        self.navigationController?.popViewController(animated: true)
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)

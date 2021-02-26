@@ -17,7 +17,7 @@ class TasksSecondViewController: UIViewController {
     
     // MARK: - Public Properties
     var task: Task?
-    var delegate: TasksSecondViewControllerDelegate?
+    var delegate: ModelViewControllerDelegate?
     
     // MARK: - Private Properties
     private lazy var mediator = TasksMediator()

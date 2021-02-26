@@ -1,15 +1,11 @@
 //
-//  TasksSecondViewControllerDelegate.swift
+//  ModelViewControllerDelegate.swift
 //  EducationDiary
 //
 //  Created by Eugene St on 10.02.2021.
 //
 
 import Foundation
-
-protocol TasksSecondViewControllerDelegate {
-    func saveData(for task: Task, with id: String)
-}
 
 protocol ModelViewControllerDelegate {
     func saveData(for object: Model, with id: String)

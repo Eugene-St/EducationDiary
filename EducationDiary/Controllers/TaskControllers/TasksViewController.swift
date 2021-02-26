@@ -177,16 +177,15 @@ extension TasksViewController: UIPopoverPresentationControllerDelegate {
 }
 
 // MARK: - TasksSecondViewControllerDelegate
-extension TasksViewController: TasksSecondViewControllerDelegate {
+extension TasksViewController: ModelViewControllerDelegate {
     
-    func saveData(for task: Task, with id: String) {
-        
+    func saveData(for object: Model, with id: String) {
         if let index = taskViewModels.firstIndex(where: { $0.key == id }) {
-            taskViewModels[index].task = task
+            taskViewModels[index].task = object as! Task
             self.tableView.reloadRows(at: [IndexPath(item: index, section: 0)], with: .automatic)
         
         } else {
-            let newTaskModel = TaskViewModel(task: task, key: id)
+            let newTaskModel = TaskViewModel(task: object as! Task, key: id)
             taskViewModels.insert(newTaskModel, at: 0)
                 self.tableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .automatic)
         }
