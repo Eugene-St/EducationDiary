@@ -55,11 +55,35 @@ class TopicViewModel {
     
     func convertedTimeStampToDate() -> Date {
         var pickerDate = Date()
-         
         if let topicDueDate = topic.due_date {
             let date = NSDate(timeIntervalSince1970: TimeInterval(topicDueDate))
             pickerDate = date as Date
         }
         return pickerDate
+    }
+    
+    func dueDateColorReturn() -> UIColor {
+        
+        let toDay = Date()
+        
+        if let topicDueDate = topic.due_date {
+            
+            let dueDate = NSDate(timeIntervalSince1970: TimeInterval(topicDueDate)) as Date
+            
+            let calendar = NSCalendar.current
+            let days = calendar.numberOfDaysBetween(toDay, and: dueDate)
+            
+            if days > 0 {
+                dueDateColor = .black
+            } else if days == 0 {
+                dueDateColor = #colorLiteral(red: 0.7254902124, green: 0.4784313738, blue: 0.09803921729, alpha: 1)
+            } else if days < 0 {
+                dueDateColor = #colorLiteral(red: 0.6915014386, green: 0.06925391194, blue: 0.04372575395, alpha: 1)
+            }
+        }
+        
+        guard let dueDateColor = dueDateColor else { return .purple }
+        
+        return dueDateColor
     }
 }

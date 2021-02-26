@@ -1,5 +1,5 @@
 //
-//  TopicTableViewController+Extension.swift
+//  TopicDetailsViewController+TableExtension.swift
 //  EducationDiary
 //
 //  Created by Eugene St on 26.02.2021.
@@ -24,6 +24,10 @@ extension TopicDetailsViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         true
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

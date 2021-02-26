@@ -112,7 +112,7 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f1j-Cd-kDr">
                                         <rect key="frame" x="20" y="104" width="255" height="40"/>
-                                        <color key="backgroundColor" systemColor="systemGrayColor"/>
+                                        <color key="backgroundColor" systemColor="systemYellowColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="Ogq-cN-3eK"/>
                                         </constraints>
@@ -339,6 +339,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="dueDateTexLabel" destination="Ybh-bv-frv" id="Dx4-Dc-mZY"/>
+                        <outlet property="linksTableView" destination="Mdv-Ft-VY4" id="c1a-LV-fUv"/>
                         <outlet property="notesTextView" destination="7KH-Ij-kKf" id="v54-YT-xyC"/>
                         <outlet property="statusTextLabel" destination="Kwe-bD-l5Z" id="ejZ-hL-6b3"/>
                         <segue destination="vCd-P1-DoK" kind="show" identifier="EditTopic" id="obZ-Io-dNC"/>
@@ -397,7 +398,7 @@
         <scene sceneID="jfo-Eh-mto">
             <objects>
                 <viewController id="kLM-Lg-0Va" userLabel="1.5" customClass="QuestionDetailsViewController" customModule="EducationDiary" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="slT-av-Raq">
+                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="slT-av-Raq">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -418,7 +419,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="qR1-g0-C0r">
+                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="qR1-g0-C0r">
                                 <rect key="frame" x="87.666666666666686" y="678" width="200" height="31"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Completed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MMm-2H-KB0">
@@ -815,8 +816,8 @@
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
-        <systemColor name="systemGrayColor">
-            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

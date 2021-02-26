@@ -41,10 +41,6 @@ extension TopicEditCreateViewController {
     
     private func configureStatusandStatusButton(with status: TopicStatus) {
         topicStatusButton.setTitle(status.rawValue, for: .normal)
-        changesMade = true
-//        topicViewModel?.statusButtonTintColor = status.associatedColor
-//        topicViewModel?.statusTextColor = status.associatedColor
-//        topicStatusButton.backgroundColor = topicViewModel?.statusButtonTintColor
         topicStatusButton.backgroundColor = status.associatedColor
     }
     

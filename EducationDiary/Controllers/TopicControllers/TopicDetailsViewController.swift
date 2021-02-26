@@ -14,6 +14,7 @@ class TopicDetailsViewController: UIViewController {
     @IBOutlet weak var notesTextView: UITextView!
     @IBOutlet weak var statusTextLabel: UILabel!
     @IBOutlet weak var dueDateTexLabel: UILabel!
+    @IBOutlet weak var linksTableView: UITableView!
     
     // MARK: - Private properties
     var topicViewModel: TopicViewModel?
@@ -23,6 +24,7 @@ class TopicDetailsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setUpUI()
+        print(topicViewModel?.dueDateColor)
     }
     
     @IBAction func editNotesButtonPressed(_ sender: UIButton) {
@@ -40,7 +42,8 @@ class TopicDetailsViewController: UIViewController {
     }
     
     @IBAction func AddNewLinkButtonPressed(_ sender: UIButton) {
-        showAddLinkAlertController()
+        showAddLinkAlertController(tableView: linksTableView)
+        
     }
     
     @IBAction func editButtonPressed(_ sender: UIBarButtonItem) {
@@ -60,7 +63,7 @@ class TopicDetailsViewController: UIViewController {
         
         let topic = Topic(id: topicViewModel?.topic.id,
                           title: topicViewModel?.topic.title,
-                          links: topicViewModel?.topic.links, // ?
+                          links: topicViewModel?.topic.links,
                           notes: notesTextView.text,
                           status: topicViewModel?.topic.status,
                           due_date: topicViewModel?.topic.due_date,
@@ -125,3 +128,6 @@ class TopicDetailsViewController: UIViewController {
         }
     }
 }
+
+
+

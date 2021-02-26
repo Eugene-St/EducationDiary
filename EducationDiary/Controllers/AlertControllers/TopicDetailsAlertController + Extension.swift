@@ -9,7 +9,7 @@ import UIKit
 
 extension TopicDetailsViewController {
     
-    func showAddLinkAlertController() {
+    func showAddLinkAlertController(tableView: UITableView) {
         
         let placeholders = [
             "https://dataart.com",
@@ -21,7 +21,7 @@ extension TopicDetailsViewController {
         
         let saveAction = UIAlertAction(title: "Save", style: .default) { [weak self] _ in
             
-            self?.saveLink(for: ac)
+            self?.saveLink(for: ac, tableView)
         }
         
         ac.addTextField { text in
@@ -43,11 +43,10 @@ extension TopicDetailsViewController {
         ac.addAction(cancelAction)
         saveAction.isEnabled = false
         ac.addAction(saveAction)
-        present(ac, animated: true, completion: nil)
-
+        present(ac, animated: true)
     }
     
-    private func saveLink(for controller: UIAlertController) {
+    private func saveLink(for controller: UIAlertController, _ tableView: UITableView) {
         
         var links: [String] = []
         
@@ -70,14 +69,12 @@ extension TopicDetailsViewController {
             
             switch result {
             case .success(_):
-//                self?.topicViewModel?.topic = topic
-            print("added")
-                
+                self?.topicViewModel?.topic = topic
+                tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
                 
             case .failure(let error):
                 Alert.errorAlert(error: error)
             }
         }
-
     }
 }

@@ -31,10 +31,6 @@ class TopicEditCreateViewController: UIViewController {
         loadData()
     }
     
-    deinit {
-        print("TopicEditCreateViewController deallocated")
-    }
-    
     // MARK: - IBActions
     @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
         if topicViewModel == nil {
@@ -49,6 +45,8 @@ class TopicEditCreateViewController: UIViewController {
     }
     
     @IBAction func selectStatusButtonPressed(_ sender: UIButton) {
+        changesMade = true
+        
         if topicViewModel != nil {
             saveButton.isEnabled = true
         }
@@ -118,7 +116,10 @@ class TopicEditCreateViewController: UIViewController {
                 
                 self?.topicViewModel?.topic = topic
                 self?.topicViewModel?.statusTextColor = self?.topicStatusButton.backgroundColor
+                
                 self?.topicViewModel?.statusButtonBackColor = self?.topicStatusButton.backgroundColor
+                
+                self?.topicViewModel?.dueDateColor = self?.topicViewModel?.dueDateColorReturn()
                 
                 if let topicViewModel = self?.topicViewModel {
                     self?.onCompletionFromEditVC?(topicViewModel)
@@ -133,8 +134,6 @@ class TopicEditCreateViewController: UIViewController {
         }
     }
     
-    
-    
     // setup UI
     private func setUpUI() {
         
@@ -147,6 +146,8 @@ class TopicEditCreateViewController: UIViewController {
         backgroundView.layer.cornerRadius = 10
         backgroundView.layer.shadowOffset = CGSize(width: 25, height: 25)
         backgroundView.layer.shadowOpacity = 0.3
+        
+        topicStatusButton.backgroundColor = .black
         
         if let topicModel = topicViewModel {
             topicStatusButton.backgroundColor = topicModel.statusButtonBackColor
@@ -192,14 +193,6 @@ extension TopicEditCreateViewController: UITextFieldDelegate {
 
         let text = (textField.text! as NSString).replacingCharacters(in: range, with: string)
         changesMade = true
-        
-//        if topicModel != nil && changesMade {
-//            saveButton.isEnabled = true
-//        } else if topicModel == nil && !text.isEmpty {
-//            saveButton.isEnabled = true
-//        } else {
-//            saveButton.isEnabled = false
-//        }
 
         if !text.isEmpty {
             saveButton.isEnabled = true

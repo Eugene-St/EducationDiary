@@ -54,6 +54,7 @@ class TopicCell: UITableViewCell {
             dueDateTextLabel.isHidden = false
         }
         
+        
         let toDay = Date()
         
         guard let topicDueDate = topicModel.topic.due_date else { return }
@@ -66,12 +67,9 @@ class TopicCell: UITableViewCell {
             dueDateTextLabel.text = "Due in \(days) day(s)"
         } else if days == 0 {
             dueDateTextLabel.text = "Today"
-            topicModel.dueDateColor = #colorLiteral(red: 0.7254902124, green: 0.4784313738, blue: 0.09803921729, alpha: 1)
         } else if days < 0 {
             dueDateTextLabel.text = "\(abs(days)) days overdue"
-            topicModel.dueDateColor = #colorLiteral(red: 0.6915014386, green: 0.06925391194, blue: 0.04372575395, alpha: 1)
         }
-        
-        dueDateTextLabel.textColor = topicModel.dueDateColor
+        dueDateTextLabel.textColor = topicModel.dueDateColorReturn()
     }
 }
