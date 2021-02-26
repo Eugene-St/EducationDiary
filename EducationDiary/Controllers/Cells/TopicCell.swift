@@ -25,24 +25,7 @@ class TopicCell: UITableViewCell {
     // configure status text label
     private func configureStatus(for topicModel: TopicViewModel) {
         statusTextLabel?.text = topicModel.topic.status
-        
-        switch topicModel.topic.status {
-        case TopicStatus.done.rawValue:
-            topicModel.statusTextColor = TopicStatus.done.associatedColor
-            topicModel.statusButtonBackColor = TopicStatus.done.associatedColor
-
-        case TopicStatus.inProgress.rawValue:
-            topicModel.statusTextColor = TopicStatus.inProgress.associatedColor
-            topicModel.statusButtonBackColor = TopicStatus.inProgress.associatedColor
-
-        case TopicStatus.onHold.rawValue:
-            topicModel.statusTextColor = TopicStatus.onHold.associatedColor
-            topicModel.statusButtonBackColor = TopicStatus.onHold.associatedColor
-
-        default: break
-        }
-
-        statusTextLabel?.textColor = topicModel.statusTextColor
+        statusTextLabel.textColor = topicModel.statusTextColorReturn()
     }
     
     // configure due date label
@@ -54,22 +37,7 @@ class TopicCell: UITableViewCell {
             dueDateTextLabel.isHidden = false
         }
         
-        
-        let toDay = Date()
-        
-        guard let topicDueDate = topicModel.topic.due_date else { return }
-        let dueDate = NSDate(timeIntervalSince1970: TimeInterval(topicDueDate)) as Date
-        
-        let calendar = NSCalendar.current
-        let days = calendar.numberOfDaysBetween(toDay, and: dueDate)
-        
-        if days > 0 {
-            dueDateTextLabel.text = "Due in \(days) day(s)"
-        } else if days == 0 {
-            dueDateTextLabel.text = "Today"
-        } else if days < 0 {
-            dueDateTextLabel.text = "\(abs(days)) days overdue"
-        }
-        dueDateTextLabel.textColor = topicModel.dueDateColorReturn()
+        dueDateTextLabel.text = topicModel.dueDateColorAndTextReturn().text
+        dueDateTextLabel.textColor = topicModel.dueDateColorAndTextReturn().color
     }
 }

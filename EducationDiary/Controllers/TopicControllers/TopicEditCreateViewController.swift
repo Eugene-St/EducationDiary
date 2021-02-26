@@ -119,7 +119,7 @@ class TopicEditCreateViewController: UIViewController {
                 
                 self?.topicViewModel?.statusButtonBackColor = self?.topicStatusButton.backgroundColor
                 
-                self?.topicViewModel?.dueDateColor = self?.topicViewModel?.dueDateColorReturn()
+                self?.topicViewModel?.dueDateColor = self?.topicViewModel?.dueDateColorAndTextReturn().color
                 
                 if let topicViewModel = self?.topicViewModel {
                     self?.onCompletionFromEditVC?(topicViewModel)

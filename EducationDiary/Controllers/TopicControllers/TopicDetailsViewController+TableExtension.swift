@@ -27,6 +27,12 @@ extension TopicDetailsViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let text = topicViewModel?.topic.links?[indexPath.row] {
+            if let url = URL(string: text) {
+                UIApplication.shared.open(url)
+            }
+        }
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
     

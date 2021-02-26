@@ -37,13 +37,14 @@
 		58369FEA25C7FE3A00296493 /* QuestionsMediator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FE925C7FE3A00296493 /* QuestionsMediator.swift */; };
 		58369FEE25C8081D00296493 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FED25C8081D00296493 /* NetworkMonitor.swift */; };
 		5838539225E68EB5004091B3 /* TopicStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5838539125E68EB5004091B3 /* TopicStatus.swift */; };
+		585D4DAF25E97E4500184524 /* TopicViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 585D4DAE25E97E4500184524 /* TopicViewModel.swift */; };
 		586077EF25D4356700495AB3 /* ModelViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586077EE25D4356700495AB3 /* ModelViewControllerDelegate.swift */; };
 		586077F325D5594000495AB3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586077F225D5594000495AB3 /* Extensions.swift */; };
 		586077F825D58D2700495AB3 /* TasksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586077F725D58D2700495AB3 /* TasksCell.swift */; };
-		58976A9A25E543B000F7EF0D /* TopicsAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58976A9925E543B000F7EF0D /* TopicsAlertController.swift */; };
+		58976A9A25E543B000F7EF0D /* TopicEditCreateViewController+AlertExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58976A9925E543B000F7EF0D /* TopicEditCreateViewController+AlertExtension.swift */; };
 		5898010925E9078D00F36B0D /* TopicDetailsViewController+TableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5898010825E9078D00F36B0D /* TopicDetailsViewController+TableExtension.swift */; };
-		5898010E25E925AE00F36B0D /* TopicDetailsAlertController + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5898010D25E925AE00F36B0D /* TopicDetailsAlertController + Extension.swift */; };
-		58A1F6DA25CD0FA100C62AB9 /* BookmarksAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A1F6D925CD0FA100C62AB9 /* BookmarksAlert.swift */; };
+		5898010E25E925AE00F36B0D /* TopicDetailsViewController+AlertExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5898010D25E925AE00F36B0D /* TopicDetailsViewController+AlertExtension.swift */; };
+		58A1F6DA25CD0FA100C62AB9 /* BookmarksViewController+AlertExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A1F6D925CD0FA100C62AB9 /* BookmarksViewController+AlertExtension.swift */; };
 		58AA939225E4EADE00793461 /* ErrorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AA939125E4EADE00793461 /* ErrorAlert.swift */; };
 		58AA939825E50E3200793461 /* FreezeUIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AA939725E50E3200793461 /* FreezeUIController.swift */; };
 		58AA939B25E5216800793461 /* TopicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AA939A25E5216800793461 /* TopicCell.swift */; };
@@ -84,13 +85,14 @@
 		58369FE925C7FE3A00296493 /* QuestionsMediator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsMediator.swift; sourceTree = "<group>"; };
 		58369FED25C8081D00296493 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		5838539125E68EB5004091B3 /* TopicStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicStatus.swift; sourceTree = "<group>"; };
+		585D4DAE25E97E4500184524 /* TopicViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicViewModel.swift; sourceTree = "<group>"; };
 		586077EE25D4356700495AB3 /* ModelViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelViewControllerDelegate.swift; sourceTree = "<group>"; };
 		586077F225D5594000495AB3 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		586077F725D58D2700495AB3 /* TasksCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksCell.swift; sourceTree = "<group>"; };
-		58976A9925E543B000F7EF0D /* TopicsAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsAlertController.swift; sourceTree = "<group>"; };
+		58976A9925E543B000F7EF0D /* TopicEditCreateViewController+AlertExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TopicEditCreateViewController+AlertExtension.swift"; sourceTree = "<group>"; };
 		5898010825E9078D00F36B0D /* TopicDetailsViewController+TableExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TopicDetailsViewController+TableExtension.swift"; sourceTree = "<group>"; };
-		5898010D25E925AE00F36B0D /* TopicDetailsAlertController + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TopicDetailsAlertController + Extension.swift"; sourceTree = "<group>"; };
-		58A1F6D925CD0FA100C62AB9 /* BookmarksAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksAlert.swift; sourceTree = "<group>"; };
+		5898010D25E925AE00F36B0D /* TopicDetailsViewController+AlertExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TopicDetailsViewController+AlertExtension.swift"; sourceTree = "<group>"; };
+		58A1F6D925CD0FA100C62AB9 /* BookmarksViewController+AlertExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookmarksViewController+AlertExtension.swift"; sourceTree = "<group>"; };
 		58AA939125E4EADE00793461 /* ErrorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlert.swift; sourceTree = "<group>"; };
 		58AA939725E50E3200793461 /* FreezeUIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreezeUIController.swift; sourceTree = "<group>"; };
 		58AA939A25E5216800793461 /* TopicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCell.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 				58976AA225E66BEA00F7EF0D /* BookmarkControllers */,
 				58976AA125E66BD500F7EF0D /* TaskControllers */,
 				58976AA025E66BC200F7EF0D /* TopicControllers */,
+				58AA939725E50E3200793461 /* FreezeUIController.swift */,
 				58976A9C25E66B7600F7EF0D /* Cells */,
 				58976A9D25E66B9800F7EF0D /* AlertControllers */,
 			);
@@ -188,6 +191,7 @@
 				5838539025E68E99004091B3 /* TopicStatuses */,
 				58369F8825C2DEC500296493 /* EducationDiary.xcdatamodeld */,
 				58369FBD25C30FBF00296493 /* Topic.swift */,
+				585D4DAE25E97E4500184524 /* TopicViewModel.swift */,
 				58369FC125C30FCA00296493 /* Question.swift */,
 				58369FC425C30FD500296493 /* Tasks.swift */,
 				58369FC725C30FE800296493 /* Bookmark.swift */,
@@ -257,11 +261,10 @@
 		58976A9D25E66B9800F7EF0D /* AlertControllers */ = {
 			isa = PBXGroup;
 			children = (
-				58976A9925E543B000F7EF0D /* TopicsAlertController.swift */,
-				5898010D25E925AE00F36B0D /* TopicDetailsAlertController + Extension.swift */,
-				58A1F6D925CD0FA100C62AB9 /* BookmarksAlert.swift */,
+				58976A9925E543B000F7EF0D /* TopicEditCreateViewController+AlertExtension.swift */,
+				5898010D25E925AE00F36B0D /* TopicDetailsViewController+AlertExtension.swift */,
+				58A1F6D925CD0FA100C62AB9 /* BookmarksViewController+AlertExtension.swift */,
 				58AA939125E4EADE00793461 /* ErrorAlert.swift */,
-				58AA939725E50E3200793461 /* FreezeUIController.swift */,
 			);
 			path = AlertControllers;
 			sourceTree = "<group>";
@@ -387,14 +390,14 @@
 				58369FEA25C7FE3A00296493 /* QuestionsMediator.swift in Sources */,
 				58369FE725C7FE2F00296493 /* BookmarksMediator.swift in Sources */,
 				58AA939225E4EADE00793461 /* ErrorAlert.swift in Sources */,
-				58A1F6DA25CD0FA100C62AB9 /* BookmarksAlert.swift in Sources */,
+				58A1F6DA25CD0FA100C62AB9 /* BookmarksViewController+AlertExtension.swift in Sources */,
 				58369FEE25C8081D00296493 /* NetworkMonitor.swift in Sources */,
 				58369FA725C30D4C00296493 /* BookmarksViewController.swift in Sources */,
 				5829570E25CACCA300F68CA7 /* BookmarksCell.swift in Sources */,
 				58D5C8A825C92BE6008402BE /* DataError.swift in Sources */,
 				58369FB425C30E5A00296493 /* TopicEditCreateViewController.swift in Sources */,
 				5838539225E68EB5004091B3 /* TopicStatus.swift in Sources */,
-				58976A9A25E543B000F7EF0D /* TopicsAlertController.swift in Sources */,
+				58976A9A25E543B000F7EF0D /* TopicEditCreateViewController+AlertExtension.swift in Sources */,
 				58369FCD25C3683B00296493 /* NetworkManager.swift in Sources */,
 				58369FAA25C30D9F00296493 /* TasksSecondViewController.swift in Sources */,
 				58369FE425C7FE1900296493 /* TopicsMediator.swift in Sources */,
@@ -407,7 +410,7 @@
 				58369FB725C30E7A00296493 /* QuestionsViewController.swift in Sources */,
 				586077EF25D4356700495AB3 /* ModelViewControllerDelegate.swift in Sources */,
 				58369FC225C30FCA00296493 /* Question.swift in Sources */,
-				5898010E25E925AE00F36B0D /* TopicDetailsAlertController + Extension.swift in Sources */,
+				5898010E25E925AE00F36B0D /* TopicDetailsViewController+AlertExtension.swift in Sources */,
 				58369F8025C2DEC500296493 /* AppDelegate.swift in Sources */,
 				58369FD225C7EF9300296493 /* Mediator.swift in Sources */,
 				58369FD625C7F8A000296493 /* NetworkMethods.swift in Sources */,
@@ -415,6 +418,7 @@
 				586077F325D5594000495AB3 /* Extensions.swift in Sources */,
 				5810ABA625E92CC70063BF8E /* TopicDetailsViewController.swift in Sources */,
 				58369FC525C30FD500296493 /* Tasks.swift in Sources */,
+				585D4DAF25E97E4500184524 /* TopicViewModel.swift in Sources */,
 				58369FE125C7FE0D00296493 /* TasksMediator.swift in Sources */,
 				58FCE19625D124DC00654915 /* CoreDataManager.swift in Sources */,
 				5819B60A25E3C1980062748C /* Model.swift in Sources */,
