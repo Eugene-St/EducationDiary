@@ -71,9 +71,23 @@ class TopicsViewController: UITableViewController {
     }
     
     @IBAction func sortButtonPressed(_ sender: UIBarButtonItem) {
-        topicViewModels.sort(by: {$0.topic.due_date ?? 0 < $1.topic.due_date ?? 0})
-        tableView.reloadData()
+        showSortAlert()
     }
+    
+    private func presentSortPopOver() {
+        
+        guard let vc = storyboard?.instantiateViewController(identifier: "SortTopicsVC") as? SortTopicsPopoverVC else { return }
+        
+        vc.modalPresentationStyle = .popover
+        //        vc.delegate = self
+        
+        guard let popover = vc.popoverPresentationController else { return }
+        popover.delegate = self
+        popover.barButtonItem = navigationItem.leftBarButtonItem
+        self.present(vc, animated: true)
+    }
+    
+    
     
     
     // MARK: - Navigation
@@ -127,5 +141,11 @@ class TopicsViewController: UITableViewController {
                     print("TopicsMediator ERROR:\(error.localizedDescription)")
             }
         }
+    }
+}
+
+extension TopicsViewController: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        .none
     }
 }

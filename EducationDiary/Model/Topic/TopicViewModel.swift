@@ -10,9 +10,9 @@ import UIKit
 class TopicViewModel {
     var topic: Topic
     let key: String
-    var statusTextColor: UIColor? = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-    var dueDateColor: UIColor? = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-    var statusButtonBackColor: UIColor? = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+    var statusTextColor: UIColor?
+    var dueDateColor: UIColor?
+    var statusButtonBackColor: UIColor?
     
     init(topic: Topic, key: String) {
         self.topic = topic
@@ -81,6 +81,10 @@ class TopicViewModel {
         case TopicStatus.onHold.rawValue:
             statusTextColor = TopicStatus.onHold.associatedColor
             statusButtonBackColor = TopicStatus.onHold.associatedColor
+            
+        case TopicStatus.unstarted.rawValue:
+            statusTextColor = TopicStatus.unstarted.associatedColor
+            statusButtonBackColor = TopicStatus.unstarted.associatedColor
             
         default: break
         }

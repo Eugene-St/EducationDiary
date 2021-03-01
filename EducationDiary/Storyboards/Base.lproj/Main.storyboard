@@ -9,6 +9,37 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Sort Topics PopoverVC-->
+        <scene sceneID="Wtp-Ng-E90">
+            <objects>
+                <tableViewController storyboardIdentifier="SortTopicsVC" id="4M3-Rh-mOI" customClass="SortTopicsPopoverVC" customModule="EducationDiary" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="kkO-Ub-g8y">
+                        <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="sortTopicCell" id="6Hv-h7-8U4">
+                                <rect key="frame" x="0.0" y="28" width="250" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6Hv-h7-8U4" id="YtO-23-jpl">
+                                    <rect key="frame" x="0.0" y="0.0" width="250" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="4M3-Rh-mOI" id="Gg3-X8-zAf"/>
+                            <outlet property="delegate" destination="4M3-Rh-mOI" id="F7M-9P-5fd"/>
+                        </connections>
+                    </tableView>
+                    <value key="contentSizeForViewInPopover" type="size" width="150" height="165"/>
+                    <modalPageSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="250" height="250"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3WA-8C-tIX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="816" y="-832"/>
+        </scene>
         <!--1.1-->
         <scene sceneID="BxG-mD-qO1">
             <objects>
@@ -83,7 +114,8 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Topics" id="Ld3-f3-0Oz">
-                        <barButtonItem key="leftBarButtonItem" title="Sort" id="Ava-za-4Ph">
+                        <barButtonItem key="leftBarButtonItem" title="Sort by:" id="Ava-za-4Ph">
+                            <color key="tintColor" red="0.80648976559999996" green="0.7222248912" blue="0.56821578740000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="sortButtonPressed:" destination="2sX-9E-qn0" id="gn8-UZ-e4g"/>
                             </connections>
@@ -425,7 +457,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="qR1-g0-C0r">
-                                <rect key="frame" x="87.666666666666686" y="-134" width="200" height="31"/>
+                                <rect key="frame" x="87.666666666666686" y="678" width="200" height="31"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Completed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MMm-2H-KB0">
                                         <rect key="frame" x="0.0" y="0.0" width="131" height="31"/>
@@ -631,7 +663,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OqG-KQ-aYf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1985.5072463768117" y="304.6875"/>
+            <point key="canvasLocation" x="1877" y="304"/>
         </scene>
         <!--3.1-->
         <scene sceneID="0ey-vl-s8d">
