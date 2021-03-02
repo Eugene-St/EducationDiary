@@ -222,7 +222,7 @@
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="7KH-Ij-kKf">
                                 <rect key="frame" x="0.0" y="88.000000000000014" width="375" height="237.33333333333337"/>
-                                <color key="backgroundColor" red="0.2395803332" green="0.69150143860000002" blue="0.4762094617" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.80648976559999996" green="0.72199788240667051" blue="0.57556356811844223" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
@@ -250,20 +250,25 @@
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NY1-GZ-LQZ">
                                 <rect key="frame" x="205" y="642" width="150" height="57"/>
-                                <color key="backgroundColor" red="0.2395803332" green="0.69150143860000002" blue="0.4762094617" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.80648976559999996" green="0.7222248912" blue="0.56821578740000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="150" id="Grl-3h-pRj"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="17"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Questions / Number"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="questionsButtonPressed:" destination="Wtk-5l-zC7" eventType="touchUpInside" id="DFi-TY-iC5"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nwA-Lz-FP1">
                                 <rect key="frame" x="225" y="335.33333333333331" width="100" height="30"/>
-                                <color key="backgroundColor" red="0.2395803332" green="0.69150143860000002" blue="0.4762094617" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.80648976559999996" green="0.7222248912" blue="0.56821578740000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="ZN7-ya-loJ"/>
                                     <constraint firstAttribute="height" constant="30" id="nIy-Vl-A3V"/>
@@ -272,21 +277,26 @@
                                 <state key="normal" title="+ Link">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="AddNewLinkButtonPressed:" destination="Wtk-5l-zC7" eventType="touchUpInside" id="sqk-Hc-5hl"/>
                                 </connections>
                             </button>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="97c-nk-kQb">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="-30" translatesAutoresizingMaskIntoConstraints="NO" id="97c-nk-kQb">
                                 <rect key="frame" x="20" y="617" width="175" height="107"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kwe-bD-l5Z">
-                                        <rect key="frame" x="0.0" y="0.0" width="44.666666666666664" height="46"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="44.666666666666664" height="68.666666666666671"/>
                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Due date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ybh-bv-frv">
-                                        <rect key="frame" x="0.0" y="61" width="65" height="46"/>
+                                        <rect key="frame" x="0.0" y="38.666666666666622" width="65" height="68.333333333333314"/>
                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -295,7 +305,7 @@
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fzQ-a8-G9K">
                                 <rect key="frame" x="50" y="335.33333333333331" width="100" height="30"/>
-                                <color key="backgroundColor" red="0.63959316565576851" green="0.64790684228778184" blue="0.089003582861195002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.80648976559999996" green="0.7222248912" blue="0.56821578740000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="6X4-oM-I9N"/>
                                     <constraint firstAttribute="height" constant="30" id="eIe-aZ-1j3"/>
@@ -303,6 +313,11 @@
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="18"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Edit notes"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="editNotesButtonPressed:" destination="Wtk-5l-zC7" eventType="touchUpInside" id="xbB-D6-fxm"/>
                                 </connections>
@@ -341,8 +356,14 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Topic name" id="Fy2-wI-trj">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="Nda-1e-8NF">
+                            <color key="tintColor" red="0.80648976559999996" green="0.7222248912" blue="0.56821578740000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="backButtonPressed:" destination="Wtk-5l-zC7" id="iVX-i1-StV"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="edit" id="Na6-Jf-p7A">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="tintColor" red="0.80648976559999996" green="0.7222248912" blue="0.56821578740000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="editButtonPressed:" destination="Wtk-5l-zC7" id="3XB-i4-jum"/>
                             </connections>
@@ -430,8 +451,14 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" title="Questions" id="tvh-9m-XMd">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="aiF-DT-iRc">
+                            <color key="tintColor" red="0.80648976559999996" green="0.7222248912" blue="0.56821578740000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="backButtonPressed:" destination="GL9-s5-zrQ" id="Ibh-xx-6LF"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="rjS-g3-RZA">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="tintColor" red="0.80648976559999996" green="0.7222248912" blue="0.56821578740000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="addNewQuestionButtonPressed:" destination="GL9-s5-zrQ" id="35B-kM-X0r"/>
                             </connections>
@@ -456,20 +483,26 @@
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="qy5-y0-8ay">
                                 <rect key="frame" x="0.0" y="108" width="375" height="250"/>
-                                <color key="backgroundColor" red="0.58517313000000004" green="0.4606387019" blue="0.90832060579999996" alpha="0.55413590000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.80648976559999996" green="0.7222248912" blue="0.56821578740000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="250" id="v07-ai-DvA"/>
                                 </constraints>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <connections>
+                                    <outlet property="delegate" destination="kLM-Lg-0Va" id="3Ie-OL-ZaT"/>
+                                </connections>
                             </textView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="6vB-kf-JMp">
                                 <rect key="frame" x="0.0" y="378" width="375" height="249.66666666666663"/>
-                                <color key="backgroundColor" red="0.58517313000000004" green="0.4606387019" blue="0.90832060579999996" alpha="0.55413590000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.80648976559999996" green="0.7222248912" blue="0.56821578740000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <connections>
+                                    <outlet property="delegate" destination="kLM-Lg-0Va" id="Zkr-iP-Nax"/>
+                                </connections>
                             </textView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="qR1-g0-C0r">
                                 <rect key="frame" x="20" y="647.66666666666663" width="335" height="31"/>
@@ -482,6 +515,9 @@
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="fDB-6N-ZFe">
                                         <rect key="frame" x="286" y="0.0" width="51" height="31"/>
+                                        <connections>
+                                            <action selector="switchButtonPressed:" destination="kLM-Lg-0Va" eventType="valueChanged" id="eU7-te-g8g"/>
+                                        </connections>
                                     </switch>
                                 </subviews>
                             </stackView>
@@ -504,6 +540,9 @@
                     <navigationItem key="navigationItem" title="Add or Edit" id="vvY-4v-3fw">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="BGj-g3-OiS">
                             <color key="tintColor" red="0.85576534270000004" green="0.21670885479999999" blue="0.41599963169999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="cancelButtonPressed:" destination="kLM-Lg-0Va" id="eaw-Pe-MAc"/>
+                            </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="pPI-kg-nUl">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -516,6 +555,7 @@
                         <outlet property="answerTextView" destination="6vB-kf-JMp" id="IEr-R1-dci"/>
                         <outlet property="completedSwitchLabel" destination="fDB-6N-ZFe" id="ukF-De-vcg"/>
                         <outlet property="questionTextView" destination="qy5-y0-8ay" id="Acn-dx-97k"/>
+                        <outlet property="saveButton" destination="pPI-kg-nUl" id="3uA-is-3lT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="exC-UL-pWQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -858,7 +898,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="gMd-7O-d4a"/>
-        <segue reference="ahc-1a-8kL"/>
+        <segue reference="obZ-Io-dNC"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="brain" width="30" height="30"/>

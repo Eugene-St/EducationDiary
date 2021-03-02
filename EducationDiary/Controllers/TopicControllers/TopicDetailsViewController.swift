@@ -42,10 +42,20 @@ class TopicDetailsViewController: UIViewController {
         }
     }
     
+    @IBAction func backButtonPressed(_ sender: UIBarButtonItem) {
+        if let topicViewModel = topicViewModel {
+            onCompletionFromDetailsVC?(topicViewModel)
+        }
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    
     @IBAction func AddNewLinkButtonPressed(_ sender: UIButton) {
         showAddLinkAlertController(tableView: linksTableView)
         
     }
+    
+    
     
     @IBAction func editButtonPressed(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: "EditTopic", sender: nil)
@@ -63,6 +73,7 @@ class TopicDetailsViewController: UIViewController {
         statusTextLabel.textColor = topicViewModel?.statusTextColor
         dueDateTexLabel.textColor = topicViewModel?.dueDateColor
         notesTextView.text = topicViewModel?.topic.notes
+        questionsButton.setTitle("Questions: \(topicViewModel?.topic.questions?.count ?? 0)", for: .normal)
     }
     
     private func saveNotes() {
@@ -126,6 +137,12 @@ class TopicDetailsViewController: UIViewController {
             
             vc.topic = topicViewModel?.topic
             
+            vc.onCompletionFromQuestionsVC = { [weak self] topic in
+                if let topic = topic {
+                    self?.topicViewModel?.topic = topic
+                }
+            }
+            
             // todo: pass on completion questions
             
         default:
@@ -133,14 +150,14 @@ class TopicDetailsViewController: UIViewController {
         }
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        print("TopicDetailsViewController")
-        if let topicViewModel = topicViewModel {
-            onCompletionFromDetailsVC?(topicViewModel)
-        }
-    }
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(animated)
+//
+//        print("TopicDetailsViewController")
+//        if let topicViewModel = topicViewModel {
+//            onCompletionFromDetailsVC?(topicViewModel)
+//        }
+//    }
 }
 
 

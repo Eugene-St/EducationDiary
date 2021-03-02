@@ -11,21 +11,32 @@ class QuestionEditCreateViewController: UIViewController {
     
     @IBOutlet weak var questionTextView: UITextView!
     @IBOutlet weak var answerTextView: UITextView!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var completedSwitchLabel: UISwitch!
     
     var topic: Topic?
+    var changesMade: Bool = false
     private lazy var mediator = TopicsMediator()
-    var onCompletionFromQuestionDetailsVC: ((_ topicViewModel: Question) -> ())?
+    var onCompletionFromQuestionDetailsVC: ((_ topic: Topic) -> ())?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        saveButton.isEnabled = false
     }
     
     @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
         createQuestion()
     }
     
-    func createQuestion() {
+    @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
+        showCancelAlert()
+    }
+    
+    @IBAction func switchButtonPressed(_ sender: UISwitch) {
+        changesMade = true
+    }
+    
+    private func createQuestion() {
         
         var questions: [Question] = []
         
@@ -33,7 +44,9 @@ class QuestionEditCreateViewController: UIViewController {
             questions = topicQuestions
         }
         
-        let timeStamp = Topic.generateTimeStamp()
+        print("Questions before append - \(questions.count)")
+        
+        let timeStamp = Int(Date.timeIntervalSinceReferenceDate)
         
         let  question = Question(id: String(timeStamp),
                                  topic_id: String(timeStamp),
@@ -42,6 +55,8 @@ class QuestionEditCreateViewController: UIViewController {
                                  done: completedSwitchLabel.isOn)
         
         questions.insert(question, at: 0)
+        
+        print("Questions after append - \(questions.count)")
         
         let topic = Topic(id: self.topic?.id,
                           title: self.topic?.title,
@@ -52,17 +67,24 @@ class QuestionEditCreateViewController: UIViewController {
                           created_on: self.topic?.created_on,
                           questions: questions)
         
-        mediator.updateData(for: topic) { result in
+        mediator.updateData(for: topic) { [weak self] result in
             switch result {
             
             case .success(_):
-                
-                print("Success")
-            // todo: on topicVC initialize success message
+                self?.onCompletionFromQuestionDetailsVC?(topic)
+                self?.navigationController?.popViewController(animated: true)
             
             case .failure(let error):
                 Alert.errorAlert(error: error)
             }
         }
+    }
+}
+
+extension QuestionEditCreateViewController: UITextViewDelegate {
+    
+    func textViewDidChange(_ textView: UITextView) {
+        changesMade = true
+    saveButton.isEnabled = !(questionTextView.text?.isEmpty ?? false)
     }
 }

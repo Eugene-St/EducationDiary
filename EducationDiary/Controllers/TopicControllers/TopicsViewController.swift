@@ -82,7 +82,6 @@ class TopicsViewController: UITableViewController {
             guard let vc = segue.destination as? TopicEditCreateViewController else { return }
             vc.title = "Add new Topic"
             
-
             vc.onCompletionFromEditVC = { [weak self] topicViewModel in
                 self?.topicViewModels.insert(topicViewModel, at: 0)
                 self?.tableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .automatic)
