@@ -7,10 +7,14 @@
 
 import Foundation
 
-struct Question: Codable {
+struct Question: Model {
     let id: String?
     let topic_id: String?
     let text: String?
-    let answer: String
+    let answer: String?
     let done: Bool?
+    
+    var modelId: String {
+        return id ?? ""
+    }
 }

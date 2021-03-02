@@ -74,22 +74,6 @@ class TopicsViewController: UITableViewController {
         showSortAlert()
     }
     
-    private func presentSortPopOver() {
-        
-        guard let vc = storyboard?.instantiateViewController(identifier: "SortTopicsVC") as? SortTopicsPopoverVC else { return }
-        
-        vc.modalPresentationStyle = .popover
-        //        vc.delegate = self
-        
-        guard let popover = vc.popoverPresentationController else { return }
-        popover.delegate = self
-        popover.barButtonItem = navigationItem.leftBarButtonItem
-        self.present(vc, animated: true)
-    }
-    
-    
-    
-    
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         

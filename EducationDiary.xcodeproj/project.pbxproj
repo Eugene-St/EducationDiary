@@ -23,10 +23,10 @@
 		58369FAD25C30DD400296493 /* TopicsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FAC25C30DD400296493 /* TopicsViewController.swift */; };
 		58369FB425C30E5A00296493 /* TopicEditCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FB325C30E5A00296493 /* TopicEditCreateViewController.swift */; };
 		58369FB725C30E7A00296493 /* QuestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FB625C30E7A00296493 /* QuestionsViewController.swift */; };
-		58369FBA25C30EAF00296493 /* QuestionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FB925C30EAF00296493 /* QuestionDetailsViewController.swift */; };
+		58369FBA25C30EAF00296493 /* QuestionEditCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FB925C30EAF00296493 /* QuestionEditCreateViewController.swift */; };
 		58369FBE25C30FBF00296493 /* Topic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FBD25C30FBF00296493 /* Topic.swift */; };
 		58369FC225C30FCA00296493 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FC125C30FCA00296493 /* Question.swift */; };
-		58369FC525C30FD500296493 /* Tasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FC425C30FD500296493 /* Tasks.swift */; };
+		58369FC525C30FD500296493 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FC425C30FD500296493 /* Task.swift */; };
 		58369FC825C30FE800296493 /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FC725C30FE800296493 /* Bookmark.swift */; };
 		58369FCD25C3683B00296493 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FCC25C3683B00296493 /* NetworkManager.swift */; };
 		58369FD225C7EF9300296493 /* Mediator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FD125C7EF9300296493 /* Mediator.swift */; };
@@ -48,8 +48,8 @@
 		58AA939225E4EADE00793461 /* ErrorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AA939125E4EADE00793461 /* ErrorAlert.swift */; };
 		58AA939825E50E3200793461 /* FreezeUIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AA939725E50E3200793461 /* FreezeUIController.swift */; };
 		58AA939B25E5216800793461 /* TopicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58AA939A25E5216800793461 /* TopicCell.swift */; };
-		58C7E04F25EC069700FAEB55 /* SortTopicsPopoverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C7E04E25EC069700FAEB55 /* SortTopicsPopoverVC.swift */; };
 		58C7E05525ECD13200FAEB55 /* TopicsViewController+SortExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C7E05425ECD13200FAEB55 /* TopicsViewController+SortExtension.swift */; };
+		58C7E05B25ED106B00FAEB55 /* QuestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C7E05A25ED106B00FAEB55 /* QuestionCell.swift */; };
 		58D5C8A825C92BE6008402BE /* DataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D5C8A725C92BE6008402BE /* DataError.swift */; };
 		58FCE19625D124DC00654915 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FCE19525D124DC00654915 /* CoreDataManager.swift */; };
 /* End PBXBuildFile section */
@@ -73,10 +73,10 @@
 		58369FAC25C30DD400296493 /* TopicsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsViewController.swift; sourceTree = "<group>"; };
 		58369FB325C30E5A00296493 /* TopicEditCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicEditCreateViewController.swift; sourceTree = "<group>"; };
 		58369FB625C30E7A00296493 /* QuestionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsViewController.swift; sourceTree = "<group>"; };
-		58369FB925C30EAF00296493 /* QuestionDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionDetailsViewController.swift; sourceTree = "<group>"; };
+		58369FB925C30EAF00296493 /* QuestionEditCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionEditCreateViewController.swift; sourceTree = "<group>"; };
 		58369FBD25C30FBF00296493 /* Topic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Topic.swift; sourceTree = "<group>"; };
 		58369FC125C30FCA00296493 /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
-		58369FC425C30FD500296493 /* Tasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tasks.swift; sourceTree = "<group>"; };
+		58369FC425C30FD500296493 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		58369FC725C30FE800296493 /* Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
 		58369FCC25C3683B00296493 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		58369FD125C7EF9300296493 /* Mediator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mediator.swift; sourceTree = "<group>"; };
@@ -98,8 +98,8 @@
 		58AA939125E4EADE00793461 /* ErrorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlert.swift; sourceTree = "<group>"; };
 		58AA939725E50E3200793461 /* FreezeUIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreezeUIController.swift; sourceTree = "<group>"; };
 		58AA939A25E5216800793461 /* TopicCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCell.swift; sourceTree = "<group>"; };
-		58C7E04E25EC069700FAEB55 /* SortTopicsPopoverVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortTopicsPopoverVC.swift; sourceTree = "<group>"; };
 		58C7E05425ECD13200FAEB55 /* TopicsViewController+SortExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TopicsViewController+SortExtension.swift"; sourceTree = "<group>"; };
+		58C7E05A25ED106B00FAEB55 /* QuestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionCell.swift; sourceTree = "<group>"; };
 		58D5C8A725C92BE6008402BE /* DataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataError.swift; sourceTree = "<group>"; };
 		58FCE19525D124DC00654915 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -151,13 +151,12 @@
 		58369F9825C2E79800296493 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				58976AA325E66BF800F7EF0D /* QuestionControllers */,
 				58976AA225E66BEA00F7EF0D /* BookmarkControllers */,
 				58976AA125E66BD500F7EF0D /* TaskControllers */,
 				58976AA025E66BC200F7EF0D /* TopicControllers */,
-				58AA939725E50E3200793461 /* FreezeUIController.swift */,
 				58976A9C25E66B7600F7EF0D /* Cells */,
 				58976A9D25E66B9800F7EF0D /* AlertControllers */,
+				58AA939725E50E3200793461 /* FreezeUIController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -194,7 +193,7 @@
 			children = (
 				58DA2BF725EA476E00BFBBD0 /* Topic */,
 				58369FC125C30FCA00296493 /* Question.swift */,
-				58369FC425C30FD500296493 /* Tasks.swift */,
+				58369FC425C30FD500296493 /* Task.swift */,
 				58369FC725C30FE800296493 /* Bookmark.swift */,
 				58369F8825C2DEC500296493 /* EducationDiary.xcdatamodeld */,
 			);
@@ -256,6 +255,7 @@
 				586077F725D58D2700495AB3 /* TasksCell.swift */,
 				58AA939A25E5216800793461 /* TopicCell.swift */,
 				5829570D25CACCA300F68CA7 /* BookmarksCell.swift */,
+				58C7E05A25ED106B00FAEB55 /* QuestionCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -279,7 +279,7 @@
 				5810ABA525E92CC70063BF8E /* TopicDetailsViewController.swift */,
 				5898010825E9078D00F36B0D /* TopicDetailsViewController+TableExtension.swift */,
 				58369FB325C30E5A00296493 /* TopicEditCreateViewController.swift */,
-				58C7E04E25EC069700FAEB55 /* SortTopicsPopoverVC.swift */,
+				58976AA325E66BF800F7EF0D /* QuestionControllers */,
 			);
 			path = TopicControllers;
 			sourceTree = "<group>";
@@ -305,7 +305,7 @@
 			isa = PBXGroup;
 			children = (
 				58369FB625C30E7A00296493 /* QuestionsViewController.swift */,
-				58369FB925C30EAF00296493 /* QuestionDetailsViewController.swift */,
+				58369FB925C30EAF00296493 /* QuestionEditCreateViewController.swift */,
 			);
 			path = QuestionControllers;
 			sourceTree = "<group>";
@@ -401,12 +401,12 @@
 				58369FAD25C30DD400296493 /* TopicsViewController.swift in Sources */,
 				58369FBE25C30FBF00296493 /* Topic.swift in Sources */,
 				58AA939825E50E3200793461 /* FreezeUIController.swift in Sources */,
+				58C7E05B25ED106B00FAEB55 /* QuestionCell.swift in Sources */,
 				58369FEA25C7FE3A00296493 /* QuestionsMediator.swift in Sources */,
 				58369FE725C7FE2F00296493 /* BookmarksMediator.swift in Sources */,
 				58AA939225E4EADE00793461 /* ErrorAlert.swift in Sources */,
 				58A1F6DA25CD0FA100C62AB9 /* BookmarksViewController+AlertExtension.swift in Sources */,
 				58369FEE25C8081D00296493 /* NetworkMonitor.swift in Sources */,
-				58C7E04F25EC069700FAEB55 /* SortTopicsPopoverVC.swift in Sources */,
 				58369FA725C30D4C00296493 /* BookmarksViewController.swift in Sources */,
 				5829570E25CACCA300F68CA7 /* BookmarksCell.swift in Sources */,
 				58D5C8A825C92BE6008402BE /* DataError.swift in Sources */,
@@ -429,11 +429,11 @@
 				58369F8025C2DEC500296493 /* AppDelegate.swift in Sources */,
 				58369FD225C7EF9300296493 /* Mediator.swift in Sources */,
 				58369FD625C7F8A000296493 /* NetworkMethods.swift in Sources */,
-				58369FBA25C30EAF00296493 /* QuestionDetailsViewController.swift in Sources */,
+				58369FBA25C30EAF00296493 /* QuestionEditCreateViewController.swift in Sources */,
 				586077F325D5594000495AB3 /* Extensions.swift in Sources */,
 				5810ABA625E92CC70063BF8E /* TopicDetailsViewController.swift in Sources */,
 				58C7E05525ECD13200FAEB55 /* TopicsViewController+SortExtension.swift in Sources */,
-				58369FC525C30FD500296493 /* Tasks.swift in Sources */,
+				58369FC525C30FD500296493 /* Task.swift in Sources */,
 				585D4DAF25E97E4500184524 /* TopicViewModel.swift in Sources */,
 				58369FE125C7FE0D00296493 /* TasksMediator.swift in Sources */,
 				58FCE19625D124DC00654915 /* CoreDataManager.swift in Sources */,

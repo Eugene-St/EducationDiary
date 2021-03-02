@@ -16,6 +16,8 @@ class TopicDetailsViewController: UIViewController {
     @IBOutlet weak var dueDateTexLabel: UILabel!
     @IBOutlet weak var linksTableView: UITableView!
     
+    @IBOutlet weak var questionsButton: UIButton!
+    
     // MARK: - Private properties
     var topicViewModel: TopicViewModel?
     lazy var mediator = TopicsMediator()
@@ -24,7 +26,6 @@ class TopicDetailsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setUpUI()
-        print(topicViewModel?.dueDateColor)
     }
     
     @IBAction func editNotesButtonPressed(_ sender: UIButton) {
@@ -48,6 +49,11 @@ class TopicDetailsViewController: UIViewController {
     
     @IBAction func editButtonPressed(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: "EditTopic", sender: nil)
+    }
+    
+    
+    @IBAction func questionsButtonPressed(_ sender: UIButton) {
+        performSegue(withIdentifier: "ShowQuestions", sender: nil)
     }
     
     // MARK: - Private methods
@@ -113,6 +119,14 @@ class TopicDetailsViewController: UIViewController {
             
         case "ShowQuestions":
             print("Questions segue")
+            
+            guard let vc = segue.destination as? QuestionsViewController else { return }
+            
+            vc.title = "Questions/Answers"
+            
+            vc.topic = topicViewModel?.topic
+            
+            // todo: pass on completion questions
             
         default:
             break

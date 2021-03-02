@@ -131,10 +131,10 @@ class Mediator<T: Decodable>{
             return
         }
         
-        let model = model as! Model
+        let model = model as? Model
         
         if networkIsAvaible {
-            NetworkManager.shared.putRequest(path: pathForUpdate.rawValue, id: model.modelId, body: json) { result in
+            NetworkManager.shared.putRequest(path: pathForUpdate.rawValue, id: model?.modelId, body: json) { result in
                 self.recogniseResult(result, completion)
             }
         } else {

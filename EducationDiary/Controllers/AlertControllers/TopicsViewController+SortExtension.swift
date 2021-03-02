@@ -23,7 +23,7 @@ extension TopicsViewController {
         }
         
         let statusAction = UIAlertAction(title: "Status", style: .default) { [weak self] _ in
-            self?.topicViewModels.sort(by: {$0.topic.status ?? "" < $1.topic.status ?? ""})
+            self?.topicViewModels.sort(by: {$0.topic.status ?? "" > $1.topic.status ?? ""})
             self?.tableView.reloadData()
         }
         
