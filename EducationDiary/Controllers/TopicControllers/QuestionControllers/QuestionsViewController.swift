@@ -12,16 +12,14 @@ class QuestionsViewController: UICollectionViewController {
     var topic: Topic?
     var onCompletionFromQuestionsVC: ((_ topic: Topic?) -> ())?
     var interaction: UIContextMenuInteraction?
+    lazy var mediator = TopicsMediator()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        interaction = UIContextMenuInteraction(delegate: self)
-//        submitRatingButton.addInteraction(interaction)
     }
 
     // MARK: UICollectionViewDataSource
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        questions.count
         topic?.questions?.count ?? 0
     }
 
@@ -30,14 +28,8 @@ class QuestionsViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "QuestionCell", for: indexPath) as! QuestionCell
         
         cell.configure(for: topic?.questions?[indexPath.item])
-//        cell.configure(for: questions[indexPath.item])
     
         return cell
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! QuestionCell
-        cell.addInteraction(interaction as! UIInteraction)
     }
     
     // MARK: - IBActions
@@ -70,6 +62,9 @@ class QuestionsViewController: UICollectionViewController {
             
         case "EditQuestion":
             print("Edit question")
+            guard let vc = segue.destination as? QuestionEditCreateViewController else { return }
+            vc.title = "Edit question"
+            vc.topic = topic
        
         default:
             break

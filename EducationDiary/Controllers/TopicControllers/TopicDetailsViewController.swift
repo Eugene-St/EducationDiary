@@ -10,12 +10,10 @@ import UIKit
 class TopicDetailsViewController: UIViewController {
     
     // MARK: - IBOutlets
-    
     @IBOutlet weak var notesTextView: UITextView!
     @IBOutlet weak var statusTextLabel: UILabel!
     @IBOutlet weak var dueDateTexLabel: UILabel!
     @IBOutlet weak var linksTableView: UITableView!
-    
     @IBOutlet weak var questionsButton: UIButton!
     
     // MARK: - Private properties
@@ -28,6 +26,7 @@ class TopicDetailsViewController: UIViewController {
         setUpUI()
     }
     
+    // MARK: - IBActions
     @IBAction func editNotesButtonPressed(_ sender: UIButton) {
         
         if sender.titleLabel?.text == "Edit notes" {
@@ -49,18 +48,14 @@ class TopicDetailsViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-    
     @IBAction func AddNewLinkButtonPressed(_ sender: UIButton) {
         showAddLinkAlertController(tableView: linksTableView)
         
     }
     
-    
-    
     @IBAction func editButtonPressed(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: "EditTopic", sender: nil)
     }
-    
     
     @IBAction func questionsButtonPressed(_ sender: UIButton) {
         performSegue(withIdentifier: "ShowQuestions", sender: nil)
@@ -96,10 +91,6 @@ class TopicDetailsViewController: UIViewController {
                 print("notes udated")
                 
                 self?.topicViewModel?.topic = topic
-                
-//                if let topicViewModel = self?.topicViewModel {
-//                    self?.onCompletionFromDetailsVC?(topicViewModel)
-//                }
 
             case .failure(let error):
                 print(error)
@@ -122,10 +113,6 @@ class TopicDetailsViewController: UIViewController {
                 
                 self?.title = topicViewModel.topic.title
                 self?.topicViewModel = topicViewModel
-                
-//                if let topicmc = self?.topicViewModel {
-//                    self?.onCompletionFromDetailsVC?(topicmc)
-//                }
             }
             
         case "ShowQuestions":
@@ -143,21 +130,10 @@ class TopicDetailsViewController: UIViewController {
                 }
             }
             
-            // todo: pass on completion questions
-            
         default:
             break
         }
     }
-    
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//
-//        print("TopicDetailsViewController")
-//        if let topicViewModel = topicViewModel {
-//            onCompletionFromDetailsVC?(topicViewModel)
-//        }
-//    }
 }
 
 

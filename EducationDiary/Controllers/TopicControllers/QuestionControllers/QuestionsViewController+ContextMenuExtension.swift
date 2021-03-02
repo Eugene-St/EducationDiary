@@ -7,33 +7,57 @@
 
 import UIKit
 
-extension QuestionsViewController: UIContextMenuInteractionDelegate {
+extension QuestionsViewController {
     
-    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+    override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        
         return UIContextMenuConfiguration(
-              identifier: nil,
-              previewProvider: nil,
-              actionProvider: { _ in
-                let removeQuestion = self.makeRemoveQuestionAction()
+            identifier: nil,
+            previewProvider: nil,
+            actionProvider: { _ in
+                let removeQuestion = self.makeRemoveQuestionAction(for: indexPath)
                 let editQuestion = self.editQuestionAction()
-                let doneQuestion = self.markAsCompletedQuestionAction()
-                let children = [removeQuestion, editQuestion, doneQuestion]
+                let children = [removeQuestion, editQuestion]
                 return UIMenu(title: "", children: children)
             })
     }
     
-    private func makeRemoveQuestionAction() -> UIAction {
+    private func makeRemoveQuestionAction(for index: IndexPath) -> UIAction {
         
-      let removeRatingAttributes = UIMenuElement.Attributes.destructive
+        let removeAttribute = UIMenuElement.Attributes.destructive
         
-      let deleteImage = UIImage(systemName: "trash.slash")
+        let deleteImage = UIImage(systemName: "trash.slash")
         
-      return UIAction(
-        title: "Remove question",
-        image: deleteImage,
-        identifier: nil,
-        attributes: removeRatingAttributes) { _ in
-          print("delete question action pressed")
+        return UIAction(
+            title: "Remove question",
+            image: deleteImage,
+            identifier: nil,
+            attributes: removeAttribute) { [weak self] _ in
+            
+            var questions = self?.topic?.questions
+            
+            questions?.remove(at: index.item)
+            
+            let topic = Topic(id: self?.topic?.id,
+                              title: self?.topic?.title,
+                              links: self?.topic?.links,
+                              notes: self?.topic?.notes,
+                              status: self?.topic?.status,
+                              due_date: self?.topic?.due_date,
+                              created_on: self?.topic?.created_on,
+                              questions: questions)
+            
+            self?.mediator.updateData(for: topic) { [weak self] result in
+                switch result {
+                
+                case .success(_):
+                    self?.topic = topic
+                    self?.collectionView.deleteItems(at: [index])
+                    
+                case .failure(let error):
+                    Alert.errorAlert(error: error)
+                }
+            }
         }
     }
     
@@ -45,18 +69,7 @@ extension QuestionsViewController: UIContextMenuInteractionDelegate {
                         image: editImage,
                         identifier: nil) { _ in
             print("edit question action pressed")
+            self.performSegue(withIdentifier: "EditQuestion", sender: nil)
         }
     }
-    
-    private func markAsCompletedQuestionAction() -> UIAction {
-        
-        let editImage = UIImage(systemName: "checkmark")
-        
-        return UIAction(title: "Mark as Done",
-                        image: editImage,
-                        identifier: nil) { _ in
-            print("done question action pressed")
-        }
-    }
-    
 }
