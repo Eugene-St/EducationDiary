@@ -12,6 +12,7 @@
 		5829570E25CACCA300F68CA7 /* BookmarksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5829570D25CACCA300F68CA7 /* BookmarksCell.swift */; };
 		582B571725CC878900637760 /* NetworkEndType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582B571625CC878900637760 /* NetworkEndType.swift */; };
 		5836150825EE9A4D0094249E /* QuestionEditCreateViewController+AlertExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5836150725EE9A4D0094249E /* QuestionEditCreateViewController+AlertExtension.swift */; };
+		5836150C25EEA9380094249E /* QuestionsViewController+ContextMenuExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5836150B25EEA9380094249E /* QuestionsViewController+ContextMenuExtension.swift */; };
 		58369F8025C2DEC500296493 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369F7F25C2DEC500296493 /* AppDelegate.swift */; };
 		58369F8225C2DEC500296493 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369F8125C2DEC500296493 /* SceneDelegate.swift */; };
 		58369F8725C2DEC500296493 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58369F8525C2DEC500296493 /* Main.storyboard */; };
@@ -61,6 +62,7 @@
 		5829570D25CACCA300F68CA7 /* BookmarksCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksCell.swift; sourceTree = "<group>"; };
 		582B571625CC878900637760 /* NetworkEndType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkEndType.swift; sourceTree = "<group>"; };
 		5836150725EE9A4D0094249E /* QuestionEditCreateViewController+AlertExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QuestionEditCreateViewController+AlertExtension.swift"; sourceTree = "<group>"; };
+		5836150B25EEA9380094249E /* QuestionsViewController+ContextMenuExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QuestionsViewController+ContextMenuExtension.swift"; sourceTree = "<group>"; };
 		58369F7C25C2DEC500296493 /* EducationDiary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EducationDiary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		58369F7F25C2DEC500296493 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		58369F8125C2DEC500296493 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -309,6 +311,7 @@
 			children = (
 				58369FB625C30E7A00296493 /* QuestionsViewController.swift */,
 				58369FB925C30EAF00296493 /* QuestionEditCreateViewController.swift */,
+				5836150B25EEA9380094249E /* QuestionsViewController+ContextMenuExtension.swift */,
 			);
 			path = QuestionControllers;
 			sourceTree = "<group>";
@@ -410,6 +413,7 @@
 				58AA939225E4EADE00793461 /* ErrorAlert.swift in Sources */,
 				58A1F6DA25CD0FA100C62AB9 /* BookmarksViewController+AlertExtension.swift in Sources */,
 				58369FEE25C8081D00296493 /* NetworkMonitor.swift in Sources */,
+				5836150C25EEA9380094249E /* QuestionsViewController+ContextMenuExtension.swift in Sources */,
 				58369FA725C30D4C00296493 /* BookmarksViewController.swift in Sources */,
 				5829570E25CACCA300F68CA7 /* BookmarksCell.swift in Sources */,
 				58D5C8A825C92BE6008402BE /* DataError.swift in Sources */,

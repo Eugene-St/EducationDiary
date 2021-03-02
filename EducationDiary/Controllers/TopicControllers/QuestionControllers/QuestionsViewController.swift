@@ -11,10 +11,12 @@ class QuestionsViewController: UICollectionViewController {
     
     var topic: Topic?
     var onCompletionFromQuestionsVC: ((_ topic: Topic?) -> ())?
+    var interaction: UIContextMenuInteraction?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        interaction = UIContextMenuInteraction(delegate: self)
+//        submitRatingButton.addInteraction(interaction)
     }
 
     // MARK: UICollectionViewDataSource
@@ -31,6 +33,11 @@ class QuestionsViewController: UICollectionViewController {
 //        cell.configure(for: questions[indexPath.item])
     
         return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as! QuestionCell
+        cell.addInteraction(interaction as! UIInteraction)
     }
     
     // MARK: - IBActions
