@@ -16,6 +16,12 @@ class QuestionsViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let layout = CollectionViewWaterfallLayout()
+        layout.minimumColumnSpacing = 10
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        layout.minimumInteritemSpacing = 10
+        
+        collectionView.collectionViewLayout = layout
     }
 
     // MARK: UICollectionViewDataSource
@@ -77,14 +83,12 @@ class QuestionsViewController: UICollectionViewController {
             break
         }
     }
-    
 }
 
-// MARK: - UICollectionViewDelegateFlowLayout
-
-extension QuestionsViewController: UICollectionViewDelegateFlowLayout {
+// MARK: - CollectionViewWaterfallLayoutDelegate
+extension QuestionsViewController: CollectionViewWaterfallLayoutDelegate {
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         
         let itemsPerRow: CGFloat = 2
         
@@ -94,21 +98,33 @@ extension QuestionsViewController: UICollectionViewDelegateFlowLayout {
         
         let widthPerItem = availableWidth / itemsPerRow
         
-        return CGSize(width: widthPerItem, height: widthPerItem * 1.5)
-    }
-
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        20
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        20
+        let title = topic?.questions?[indexPath.item].text ?? ""
+        let answer = topic?.questions?[indexPath.item].answer ?? ""
+        let done = String(topic?.questions?[indexPath.item].done ?? false)
+        
+        let size = CGSize(width: widthPerItem, height: 1000)
+        
+        let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)]
+        
+        let estimatedTitleFrame = NSString(string: title).boundingRect(
+            with: size,
+            options: .usesLineFragmentOrigin,
+            attributes: attributes,
+            context: nil)
+        
+        let estimatedAnswerFrame = NSString(string: answer).boundingRect(
+            with: size,
+            options: .usesLineFragmentOrigin,
+            attributes: attributes,
+            context: nil)
+        
+        let estimatedDoneFrame = NSString(string: done).boundingRect(
+            with: size,
+            options: .usesLineFragmentOrigin,
+            attributes: attributes,
+            context: nil)
+        
+        return CGSize(width: widthPerItem, height: (estimatedTitleFrame.height + estimatedDoneFrame.height + estimatedAnswerFrame.height) + 14)
+        
     }
 }
- 
-

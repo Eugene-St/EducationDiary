@@ -40,6 +40,7 @@ class QuestionEditCreateViewController: UIViewController {
     }
     
     @IBAction func switchButtonPressed(_ sender: UISwitch) {
+        saveButton.isEnabled = true
         changesMade = true
     }
     
