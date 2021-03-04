@@ -356,7 +356,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Topic name" id="Fy2-wI-trj">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="Nda-1e-8NF">
+                        <barButtonItem key="leftBarButtonItem" image="chevron.left" catalog="system" id="Nda-1e-8NF">
                             <color key="tintColor" red="0.80648976559999996" green="0.7222248912" blue="0.56821578740000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="backButtonPressed:" destination="Wtk-5l-zC7" id="iVX-i1-StV"/>
@@ -451,7 +451,7 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" title="Questions" id="tvh-9m-XMd">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="aiF-DT-iRc">
+                        <barButtonItem key="leftBarButtonItem" image="chevron.left" catalog="system" id="aiF-DT-iRc">
                             <color key="tintColor" red="0.80648976559999996" green="0.7222248912" blue="0.56821578740000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="backButtonPressed:" destination="GL9-s5-zrQ" id="Ibh-xx-6LF"/>
@@ -897,11 +897,12 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="gMd-7O-d4a"/>
+        <segue reference="a2f-5P-d2A"/>
         <segue reference="obZ-Io-dNC"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="brain" width="30" height="30"/>
+        <image name="chevron.left" catalog="system" width="96" height="128"/>
         <image name="drawer" width="30" height="30"/>
         <image name="file" width="30" height="30"/>
         <systemColor name="labelColor">

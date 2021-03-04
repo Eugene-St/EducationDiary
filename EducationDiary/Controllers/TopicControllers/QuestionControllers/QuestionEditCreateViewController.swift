@@ -15,17 +15,24 @@ class QuestionEditCreateViewController: UIViewController {
     @IBOutlet weak var completedSwitchLabel: UISwitch!
     
     var topic: Topic?
+    var question: Question?
+    var index: Int?
     var changesMade: Bool = false
     private lazy var mediator = TopicsMediator()
     var onCompletionFromQuestionDetailsVC: ((_ topic: Topic) -> ())?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
         saveButton.isEnabled = false
     }
     
     @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
-        createQuestion()
+        if question == nil {
+            createQuestion()
+        } else {
+            updateQuestion()
+        }
     }
     
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
@@ -76,6 +83,57 @@ class QuestionEditCreateViewController: UIViewController {
             
             case .failure(let error):
                 Alert.errorAlert(error: error)
+            }
+        }
+    }
+    
+    private func updateQuestion() {
+        
+        var questions: [Question] = []
+        
+        if let topicQuestions = topic?.questions {
+            questions = topicQuestions
+        }
+        
+        let  question = Question(id: self.question?.id,
+                                 topic_id: self.question?.topic_id,
+                                 text: questionTextView.text,
+                                 answer: answerTextView.text,
+                                 done: completedSwitchLabel.isOn)
+        
+       questions[index ?? 0] = question
+        
+        print("Questions after append - \(questions.count)")
+        
+        let topic = Topic(id: self.topic?.id,
+                          title: self.topic?.title,
+                          links: self.topic?.links,
+                          notes: self.topic?.notes,
+                          status: self.topic?.status,
+                          due_date: self.topic?.due_date,
+                          created_on: self.topic?.created_on,
+                          questions: questions)
+        
+        mediator.updateData(for: topic) { [weak self] result in
+            switch result {
+            
+            case .success(_):
+                self?.onCompletionFromQuestionDetailsVC?(topic)
+                self?.navigationController?.popViewController(animated: true)
+            
+            case .failure(let error):
+                Alert.errorAlert(error: error)
+            }
+        }
+    }
+    
+    private func setupUI() {
+        if question != nil {
+            questionTextView.text = question?.text
+            answerTextView.text = question?.answer
+            
+            if let progress = question?.done {
+                completedSwitchLabel.isOn = progress
             }
         }
     }

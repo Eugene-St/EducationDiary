@@ -54,17 +54,24 @@ class QuestionsViewController: UICollectionViewController {
             
             vc.onCompletionFromQuestionDetailsVC = { [weak self] topic in
                 
-//                self?.questions.insert(question, at: 0)
-//                self?.collectionView.insertItems(at: [IndexPath(item: 0, section: 0)])
                 self?.topic? = topic
-                self?.collectionView.reloadData()
+                self?.collectionView.insertItems(at: [IndexPath(item: 0, section: 0)])
             }
             
         case "EditQuestion":
-            print("Edit question")
             guard let vc = segue.destination as? QuestionEditCreateViewController else { return }
+            guard let indexPath = sender as? IndexPath else { return }
+            let question = topic?.questions?[indexPath.item]
+            
             vc.title = "Edit question"
             vc.topic = topic
+            vc.question = question
+            vc.index = indexPath.item
+            
+            vc.onCompletionFromQuestionDetailsVC = { [weak self] topic in
+                    self?.topic? = topic
+                    self?.collectionView.reloadItems(at: [indexPath])
+            }
        
         default:
             break
