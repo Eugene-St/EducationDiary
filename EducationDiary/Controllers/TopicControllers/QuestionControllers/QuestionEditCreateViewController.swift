@@ -13,6 +13,7 @@ class QuestionEditCreateViewController: UIViewController {
     @IBOutlet weak var answerTextView: UITextView!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var completedSwitchLabel: UISwitch!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     var topic: Topic?
     var question: Question?
@@ -23,8 +24,10 @@ class QuestionEditCreateViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(changesMade)
         setupUI()
         saveButton.isEnabled = false
+        registerForKeyboardNotifications()
     }
     
     @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
@@ -138,12 +141,37 @@ class QuestionEditCreateViewController: UIViewController {
             }
         }
     }
+    
+    private func registerForKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(kbWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(kbWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc private func kbWillShow(_ notification: Notification) {
+        let userInfo = notification.userInfo
+        let kbFrameSize = (userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        scrollView.contentOffset = CGPoint(x: 0, y: kbFrameSize.height)
+    }
+    
+    @objc private func kbWillHide() {
+        scrollView.contentOffset = CGPoint.zero
+    }
+    
+    private func removeKeyboardNotifications() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    deinit {
+        removeKeyboardNotifications()
+    }
 }
 
 extension QuestionEditCreateViewController: UITextViewDelegate {
-    
     func textViewDidChange(_ textView: UITextView) {
         changesMade = true
+        
     saveButton.isEnabled = !(questionTextView.text?.isEmpty ?? false)
     }
 }

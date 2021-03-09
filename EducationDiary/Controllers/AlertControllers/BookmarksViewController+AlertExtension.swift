@@ -79,8 +79,8 @@ extension BookmarksViewController {
             switch result {
             
             case .success(_):
-                self?.bookmarkViewModels.insert(newBookmarkModel, at: 0)
-                self?.tableView.reloadData()
+                self?.bookmarksViewModel.insert(newBookmarkModel, at: 0)
+                self?.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
                 
                 DispatchQueue.global(qos: .background).async {
                     // todo: save to core data here
@@ -102,10 +102,10 @@ extension BookmarksViewController {
             switch result {
             
             case .success(_):
-                if let index = self?.bookmarkViewModels.firstIndex(where: { $0.key == bookmarkModel.key }) {
-                    self?.bookmarkViewModels[index] = bookmarkModel
+                if let index = self?.bookmarksViewModel.firstIndex(where: { $0.key == bookmarkModel.key }) {
+                    self?.bookmarksViewModel[index] = bookmarkModel
+                    self?.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
                 }
-                self?.tableView.reloadData()
                 
                 DispatchQueue.global(qos: .background).async {
                     // todo: save to core data here

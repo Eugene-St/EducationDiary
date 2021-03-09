@@ -171,8 +171,7 @@ class TopicEditCreateViewController: UIViewController {
     // set default Date
     private func configureDefaultDate() {
         let defaultDate = Date(timeIntervalSinceNow: 60 * 60 * 24 * 7)
-        let dueDate = Int(defaultDate.timeIntervalSince1970)
-        datePicker.date = NSDate(timeIntervalSince1970: TimeInterval(dueDate)) as Date
+        datePicker.date = defaultDate
     }
     
     // set default status

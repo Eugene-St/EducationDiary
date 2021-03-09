@@ -10,6 +10,6 @@ import Foundation
 class QuestionsMediator: Mediator<Question> {
     
     init() {
-        super.init(.questions, pathForUpdate: .questionsUpdate)
+        super.init(.questions, pathForUpdate: .questionsUpdate, object: BookmarkCoreData.self) // todo: update
     }
 }

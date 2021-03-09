@@ -15,14 +15,14 @@ extension QuestionsViewController {
             identifier: nil,
             previewProvider: nil,
             actionProvider: { _ in
-                let removeQuestion = self.removeQuestionAction(for: indexPath)
-                let editQuestion = self.editQuestionAction(for: indexPath)
+                let removeQuestion = self.removeQuestionAction(at: indexPath)
+                let editQuestion = self.editQuestionAction(at: indexPath)
                 let children = [removeQuestion, editQuestion]
                 return UIMenu(title: "", children: children)
             })
     }
     
-    private func removeQuestionAction(for index: IndexPath) -> UIAction {
+    private func removeQuestionAction(at index: IndexPath) -> UIAction {
         
         let removeAttribute = UIMenuElement.Attributes.destructive
         
@@ -61,7 +61,7 @@ extension QuestionsViewController {
         }
     }
     
-    private func editQuestionAction(for index: IndexPath) -> UIAction {
+    private func editQuestionAction(at index: IndexPath) -> UIAction {
         
         let editImage = UIImage(systemName: "pencil")
         

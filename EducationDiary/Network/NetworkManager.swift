@@ -65,7 +65,7 @@ class NetworkManager {
         
         request.httpMethod = HTTPMethods.delete.rawValue
         
-        URLSession.shared.dataTask(with: request) { data, response, error in
+        URLSession.shared.dataTask(with: request) { _, response, error in
             
             if let error = error {
                 print("Error: error calling DELETE")

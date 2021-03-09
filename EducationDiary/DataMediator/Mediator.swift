@@ -6,15 +6,19 @@
 //
 
 import Foundation
+import CoreData
 
 class Mediator<T: Decodable>{
     
     private let pathForFetch: EndType
     private let pathForUpdate: EndType
+    private let object: NSManagedObject.Type
+//    private let model: Model
     
-    init(_ pathForFetch: EndType, pathForUpdate: EndType) {
+    init(_ pathForFetch: EndType, pathForUpdate: EndType, object: NSManagedObject.Type) {
         self.pathForFetch = pathForFetch
         self.pathForUpdate = pathForUpdate
+        self.object = object
     }
     
     //MARK: networkIsAvaible
@@ -28,7 +32,6 @@ class Mediator<T: Decodable>{
         do {
             return try decoder.decode(T.self, from: data)
         } catch {
-            // todo
             return nil
         }
     }
@@ -72,9 +75,16 @@ class Mediator<T: Decodable>{
             NetworkManager.shared.getRequest(path: pathForFetch.rawValue) { result in
                 self.recogniseResult(result, completion)
             }
+            
         } else {
-            //            print("fetch data from DB")
-            completion(.failure(DataError.noNetwork))
+            CoreDataManager.shared.fetch(object) { result in
+                switch result {
+                case .success(let objects): completion(.success(objects as! T))
+
+                case .failure(let error):
+                completion(.failure(error))
+                }
+            }
         }
     }
     
@@ -86,7 +96,6 @@ class Mediator<T: Decodable>{
             }
         } else {
             completion(.failure(DataError.noNetwork))
-            print("Remove from DB")
         }
     }
     
@@ -112,7 +121,6 @@ class Mediator<T: Decodable>{
             }
         } else {
             completion(.failure(DataError.noNetwork))
-            print("Put to DB")
         }
     }
     
@@ -139,7 +147,6 @@ class Mediator<T: Decodable>{
             }
         } else {
             completion(.failure(DataError.noNetwork))
-            print("Put to DB")
         }
     }
 }

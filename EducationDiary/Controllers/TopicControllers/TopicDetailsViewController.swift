@@ -115,12 +115,14 @@ class TopicDetailsViewController: UIViewController {
                 self?.topicViewModel = topicViewModel
             }
             
+            //todo: отступы
+            
         case "ShowQuestions":
             print("Questions segue")
             
             guard let vc = segue.destination as? QuestionsViewController else { return }
             
-            vc.title = "Questions/Answers"
+            vc.title = "Questions/Answers" // todo: тайтл задавать в контроллере
             
             vc.topic = topicViewModel?.topic
             

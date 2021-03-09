@@ -4,6 +4,7 @@
 //
 //  Created by Eugene St on 04.03.2021.
 //
+// Downloaded from https://github.com/ecerney/CollectionViewWaterfallLayout
 
 import UIKit
 
@@ -169,7 +170,6 @@ public class CollectionViewWaterfallLayout: UICollectionViewLayout {
             for idx in 0..<columnCount {
                 columnHeights[idx] = top
             }
-            
             
             /*
              * 3. Section items

@@ -10,11 +10,7 @@ import UIKit
 class QuestionCell: UICollectionViewCell {
     
     @IBOutlet weak var questionTextLabel: UILabel!
-    @IBOutlet weak var answerTextLabel: UILabel! {
-        didSet {
-            answerTextLabel.isHidden = true
-        }
-    }
+    @IBOutlet weak var answerTextLabel: UILabel!
     @IBOutlet weak var checkmarkTextLabel: UILabel!
     
     override func awakeFromNib() {
@@ -35,6 +31,7 @@ class QuestionCell: UICollectionViewCell {
         guard let done = question?.done else { return }
                 
         checkmarkTextLabel.isHidden = done ? false : true
+        answerTextLabel.isHidden = true
         
         if let answer = question?.answer {
             if !answer.isEmpty {

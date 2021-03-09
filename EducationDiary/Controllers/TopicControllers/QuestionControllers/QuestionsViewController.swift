@@ -106,6 +106,9 @@ extension QuestionsViewController: CollectionViewWaterfallLayoutDelegate {
         
         let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)]
         
+        let estt = NSString(string: title)
+        
+        
         let estimatedTitleFrame = NSString(string: title).boundingRect(
             with: size,
             options: .usesLineFragmentOrigin,

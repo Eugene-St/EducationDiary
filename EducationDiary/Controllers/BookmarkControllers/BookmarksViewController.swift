@@ -10,7 +10,7 @@ import UIKit
 class BookmarksViewController: UITableViewController {
     
     // MARK: - Private Properties
-    var bookmarkViewModels = [BookmarkViewModel]()
+    var bookmarksViewModel = [BookmarkViewModel]()
     lazy var mediator = BookmarksMediator()
     
     // MARK: - View DidLoad
@@ -26,14 +26,14 @@ class BookmarksViewController: UITableViewController {
     
     // MARK: - Table view data source methods
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        bookmarkViewModels.count
+        bookmarksViewModel.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "bookmarkCell", for: indexPath) as! BookmarksCell
         
-        cell.configure(with: bookmarkViewModels[indexPath.row])
+        cell.configure(with: bookmarksViewModel[indexPath.row])
         
         return cell
     }
@@ -47,13 +47,13 @@ class BookmarksViewController: UITableViewController {
         
         if editingStyle == .delete {
             
-            let bookmarkViewModel = bookmarkViewModels[indexPath.row]
+            let bookmarkViewModel = bookmarksViewModel[indexPath.row]
             
             mediator.deleteData(for: bookmarkViewModel.bookmark) { result in
                 switch result {
                 
                 case .success(_):
-                    self.bookmarkViewModels.remove(at: indexPath.row)
+                    self.bookmarksViewModel.remove(at: indexPath.row)
                     self.tableView.deleteRows(at: [indexPath], with: .automatic)
                     
                 case .failure(let error):
@@ -81,7 +81,7 @@ class BookmarksViewController: UITableViewController {
             let touchPoint = sender.location(in: self.tableView)
             if let indexPath = tableView.indexPathForRow(at: touchPoint) {
                 
-                let bookmarkViewModel = bookmarkViewModels[indexPath.row]
+                let bookmarkViewModel = bookmarksViewModel[indexPath.row]
                 
                 showEditAlertController(for: bookmarkViewModel)
             }
@@ -105,7 +105,7 @@ class BookmarksViewController: UITableViewController {
             
             case .success(let bookmarks):
                 bookmarks.forEach { [weak self] key, bookmark in
-                    self?.bookmarkViewModels.append(BookmarkViewModel(bookmark: bookmark, key: key))
+                    self?.bookmarksViewModel.append(BookmarkViewModel(bookmark: bookmark, key: key))
                 }
                 self.tableView.reloadData()
                 
