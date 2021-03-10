@@ -33,7 +33,7 @@ struct CoreDataManager {
         }
     }
     
-    func fetch<T: NSManagedObject>(_ type: T.Type, completion: @escaping ResultClosure<[NSManagedObject]>) {
+    func fetch<T: NSManagedObject>(_ type: T.Type, completion: @escaping ResultClosure<[T]>) {
         let request = NSFetchRequest<T>(entityName: String(describing: type))
         
         do {

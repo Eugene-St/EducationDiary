@@ -8,12 +8,11 @@
 import Foundation
 import CoreData
 
-class Mediator<T: Decodable>{
+class Mediator<T: Decodable> {
     
     private let pathForFetch: EndType
     private let pathForUpdate: EndType
     private let object: NSManagedObject.Type
-//    private let model: Model
     
     init(_ pathForFetch: EndType, pathForUpdate: EndType, object: NSManagedObject.Type) {
         self.pathForFetch = pathForFetch
@@ -72,18 +71,31 @@ class Mediator<T: Decodable>{
     //MARK: FETCH data
     func fetchData(_ completion: @escaping ResultClosure<T>) {
         if networkIsAvaible {
-            NetworkManager.shared.getRequest(path: pathForFetch.rawValue) { result in
-                self.recogniseResult(result, completion)
-            }
-            
+            fetchDataFromNetwork(completion)
         } else {
-            CoreDataManager.shared.fetch(object) { result in
-                switch result {
-                case .success(let objects): completion(.success(objects as! T))
-
-                case .failure(let error):
-                completion(.failure(error))
+            fetchFromCoreData(completion)
+            newdsd(completion)
+        }
+    }
+    
+    private func fetchDataFromNetwork(_ completion: @escaping ResultClosure<T>) {
+        NetworkManager.shared.getRequest(path: pathForFetch.rawValue) { result in
+            self.recogniseResult(result, completion)
+        }
+    }
+    
+    func newdsd(_ completion: @escaping ResultClosure<T>) {}
+    
+    func fetchFromCoreData(_ completion: @escaping ResultClosure<T>) {
+        CoreDataManager.shared.fetch(object) { result in
+            switch result {
+            case .success(let objects):
+                DispatchQueue.main.async {
+                    completion(.success(objects as! T))
                 }
+                
+            case .failure(let error):
+                completion(.failure(error))
             }
         }
     }

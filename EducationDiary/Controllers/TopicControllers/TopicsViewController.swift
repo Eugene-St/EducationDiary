@@ -17,7 +17,7 @@ class TopicsViewController: UITableViewController {
     // MARK: - View DidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadData()
+//        loadData()
     }
     
     // MARK: - Table view data source
