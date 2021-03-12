@@ -63,6 +63,7 @@ class TopicEditCreateViewController: UIViewController {
         if topicViewModel != nil {
             saveButton.isEnabled = true
         }
+        print(datePicker.date.timeIntervalSince1970)
     }
     
     private func createNewTopic() {
@@ -74,7 +75,7 @@ class TopicEditCreateViewController: UIViewController {
                           links: nil,
                           notes: nil,
                           status: topicStatusButton.titleLabel?.text,
-                          due_date: Int(datePicker.date.timeIntervalSince1970),
+                          due_date: Int32(datePicker.date.timeIntervalSince1970),
                           created_on: timeStamp,
                           questions: nil)
         
@@ -104,7 +105,7 @@ class TopicEditCreateViewController: UIViewController {
                           links: self.topicViewModel?.topic.links,
                           notes: self.topicViewModel?.topic.notes,
                           status: topicStatusButton.titleLabel?.text,
-                          due_date: Int(datePicker.date.timeIntervalSince1970),
+                          due_date: Int32(datePicker.date.timeIntervalSince1970),
                           created_on: self.topicViewModel?.topic.created_on,
                           questions: self.topicViewModel?.topic.questions)
         

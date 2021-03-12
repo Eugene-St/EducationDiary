@@ -16,16 +16,16 @@ struct Topic: Model {
     let links: [String]?
     let notes: String?
     let status: String?
-    let due_date: Int?
-    let created_on: Int?
+    let due_date: Int32?
+    let created_on: Int32?
     let questions: [Question]?
     
     var modelId: String {
         return id ?? ""
     }
     
-    static func generateTimeStamp() -> Int {
-        let timeStamp = Int(Date.timeIntervalSinceReferenceDate)
+    static func generateTimeStamp() -> Int32 {
+        let timeStamp = Int32(Date.timeIntervalSinceReferenceDate)
         return timeStamp
     }
 }

@@ -548,6 +548,7 @@
                                 <viewLayoutGuide key="frameLayoutGuide" id="Dsy-BO-Fsj"/>
                             </scrollView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="ii1-yI-3dQ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="8P5-Oc-Nx6" firstAttribute="top" secondItem="slT-av-Raq" secondAttribute="top" constant="88" id="Auo-E7-57Y"/>
@@ -581,49 +582,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="exC-UL-pWQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4024.7663551401865" y="-380.99352051835854"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="wgA-6Y-3lk">
-            <objects>
-                <viewController id="keq-6H-REE" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="zMk-7V-uDS">
-                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fGb-BG-jjg">
-                                <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Boc-ey-zro">
-                                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" red="0.92374064759999996" green="0.0" blue="0.034574728200000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstItem="Boc-ey-zro" firstAttribute="bottom" secondItem="dOT-3Z-u8c" secondAttribute="bottom" id="P1o-KJ-rFN"/>
-                                    <constraint firstItem="Boc-ey-zro" firstAttribute="height" secondItem="bqg-1Y-F5g" secondAttribute="height" id="gFX-8h-mwk"/>
-                                    <constraint firstItem="Boc-ey-zro" firstAttribute="leading" secondItem="dOT-3Z-u8c" secondAttribute="leading" id="oHz-dj-bGe"/>
-                                    <constraint firstItem="Boc-ey-zro" firstAttribute="trailing" secondItem="dOT-3Z-u8c" secondAttribute="trailing" id="qRg-9f-Oq3"/>
-                                    <constraint firstItem="Boc-ey-zro" firstAttribute="top" secondItem="dOT-3Z-u8c" secondAttribute="top" id="roV-uP-0pB"/>
-                                    <constraint firstItem="Boc-ey-zro" firstAttribute="width" secondItem="bqg-1Y-F5g" secondAttribute="width" id="vbB-kd-OaW"/>
-                                </constraints>
-                                <viewLayoutGuide key="contentLayoutGuide" id="dOT-3Z-u8c"/>
-                                <viewLayoutGuide key="frameLayoutGuide" id="bqg-1Y-F5g"/>
-                            </scrollView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="i8y-z5-bGu"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstAttribute="bottom" secondItem="fGb-BG-jjg" secondAttribute="bottom" id="4oU-Zf-45I"/>
-                            <constraint firstItem="fGb-BG-jjg" firstAttribute="leading" secondItem="zMk-7V-uDS" secondAttribute="leading" id="nFK-Ks-uCW"/>
-                            <constraint firstAttribute="trailing" secondItem="fGb-BG-jjg" secondAttribute="trailing" id="pLU-QS-Vfe"/>
-                            <constraint firstItem="fGb-BG-jjg" firstAttribute="top" secondItem="zMk-7V-uDS" secondAttribute="top" id="qEf-ba-XYW"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fHS-9w-ho7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="7141.6000000000004" y="-521.28935532233891"/>
         </scene>
         <!--2.1-->
         <scene sceneID="VMt-Hf-nQP">

@@ -5,7 +5,34 @@
         <attribute name="sld" optional="YES" attributeType="String"/>
         <attribute name="text" optional="YES" attributeType="String"/>
     </entity>
+    <entity name="QuestionCoreData" representedClassName="QuestionCoreData" syncable="YES">
+        <attribute name="answer" optional="YES" attributeType="String"/>
+        <attribute name="done" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="text" optional="YES" attributeType="String"/>
+        <attribute name="topicID" optional="YES" attributeType="String"/>
+        <relationship name="topic" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TopicCoreData" inverseName="questions" inverseEntity="TopicCoreData"/>
+    </entity>
+    <entity name="TaskCoreData" representedClassName="TaskCoreData" syncable="YES" codeGenerationType="class">
+        <attribute name="createdOn" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="progress" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="sld" optional="YES" attributeType="String"/>
+        <attribute name="taskDescription" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="TopicCoreData" representedClassName="TopicCoreData" syncable="YES">
+        <attribute name="createdOn" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="dueDate" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="links" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformer" customClassName="[String]"/>
+        <attribute name="notes" optional="YES" attributeType="String"/>
+        <attribute name="status" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="questions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="QuestionCoreData" inverseName="topic" inverseEntity="QuestionCoreData"/>
+    </entity>
     <elements>
-        <element name="BookmarkCoreData" positionX="-36" positionY="9" width="128" height="74"/>
+        <element name="BookmarkCoreData" positionX="-79.211669921875" positionY="8.573486328125" width="128" height="74"/>
+        <element name="QuestionCoreData" positionX="162.549560546875" positionY="179.870361328125" width="128" height="119"/>
+        <element name="TaskCoreData" positionX="-81.51519775390625" positionY="-130.3797607421875" width="128" height="89"/>
+        <element name="TopicCoreData" positionX="-74.4710693359375" positionY="135.055419921875" width="128" height="149"/>
     </elements>
 </model>

@@ -11,10 +11,10 @@ typealias Tasks = [String : Task]
 
 struct Task: Model {
 
-    let createdOn: Int?
+    let createdOn: Int32?
     let description: String?
     let sld: String?
-    var progress: Int?
+    var progress: Int32?
     
     var modelId: String {
         return sld ?? ""

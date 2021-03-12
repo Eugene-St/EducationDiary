@@ -11,22 +11,35 @@ import CoreData
 class BookmarksMediator: Mediator<Bookmarks> {
     
     init() {
-        super.init(.bookmarks, pathForUpdate: .bookmarksUpdate, object: BookmarkCoreData.self)
+        super.init(.bookmarks, pathForUpdate: .bookmarksUpdate)
     }
     
-    override func fetchFromCoreData(_ completion: @escaping ResultClosure<Bookmarks>) {
+    // save to DB
+    override func saveToDB(_ object: Bookmarks) {
+        
+        object.forEach { (_, bookmark) in
+            let bookmarkCD = BookmarkCoreData(context: CoreDataManager.shared.context)
+            bookmarkCD.name = bookmark.name
+            bookmarkCD.text = bookmark.text
+            bookmarkCD.sld = bookmark.sld
+            CoreDataManager.shared.saveItems()
+        }
+    }
+    
+    // fetch from DB
+    override func fetchFromDB(_ completion: @escaping ResultClosure<Bookmarks>) {
         CoreDataManager.shared.fetch(BookmarkCoreData.self) { result in
             
             switch result {
-            case .success(let objects):
+            case .success(let bookmarkObjects):
                 
                 var bookmarks: [String : Bookmark] = [:]
                 
-                objects.forEach { object in
-                    bookmarks[object.sld ?? ""] = Bookmark(
-                        name: object.name,
-                        text: object.text,
-                        sld: object.sld)
+                bookmarkObjects.forEach { bookmarkObject in
+                    bookmarks[bookmarkObject.sld ?? ""] = Bookmark(
+                        name: bookmarkObject.name,
+                        text: bookmarkObject.text,
+                        sld: bookmarkObject.sld)
                 }
                 
                 DispatchQueue.main.async {
@@ -39,11 +52,63 @@ class BookmarksMediator: Mediator<Bookmarks> {
         }
     }
     
-    func saveToDB(_ bookmark: Bookmark) {
-        let bookmarkCD = BookmarkCoreData(context: CoreDataManager.shared.context)
-        bookmarkCD.name = bookmark.name
-        bookmarkCD.text = bookmark.text
-        bookmarkCD.sld = bookmark.sld
-        CoreDataManager.shared.saveItems()
+    // delete single entity from db
+    override func deleteFromDB(_ model: Model) {
+        
+        let request = CoreDataManager.shared.fetchRequest(BookmarkCoreData.self)
+        
+        do {
+            let objects = try CoreDataManager.shared.context.fetch(request)
+            
+            objects.forEach { bookmarkCD in
+                if model.modelId == bookmarkCD.sld {
+                    CoreDataManager.shared.deleteItem(bookmarkCD)
+                    CoreDataManager.shared.saveItems()
+                }
+            }
+            
+        } catch {
+            let nserror = error as NSError
+            print("Error deleting: \n \(error.localizedDescription)")
+            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+        }
+    }
+    
+    override func updateInDB(_ model: Model) {
+        
+        let request = CoreDataManager.shared.fetchRequest(BookmarkCoreData.self)
+        
+        do {
+            let objects = try CoreDataManager.shared.context.fetch(request)
+            
+            objects.forEach { bookmarkCD in
+                let bookmark = model as! Bookmark
+                if model.modelId == bookmarkCD.sld {
+                    bookmarkCD.name = bookmark.name
+                    bookmarkCD.text = bookmark.text
+                    bookmarkCD.sld = bookmark.sld
+                    CoreDataManager.shared.saveItems()
+                }
+            }
+            
+        } catch {
+            let nserror = error as NSError
+            print("Error updating: \n \(error.localizedDescription)")
+            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+        }
+    }
+    
+    override func createInDB(_ model: Model) {
+        let bookmark = model as! Bookmark
+            let bookmarkCD = BookmarkCoreData(context: CoreDataManager.shared.context)
+            bookmarkCD.name = bookmark.name
+            bookmarkCD.text = bookmark.text
+            bookmarkCD.sld = bookmark.sld
+            CoreDataManager.shared.saveItems()
+    }
+    
+    // delete all entities from DB
+    override func deleteEntitiesFromDB() {
+        CoreDataManager.shared.resetAllRecords(in: "BookmarkCoreData")
     }
 }

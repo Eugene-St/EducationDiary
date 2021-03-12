@@ -53,12 +53,12 @@ class TasksSecondViewController: UIViewController {
     // Create new task
     private func createNewTask() {
         
-        let timeStamp = Int(Date.timeIntervalSinceReferenceDate)
+        let timeStamp = Int32(Date.timeIntervalSinceReferenceDate)
         
         let task = Task(createdOn: timeStamp,
                         description: descriptionTextField.text,
                         sld: String(timeStamp),
-                        progress: Int(progressSlider.value))
+                        progress: Int32(progressSlider.value))
         
         mediator.createNewData(for: task) { result in
             
@@ -81,7 +81,7 @@ class TasksSecondViewController: UIViewController {
         let task = Task(createdOn: self.task?.createdOn,
                         description: descriptionTextField.text,
                         sld: self.task?.sld,
-                        progress: Int(progressSlider.value))
+                        progress: Int32(progressSlider.value))
         
         mediator.updateData(for: task) { result in
             switch result {

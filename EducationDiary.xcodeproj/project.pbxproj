@@ -11,6 +11,7 @@
 		5819B60A25E3C1980062748C /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5819B60925E3C1980062748C /* Model.swift */; };
 		5829570E25CACCA300F68CA7 /* BookmarksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5829570D25CACCA300F68CA7 /* BookmarksCell.swift */; };
 		582B571725CC878900637760 /* NetworkEndType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582B571625CC878900637760 /* NetworkEndType.swift */; };
+		582F429F25FBDDC100812F2C /* CoreDataRequestTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582F429E25FBDDC100812F2C /* CoreDataRequestTypes.swift */; };
 		5836150825EE9A4D0094249E /* QuestionEditCreateViewController+AlertExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5836150725EE9A4D0094249E /* QuestionEditCreateViewController+AlertExtension.swift */; };
 		5836150C25EEA9380094249E /* QuestionsViewController+ContextMenuExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5836150B25EEA9380094249E /* QuestionsViewController+ContextMenuExtension.swift */; };
 		5836154225F129A20094249E /* CollectionViewWaterfallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5836154125F129A20094249E /* CollectionViewWaterfallLayout.swift */; };
@@ -44,6 +45,10 @@
 		586077EF25D4356700495AB3 /* ModelViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586077EE25D4356700495AB3 /* ModelViewControllerDelegate.swift */; };
 		586077F325D5594000495AB3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586077F225D5594000495AB3 /* Extensions.swift */; };
 		586077F825D58D2700495AB3 /* TasksCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586077F725D58D2700495AB3 /* TasksCell.swift */; };
+		58638B3A25FB4E9A00569A68 /* TopicCoreData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58638B3625FB4E9A00569A68 /* TopicCoreData+CoreDataClass.swift */; };
+		58638B3B25FB4E9A00569A68 /* TopicCoreData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58638B3725FB4E9A00569A68 /* TopicCoreData+CoreDataProperties.swift */; };
+		58638B3C25FB4E9A00569A68 /* QuestionCoreData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58638B3825FB4E9A00569A68 /* QuestionCoreData+CoreDataClass.swift */; };
+		58638B3D25FB4E9A00569A68 /* QuestionCoreData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58638B3925FB4E9A00569A68 /* QuestionCoreData+CoreDataProperties.swift */; };
 		58976A9A25E543B000F7EF0D /* TopicEditCreateViewController+AlertExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58976A9925E543B000F7EF0D /* TopicEditCreateViewController+AlertExtension.swift */; };
 		5898010925E9078D00F36B0D /* TopicDetailsViewController+TableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5898010825E9078D00F36B0D /* TopicDetailsViewController+TableExtension.swift */; };
 		5898010E25E925AE00F36B0D /* TopicDetailsViewController+AlertExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5898010D25E925AE00F36B0D /* TopicDetailsViewController+AlertExtension.swift */; };
@@ -62,6 +67,7 @@
 		5819B60925E3C1980062748C /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		5829570D25CACCA300F68CA7 /* BookmarksCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksCell.swift; sourceTree = "<group>"; };
 		582B571625CC878900637760 /* NetworkEndType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkEndType.swift; sourceTree = "<group>"; };
+		582F429E25FBDDC100812F2C /* CoreDataRequestTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRequestTypes.swift; sourceTree = "<group>"; };
 		5836150725EE9A4D0094249E /* QuestionEditCreateViewController+AlertExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QuestionEditCreateViewController+AlertExtension.swift"; sourceTree = "<group>"; };
 		5836150B25EEA9380094249E /* QuestionsViewController+ContextMenuExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QuestionsViewController+ContextMenuExtension.swift"; sourceTree = "<group>"; };
 		5836154125F129A20094249E /* CollectionViewWaterfallLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewWaterfallLayout.swift; sourceTree = "<group>"; };
@@ -97,6 +103,10 @@
 		586077EE25D4356700495AB3 /* ModelViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelViewControllerDelegate.swift; sourceTree = "<group>"; };
 		586077F225D5594000495AB3 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		586077F725D58D2700495AB3 /* TasksCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksCell.swift; sourceTree = "<group>"; };
+		58638B3625FB4E9A00569A68 /* TopicCoreData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TopicCoreData+CoreDataClass.swift"; sourceTree = "<group>"; };
+		58638B3725FB4E9A00569A68 /* TopicCoreData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TopicCoreData+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		58638B3825FB4E9A00569A68 /* QuestionCoreData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QuestionCoreData+CoreDataClass.swift"; sourceTree = "<group>"; };
+		58638B3925FB4E9A00569A68 /* QuestionCoreData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "QuestionCoreData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		58976A9925E543B000F7EF0D /* TopicEditCreateViewController+AlertExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TopicEditCreateViewController+AlertExtension.swift"; sourceTree = "<group>"; };
 		5898010825E9078D00F36B0D /* TopicDetailsViewController+TableExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TopicDetailsViewController+TableExtension.swift"; sourceTree = "<group>"; };
 		5898010D25E925AE00F36B0D /* TopicDetailsViewController+AlertExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TopicDetailsViewController+AlertExtension.swift"; sourceTree = "<group>"; };
@@ -148,6 +158,10 @@
 		58369F7E25C2DEC500296493 /* EducationDiary */ = {
 			isa = PBXGroup;
 			children = (
+				58638B3625FB4E9A00569A68 /* TopicCoreData+CoreDataClass.swift */,
+				58638B3725FB4E9A00569A68 /* TopicCoreData+CoreDataProperties.swift */,
+				58638B3825FB4E9A00569A68 /* QuestionCoreData+CoreDataClass.swift */,
+				58638B3925FB4E9A00569A68 /* QuestionCoreData+CoreDataProperties.swift */,
 				586077ED25D4355000495AB3 /* Protocols */,
 				58FCE19825D124F100654915 /* CoreDataManager */,
 				58369FD025C7EF8100296493 /* DataMediator */,
@@ -341,6 +355,7 @@
 			isa = PBXGroup;
 			children = (
 				58FCE19525D124DC00654915 /* CoreDataManager.swift */,
+				582F429E25FBDDC100812F2C /* CoreDataRequestTypes.swift */,
 			);
 			path = CoreDataManager;
 			sourceTree = "<group>";
@@ -417,9 +432,11 @@
 			files = (
 				58369FAD25C30DD400296493 /* TopicsViewController.swift in Sources */,
 				58369FBE25C30FBF00296493 /* Topic.swift in Sources */,
+				58638B3C25FB4E9A00569A68 /* QuestionCoreData+CoreDataClass.swift in Sources */,
 				58AA939825E50E3200793461 /* FreezeUIController.swift in Sources */,
 				58C7E05B25ED106B00FAEB55 /* QuestionCell.swift in Sources */,
 				58369FEA25C7FE3A00296493 /* QuestionsMediator.swift in Sources */,
+				58638B3D25FB4E9A00569A68 /* QuestionCoreData+CoreDataProperties.swift in Sources */,
 				58369FE725C7FE2F00296493 /* BookmarksMediator.swift in Sources */,
 				58AA939225E4EADE00793461 /* ErrorAlert.swift in Sources */,
 				58A1F6DA25CD0FA100C62AB9 /* BookmarksViewController+AlertExtension.swift in Sources */,
@@ -444,11 +461,13 @@
 				58369FB725C30E7A00296493 /* QuestionsViewController.swift in Sources */,
 				586077EF25D4356700495AB3 /* ModelViewControllerDelegate.swift in Sources */,
 				58369FC225C30FCA00296493 /* Question.swift in Sources */,
+				58638B3B25FB4E9A00569A68 /* TopicCoreData+CoreDataProperties.swift in Sources */,
 				5898010E25E925AE00F36B0D /* TopicDetailsViewController+AlertExtension.swift in Sources */,
 				58369F8025C2DEC500296493 /* AppDelegate.swift in Sources */,
 				58369FD225C7EF9300296493 /* Mediator.swift in Sources */,
 				5836150825EE9A4D0094249E /* QuestionEditCreateViewController+AlertExtension.swift in Sources */,
 				58369FD625C7F8A000296493 /* NetworkMethods.swift in Sources */,
+				582F429F25FBDDC100812F2C /* CoreDataRequestTypes.swift in Sources */,
 				58369FBA25C30EAF00296493 /* QuestionEditCreateViewController.swift in Sources */,
 				586077F325D5594000495AB3 /* Extensions.swift in Sources */,
 				5810ABA625E92CC70063BF8E /* TopicDetailsViewController.swift in Sources */,
@@ -458,6 +477,7 @@
 				58369FE125C7FE0D00296493 /* TasksMediator.swift in Sources */,
 				58FCE19625D124DC00654915 /* CoreDataManager.swift in Sources */,
 				5819B60A25E3C1980062748C /* Model.swift in Sources */,
+				58638B3A25FB4E9A00569A68 /* TopicCoreData+CoreDataClass.swift in Sources */,
 				58369F8225C2DEC500296493 /* SceneDelegate.swift in Sources */,
 				5898010925E9078D00F36B0D /* TopicDetailsViewController+TableExtension.swift in Sources */,
 			);

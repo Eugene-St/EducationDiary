@@ -24,7 +24,6 @@ class QuestionEditCreateViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(changesMade)
         setupUI()
         saveButton.isEnabled = false
         registerForKeyboardNotifications()
@@ -60,7 +59,7 @@ class QuestionEditCreateViewController: UIViewController {
         let timeStamp = Int(Date.timeIntervalSinceReferenceDate)
         
         let  question = Question(id: String(timeStamp),
-                                 topic_id: String(timeStamp),
+                                 topic_id: self.topic?.id,
                                  text: questionTextView.text,
                                  answer: answerTextView.text,
                                  done: completedSwitchLabel.isOn)

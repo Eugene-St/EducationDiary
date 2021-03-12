@@ -12,12 +12,10 @@ class Mediator<T: Decodable> {
     
     private let pathForFetch: EndType
     private let pathForUpdate: EndType
-    private let object: NSManagedObject.Type
     
-    init(_ pathForFetch: EndType, pathForUpdate: EndType, object: NSManagedObject.Type) {
+    init(_ pathForFetch: EndType, pathForUpdate: EndType) {
         self.pathForFetch = pathForFetch
         self.pathForUpdate = pathForUpdate
-        self.object = object
     }
     
     //MARK: networkIsAvaible
@@ -52,15 +50,32 @@ class Mediator<T: Decodable> {
             DispatchQueue.main.async {
                 completion(.success(decodedData))
             }
+            
+//            DispatchQueue.global(qos: .background).async {
+                self.deleteEntitiesFromDB()
+            self.saveToDB(decodedData)
+//            }
         }
     }
     
-    private func recogniseResult<T>(_ result: Result<T, Error>, _ completion: @escaping (ResultClosure<T>)) {
+    private func recogniseResult<T>(_ result: Result<T, Error>, requestType: RequestTypes, _ model: Model, _ completion: @escaping (ResultClosure<T>)) {
+        
         switch result {
         case .success(let response):
+            
             DispatchQueue.main.async {
                 completion(.success(response))
             }
+            
+            switch requestType {
+            case .delete:
+                deleteFromDB(model)
+            case .update:
+                updateInDB(model)
+            case .create:
+                createInDB(model)
+            }
+            
         case .failure(let error):
             DispatchQueue.main.async {
                 completion(.failure(error))
@@ -73,8 +88,7 @@ class Mediator<T: Decodable> {
         if networkIsAvaible {
             fetchDataFromNetwork(completion)
         } else {
-            fetchFromCoreData(completion)
-            newdsd(completion)
+            fetchFromDB(completion)
         }
     }
     
@@ -84,27 +98,11 @@ class Mediator<T: Decodable> {
         }
     }
     
-    func newdsd(_ completion: @escaping ResultClosure<T>) {}
-    
-    func fetchFromCoreData(_ completion: @escaping ResultClosure<T>) {
-        CoreDataManager.shared.fetch(object) { result in
-            switch result {
-            case .success(let objects):
-                DispatchQueue.main.async {
-                    completion(.success(objects as! T))
-                }
-                
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-    }
-    
     //MARK: DELETE data
     func deleteData(for model: Model, _ completion: @escaping ResultClosure<URLResponse>) {
         if networkIsAvaible {
             NetworkManager.shared.deleteRequest(path: pathForUpdate.rawValue, id: model.modelId) { result in
-                self.recogniseResult(result, completion)
+                self.recogniseResult(result, requestType: .delete, model, completion)
             }
         } else {
             completion(.failure(DataError.noNetwork))
@@ -129,7 +127,7 @@ class Mediator<T: Decodable> {
         
         if networkIsAvaible {
             NetworkManager.shared.patchRequest(path: pathForUpdate.rawValue, id: model.modelId, body: json) { result in
-                self.recogniseResult(result, completion)
+                self.recogniseResult(result, requestType: .update, model, completion)
             }
         } else {
             completion(.failure(DataError.noNetwork))
@@ -151,16 +149,23 @@ class Mediator<T: Decodable> {
             return
         }
         
-        let model = model as? Model
+        let model = model as! Model
         
         if networkIsAvaible {
-            NetworkManager.shared.putRequest(path: pathForUpdate.rawValue, id: model?.modelId, body: json) { result in
-                self.recogniseResult(result, completion)
+            NetworkManager.shared.putRequest(path: pathForUpdate.rawValue, id: model.modelId, body: json) { result in
+                self.recogniseResult(result, requestType: .create, model, completion)
             }
         } else {
             completion(.failure(DataError.noNetwork))
         }
     }
+    
+    func saveToDB(_ object: T) {}
+    func updateInDB(_ model: Model) {}
+    func createInDB(_ model: Model) {}
+    func fetchFromDB(_ completion: @escaping ResultClosure<T>) {}
+    func deleteFromDB(_ model: Model) {}
+    func deleteEntitiesFromDB() {}
 }
 
 
