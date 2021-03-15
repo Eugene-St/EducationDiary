@@ -38,7 +38,7 @@ extension TopicsViewController {
         }
         
         let cancelAction = UIAlertAction(title: "Cancel",
-                                         style: .destructive, handler: nil)
+                                         style: .cancel, handler: nil)
         
         ac.addAction(createdDateAction)
         ac.addAction(dueDateAction)

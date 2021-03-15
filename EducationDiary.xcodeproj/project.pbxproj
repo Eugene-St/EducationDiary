@@ -159,15 +159,15 @@
 			isa = PBXGroup;
 			children = (
 				58C65DB025FF203600B240E5 /* CoreData */,
-				586077ED25D4355000495AB3 /* Protocols */,
-				58369FD025C7EF8100296493 /* DataMediator */,
 				58369FCB25C3682900296493 /* Network */,
+				58369FD025C7EF8100296493 /* DataMediator */,
 				58369F9D25C2E7CA00296493 /* Model */,
 				58369F9925C2E7A000296493 /* Storyboards */,
 				58369F9825C2E79800296493 /* Controllers */,
 				58369F9A25C2E7B500296493 /* SupportingFiles */,
 				58369F9C25C2E7C000296493 /* Source */,
 				586077F525D5594700495AB3 /* Extensions */,
+				586077ED25D4355000495AB3 /* Protocols */,
 			);
 			path = EducationDiary;
 			sourceTree = "<group>";

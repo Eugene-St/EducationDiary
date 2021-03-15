@@ -15,11 +15,7 @@ class BookmarksMediator: Mediator<Bookmarks> {
     // save to DB
     override func saveToDB(_ object: Bookmarks) {
         object.forEach { (_, bookmark) in
-            let bookmarkCD = BookmarkCoreData(context: CoreDataManager.shared.context)
-            bookmarkCD.name = bookmark.name
-            bookmarkCD.text = bookmark.text
-            bookmarkCD.sld = bookmark.sld
-            CoreDataManager.shared.saveItems()
+            createInDB(bookmark: bookmark)
         }
     }
     
@@ -63,9 +59,8 @@ class BookmarksMediator: Mediator<Bookmarks> {
             }
             
         } catch {
-            let nserror = error as NSError
             print("Error deleting: \n \(error.localizedDescription)")
-            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            Alert.errorAlert(error: error)
         }
     }
     
@@ -86,23 +81,26 @@ class BookmarksMediator: Mediator<Bookmarks> {
             }
             
         } catch {
-            let nserror = error as NSError
             print("Error updating: \n \(error.localizedDescription)")
-            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            Alert.errorAlert(error: error)
         }
     }
     
     override func createInDB(_ model: Model) {
         let bookmark = model as! Bookmark
-            let bookmarkCD = BookmarkCoreData(context: CoreDataManager.shared.context)
-            bookmarkCD.name = bookmark.name
-            bookmarkCD.text = bookmark.text
-            bookmarkCD.sld = bookmark.sld
-            CoreDataManager.shared.saveItems()
+        createInDB(bookmark: bookmark)
     }
     
     // delete all entities from DB
     override func deleteEntitiesFromDB() {
         CoreDataManager.shared.resetAllRecords(in: "BookmarkCoreData")
+    }
+    
+    private func createInDB(bookmark: Bookmark) {
+        let bookmarkCD = BookmarkCoreData(context: CoreDataManager.shared.context)
+        bookmarkCD.name = bookmark.name
+        bookmarkCD.text = bookmark.text
+        bookmarkCD.sld = bookmark.sld
+        CoreDataManager.shared.saveItems()
     }
 }

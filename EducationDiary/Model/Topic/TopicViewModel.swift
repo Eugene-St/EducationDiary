@@ -56,7 +56,7 @@ class TopicViewModel {
                 dueDateText = "Today"
             } else if days < 0 {
                 dueDateColor = #colorLiteral(red: 0.6915014386, green: 0.06925391194, blue: 0.04372575395, alpha: 1)
-                dueDateText = "\(abs(days)) days overdue"
+                dueDateText = "\(abs(days)) day(s) overdue"
             }
         }
         

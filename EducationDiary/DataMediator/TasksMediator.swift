@@ -15,12 +15,7 @@ class TasksMediator: Mediator<Tasks> {
     // save to DB
     override func saveToDB(_ model: Tasks) {
         model.forEach { (_, task) in
-            let taskCD = TaskCoreData(context: CoreDataManager.shared.context)
-            taskCD.createdOn = task.createdOn ?? 0
-            taskCD.taskDescription = task.description
-            taskCD.progress = task.progress ?? 0
-            taskCD.sld = task.sld
-            CoreDataManager.shared.saveItems()
+            createInDB(task: task)
         }
     }
     
@@ -66,9 +61,8 @@ class TasksMediator: Mediator<Tasks> {
                 }
             }
         } catch {
-            let nserror = error as NSError
             print("Error deleting: \n \(error.localizedDescription)")
-            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            Alert.errorAlert(error: error)
             
         }
     }
@@ -91,24 +85,27 @@ class TasksMediator: Mediator<Tasks> {
             }
             
         } catch {
-            let nserror = error as NSError
             print("Error updating: \n \(error.localizedDescription)")
-            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            Alert.errorAlert(error: error)
         }
     }
     
     override func createInDB(_ model: Model) {
         let task = model as! Task
+        createInDB(task: task)
+    }
+    
+    // delete all entities from DB
+    override func deleteEntitiesFromDB() {
+        CoreDataManager.shared.resetAllRecords(in: "TaskCoreData")
+    }
+    
+    private func createInDB(task: Task) {
         let taskCD = TaskCoreData(context: CoreDataManager.shared.context)
         taskCD.createdOn = task.createdOn ?? 0
         taskCD.progress = task.progress ?? 0
         taskCD.sld = task.sld
         taskCD.taskDescription = task.description
         CoreDataManager.shared.saveItems()
-    }
-    
-    // delete all entities from DB
-    override func deleteEntitiesFromDB() {
-        CoreDataManager.shared.resetAllRecords(in: "TaskCoreData")
     }
 }

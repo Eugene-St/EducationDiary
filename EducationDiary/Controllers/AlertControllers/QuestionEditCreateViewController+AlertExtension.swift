@@ -25,7 +25,7 @@ extension QuestionEditCreateViewController {
             self.navigationController?.popViewController(animated: true)
         }
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         
         ac.addAction(cancelAction)
         ac.addAction(okAction)

@@ -75,7 +75,7 @@ class TopicsMediator: Mediator<Topics> {
                         links: topicObject.links,
                         notes: topicObject.notes,
                         status: topicObject.status,
-                        due_date: topicObject.createdOn,
+                        due_date: topicObject.dueDate,
                         created_on: topicObject.createdOn,
                         questions: questions
                     )
@@ -108,9 +108,8 @@ class TopicsMediator: Mediator<Topics> {
             }
             
         } catch {
-            let nserror = error as NSError
             print("Error deleting: \n \(error.localizedDescription)")
-            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            Alert.errorAlert(error: error)
         }
     }
     
@@ -156,9 +155,8 @@ class TopicsMediator: Mediator<Topics> {
             }
             
         } catch {
-            let nserror = error as NSError
             print("Error updating: \n \(error.localizedDescription)")
-            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            Alert.errorAlert(error: error)
         }
     }
     
