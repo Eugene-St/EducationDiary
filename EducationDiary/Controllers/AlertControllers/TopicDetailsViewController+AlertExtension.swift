@@ -8,19 +8,17 @@
 import UIKit
 
 extension TopicDetailsViewController {
-    
     func showAddLinkAlertController(tableView: UITableView) {
-        
         let placeholders = [
             "https://dataart.com",
             "http://google.com",
             "https://yandex.com"
         ]
         
-        let ac = UIAlertController(title: "Add new link", message: nil, preferredStyle: .alert)
-        
+        let ac = UIAlertController(title: "Add new link",
+                                   message: nil,
+                                   preferredStyle: .alert)
         let saveAction = UIAlertAction(title: "Save", style: .default) { [weak self] _ in
-            
             self?.saveLink(for: ac, tableView)
         }
         
@@ -28,26 +26,26 @@ extension TopicDetailsViewController {
             text.placeholder = placeholders.randomElement()
             text.autocapitalizationType = .none
             
-            NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification, object: text, queue: OperationQueue.main) { _ in
-                
+            NotificationCenter.default.addObserver(forName: UITextField.textDidChangeNotification,
+                                                   object:
+                                                    text,
+                                                   queue: OperationQueue.main) { _ in
                 let textCount = text.text?.trimmingCharacters(in: .whitespacesAndNewlines).count ?? 0
-                
                 let textIsNotEmpty = textCount > 0
-                
                 saveAction.isEnabled = textIsNotEmpty
             }
         }
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
-        
+        let cancelAction = UIAlertAction(title: "Cancel",
+                                         style: .destructive)
         ac.addAction(cancelAction)
         saveAction.isEnabled = false
         ac.addAction(saveAction)
         present(ac, animated: true)
     }
     
-    private func saveLink(for controller: UIAlertController, _ tableView: UITableView) {
-        
+    private func saveLink(for controller: UIAlertController,
+                          _ tableView: UITableView) {
         var links: [String] = []
         
         if let topicLinks = topicViewModel?.topic.links {
@@ -66,8 +64,8 @@ extension TopicDetailsViewController {
                           questions: topicViewModel?.topic.questions)
         
         mediator.updateData(for: topic) { [weak self] result in
-            
             switch result {
+            
             case .success(_):
                 self?.topicViewModel?.topic = topic
                 tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)

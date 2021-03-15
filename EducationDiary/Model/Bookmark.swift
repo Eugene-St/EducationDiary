@@ -10,7 +10,6 @@ import Foundation
 typealias Bookmarks = [String: Bookmark]
 
 struct Bookmark: Model {
-    
     var name: String?
     var text: String?
     let sld: String?

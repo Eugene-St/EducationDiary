@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum RequestTypes {
+enum RequestType {
     case delete
     case update
     case create

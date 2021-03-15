@@ -25,28 +25,29 @@ class FreezeUIController {
         return loginSpinner
     }()
     
+    private var window: UIWindow? = {
+        let window = UIApplication.shared.windows.first { $0.isKeyWindow }
+        return window
+    }()
+    
     private init() {}
     
-    // todo: call for window instead of controller
-    func freezeUI(for controller: UIViewController) {
-        freezeView.frame = controller.view.bounds
+    func freezeUI() {
+        window = UIApplication.shared.windows.first { $0.isKeyWindow }
+        freezeView.frame = window?.bounds ?? CGRect(x: 0, y: 0, width: 0, height: 0)
+        window?.addSubview(freezeView)
         freezeView.backgroundColor = .black
-        controller.view.addSubview(freezeView)
         freezeView.alpha = 0.1
-//        freezeView.backgroundColor = UIColor(hue: <#T##CGFloat#>, saturation: <#T##CGFloat#>, brightness: <#T##CGFloat#>, alpha: <#T##CGFloat#>) 0.1
-        
-        controller.view.addSubview(loginSpinner)
-//        freezeView.addSubview(loginSpinner)
-        loginSpinner.centerXAnchor.constraint(equalTo: controller.view.centerXAnchor).isActive = true
-        loginSpinner.centerYAnchor.constraint(equalTo: controller.view.centerYAnchor).isActive = true
-//        controller.tableView.alwaysBounceVertical = false
+        window?.addSubview(loginSpinner)
+        loginSpinner.centerXAnchor.constraint(equalTo: window?.centerXAnchor ?? NSLayoutXAxisAnchor()).isActive = true
+        loginSpinner.centerYAnchor.constraint(equalTo: window?.centerYAnchor ?? NSLayoutYAxisAnchor()).isActive = true
         loginSpinner.startAnimating()
     }
     
-    func disableUIFreeze(for controller: UIViewController) {
-        freezeView.frame = controller.view.bounds
+    func disableUIFreeze() {
+        freezeView.frame = window?.bounds ?? CGRect(x: 0, y: 0, width: 0, height: 0)
+        freezeView.backgroundColor = .clear
         freezeView.alpha = 0
         loginSpinner.stopAnimating()
-//        controller.tableView.alwaysBounceVertical = true
     }
 }

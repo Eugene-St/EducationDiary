@@ -22,14 +22,13 @@ class QuestionCell: UICollectionViewCell {
     }
     
     func configure(for question: Question?) {
-        
         questionTextLabel.text = "Question: " + (question?.text ?? "")
         answerTextLabel.text = "Answer: " + (question?.answer ?? "")
         checkmarkTextLabel.text = "✔"
         checkmarkTextLabel.textColor = .green
         
         guard let done = question?.done else { return }
-                
+        
         checkmarkTextLabel.isHidden = done ? false : true
         answerTextLabel.isHidden = true
         

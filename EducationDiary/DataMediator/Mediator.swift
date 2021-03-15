@@ -9,7 +9,6 @@ import Foundation
 import CoreData
 
 class Mediator<T: Decodable> {
-    
     private let pathForFetch: EndType
     private let pathForUpdate: EndType
     
@@ -34,8 +33,8 @@ class Mediator<T: Decodable> {
     }
     
     //MARK: Recognise result
-    private func recogniseResult(_ result: Result<Data, Error>, _ completion: @escaping (ResultClosure<T>)) {
-        
+    private func recogniseResult(_ result: Result<Data, Error>,
+                                 _ completion: @escaping (ResultClosure<T>)) {
         switch result {
         
         case .failure(let error):
@@ -51,15 +50,14 @@ class Mediator<T: Decodable> {
                 completion(.success(decodedData))
             }
             
-//            DispatchQueue.global(qos: .background).async {
-                self.deleteEntitiesFromDB()
+            self.deleteEntitiesFromDB()
             self.saveToDB(decodedData)
-//            }
         }
     }
     
-    private func recogniseResult<T>(_ result: Result<T, Error>, requestType: RequestTypes, _ model: Model, _ completion: @escaping (ResultClosure<T>)) {
-        
+    private func recogniseResult<T>(_ result: Result<T, Error>,
+                                    requestType: RequestType,
+                                    _ model: Model, _ completion: @escaping (ResultClosure<T>)) {
         switch result {
         case .success(let response):
             
@@ -99,9 +97,11 @@ class Mediator<T: Decodable> {
     }
     
     //MARK: DELETE data
-    func deleteData(for model: Model, _ completion: @escaping ResultClosure<URLResponse>) {
+    func deleteData(for model: Model,
+                    _ completion: @escaping ResultClosure<URLResponse>) {
         if networkIsAvaible {
-            NetworkManager.shared.deleteRequest(path: pathForUpdate.rawValue, id: model.modelId) { result in
+            NetworkManager.shared.deleteRequest(path: pathForUpdate.rawValue,
+                                                id: model.modelId) { result in
                 self.recogniseResult(result, requestType: .delete, model, completion)
             }
         } else {
@@ -110,15 +110,16 @@ class Mediator<T: Decodable> {
     }
     
     // MARK: - PATCH Data
-    func updateData<T: Codable>(for model: T, _ completion: @escaping ResultClosure<URLResponse>) {
-        
+    func updateData<T: Codable>(for model: T,
+                                _ completion: @escaping ResultClosure<URLResponse>) {
         let encoder = JSONEncoder()
         
         guard let data = try? encoder.encode(model) else {
             completion(.failure(DataError.invalidData))
             return
         }
-        guard let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any] else {
+        guard let json = try? JSONSerialization.jsonObject(with: data,
+                                                           options: []) as? [String : Any] else {
             completion(.failure(DataError.decodingError))
             return
         }
@@ -126,7 +127,9 @@ class Mediator<T: Decodable> {
         let model = model as! Model
         
         if networkIsAvaible {
-            NetworkManager.shared.patchRequest(path: pathForUpdate.rawValue, id: model.modelId, body: json) { result in
+            NetworkManager.shared.patchRequest(path: pathForUpdate.rawValue,
+                                               id: model.modelId,
+                                               body: json) { result in
                 self.recogniseResult(result, requestType: .update, model, completion)
             }
         } else {
@@ -136,15 +139,16 @@ class Mediator<T: Decodable> {
     
     
     // MARK: - PUT data
-    func createNewData<T: Codable>(for model: T, _ completion: @escaping ResultClosure<URLResponse>) {
-        
+    func createNewData<T: Codable>(for model: T,
+                                   _ completion: @escaping ResultClosure<URLResponse>) {
         let encoder = JSONEncoder()
         
         guard let data = try? encoder.encode(model) else {
             completion(.failure(DataError.invalidData))
             return
         }
-        guard let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : Any] else {
+        guard let json = try? JSONSerialization.jsonObject(with: data,
+                                                           options: []) as? [String : Any] else {
             completion(.failure(DataError.decodingError))
             return
         }
@@ -152,7 +156,9 @@ class Mediator<T: Decodable> {
         let model = model as! Model
         
         if networkIsAvaible {
-            NetworkManager.shared.putRequest(path: pathForUpdate.rawValue, id: model.modelId, body: json) { result in
+            NetworkManager.shared.putRequest(path: pathForUpdate.rawValue,
+                                             id: model.modelId,
+                                             body: json) { result in
                 self.recogniseResult(result, requestType: .create, model, completion)
             }
         } else {

@@ -6,17 +6,14 @@
 //
 
 import Foundation
-import CoreData
 
 class BookmarksMediator: Mediator<Bookmarks> {
-    
     init() {
         super.init(.bookmarks, pathForUpdate: .bookmarksUpdate)
     }
     
     // save to DB
     override func saveToDB(_ object: Bookmarks) {
-        
         object.forEach { (_, bookmark) in
             let bookmarkCD = BookmarkCoreData(context: CoreDataManager.shared.context)
             bookmarkCD.name = bookmark.name
@@ -29,10 +26,9 @@ class BookmarksMediator: Mediator<Bookmarks> {
     // fetch from DB
     override func fetchFromDB(_ completion: @escaping ResultClosure<Bookmarks>) {
         CoreDataManager.shared.fetch(BookmarkCoreData.self) { result in
-            
             switch result {
+            
             case .success(let bookmarkObjects):
-                
                 var bookmarks: [String : Bookmark] = [:]
                 
                 bookmarkObjects.forEach { bookmarkObject in
@@ -54,7 +50,6 @@ class BookmarksMediator: Mediator<Bookmarks> {
     
     // delete single entity from db
     override func deleteFromDB(_ model: Model) {
-        
         let request = CoreDataManager.shared.fetchRequest(BookmarkCoreData.self)
         
         do {
@@ -75,7 +70,6 @@ class BookmarksMediator: Mediator<Bookmarks> {
     }
     
     override func updateInDB(_ model: Model) {
-        
         let request = CoreDataManager.shared.fetchRequest(BookmarkCoreData.self)
         
         do {

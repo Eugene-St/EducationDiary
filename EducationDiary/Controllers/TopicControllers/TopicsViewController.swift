@@ -10,7 +10,7 @@ import CoreData
 
 class TopicsViewController: UITableViewController {
     
-    // MARK: - Private Properties
+    // MARK: - Properties
     private lazy var mediator = TopicsMediator()
     var topicViewModels = [TopicViewModel]()
     
@@ -21,13 +21,15 @@ class TopicsViewController: UITableViewController {
     }
     
     // MARK: - Table view data source
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView,
+                            numberOfRowsInSection section: Int) -> Int {
         topicViewModels.count
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "topicCell", for: indexPath) as! TopicCell
+    override func tableView(_ tableView: UITableView,
+                            cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "topicCell",
+                                                 for: indexPath) as! TopicCell
         
         cell.configureWith(topicModel: topicViewModels[indexPath.row])
         
@@ -35,13 +37,15 @@ class TopicsViewController: UITableViewController {
     }
     
     // MARK: - Table View Delegate
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView,
+                            canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView,
+                            commit editingStyle: UITableViewCell.EditingStyle,
+                            forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            
             let topic = topicViewModels[indexPath.row].topic
             
             mediator.deleteData(for: topic) { [weak self] result in
@@ -76,17 +80,17 @@ class TopicsViewController: UITableViewController {
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         switch segue.identifier {
+        
         case "AddNewTopic":
             guard let vc = segue.destination as? TopicEditCreateViewController else { return }
             vc.title = "Add new Topic"
             
             vc.onCompletionFromEditVC = { [weak self] topicViewModel in
                 self?.topicViewModels.insert(topicViewModel, at: 0)
-                self?.tableView.insertRows(at: [IndexPath(item: 0, section: 0)], with: .automatic)
+                self?.tableView.insertRows(at: [IndexPath(item: 0, section: 0)],
+                                           with: .automatic)
             }
-            
             
         case "TopicDetails":
             guard let vc = segue.destination as? TopicDetailsViewController else { return }
@@ -99,9 +103,11 @@ class TopicsViewController: UITableViewController {
                 
                 if let index = self?.topicViewModels.firstIndex(where: { $0.key == topicViewModel.topic.id }) {
                     self?.topicViewModels[index] = topicViewModel
-                    self?.tableView.reloadRows(at: [IndexPath(item: index, section: 0)], with: .automatic)
+                    self?.tableView.reloadRows(at: [IndexPath(item: index, section: 0)],
+                                               with: .automatic)
                 }
             }
+            
         default:
             break
         }
@@ -109,19 +115,19 @@ class TopicsViewController: UITableViewController {
     
     // MARK: - Private methods
     private func loadData() {
-        
         mediator.fetchData { [weak self] result in
             switch result {
             
             case .success(let topics):
                 topics.forEach { key, topic in
-                    self?.topicViewModels.append(TopicViewModel(topic: topic, key: key))
+                    self?.topicViewModels.append(TopicViewModel(topic: topic,
+                                                                key: key))
                 }
                 self?.tableView.reloadData()
                 
             case .failure(let error):
-                    Alert.errorAlert(error: error)
-                    print("TopicsMediator ERROR:\(error.localizedDescription)")
+                Alert.errorAlert(error: error)
+                print("TopicsMediator ERROR:\(error.localizedDescription)")
             }
         }
     }

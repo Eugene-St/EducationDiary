@@ -10,6 +10,4 @@ import Foundation
 import CoreData
 
 @objc(TopicCoreData)
-public class TopicCoreData: NSManagedObject {
-
-}
+public class TopicCoreData: NSManagedObject {}

@@ -17,14 +17,12 @@ class TopicEditCreateViewController: UIViewController {
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var datePicker: UIDatePicker!
     
-    // MARK: - Private properties
+    // MARK: - Properties
     var topicViewModel: TopicViewModel?
     private lazy var mediator = TopicsMediator()
     var onCompletionFromEditVC: ((_ topicModel: TopicViewModel) -> ())?
-    
-    // MARK: - Properties
     var changesMade: Bool = false
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
@@ -63,13 +61,10 @@ class TopicEditCreateViewController: UIViewController {
         if topicViewModel != nil {
             saveButton.isEnabled = true
         }
-        print(datePicker.date.timeIntervalSince1970)
     }
     
     private func createNewTopic() {
-        
         let timeStamp = Topic.generateTimeStamp()
-        
         let topic = Topic(id: String(timeStamp),
                           title: titleTextField.text,
                           links: nil,
@@ -80,17 +75,14 @@ class TopicEditCreateViewController: UIViewController {
                           questions: nil)
         
         mediator.createNewData(for: topic) { [weak self] result in
-            
             switch result {
             
             case .success(_):
-                
                 let topicViewModel = TopicViewModel(topic: topic, key: topic.modelId)
                 topicViewModel.statusTextColor = self?.topicStatusButton.backgroundColor
                 topicViewModel.statusButtonBackColor = self?.topicStatusButton.backgroundColor
                 self?.onCompletionFromEditVC?(topicViewModel)
                 self?.navigationController?.popViewController(animated: true)
-                // todo: on topicVC initialize success message
                 
             case .failure(let error):
                 Alert.errorAlert(error: error)
@@ -99,7 +91,6 @@ class TopicEditCreateViewController: UIViewController {
     }
     
     private func updateTopic() {
-        
         let topic = Topic(id: self.topicViewModel?.topic.id,
                           title: titleTextField.text,
                           links: self.topicViewModel?.topic.links,
@@ -110,25 +101,19 @@ class TopicEditCreateViewController: UIViewController {
                           questions: self.topicViewModel?.topic.questions)
         
         mediator.updateData(for: topic) { [weak self] result in
-            
             switch result {
             
             case .success(_):
-                
                 self?.topicViewModel?.topic = topic
                 self?.topicViewModel?.statusTextColor = self?.topicStatusButton.backgroundColor
-                
                 self?.topicViewModel?.statusButtonBackColor = self?.topicStatusButton.backgroundColor
-                
                 self?.topicViewModel?.dueDateColor = self?.topicViewModel?.dueDateColorAndTextReturn().color
-                
                 if let topicViewModel = self?.topicViewModel {
                     self?.onCompletionFromEditVC?(topicViewModel)
                 }
                 
                 self?.navigationController?.popViewController(animated: true)
-            // todo: on topicVC initialize success message
-            
+                
             case .failure(let error):
                 Alert.errorAlert(error: error)
             }
@@ -137,17 +122,10 @@ class TopicEditCreateViewController: UIViewController {
     
     // setup UI
     private func setUpUI() {
-        
         saveButton.isEnabled = false
-        let color: UIColor = .black
         topicStatusButton.layer.cornerRadius = 5
         infoButton.layer.cornerRadius = 5
-        backgroundView.layer.cornerRadius = 20
-        backgroundView.layer.shadowColor = color.cgColor
         backgroundView.layer.cornerRadius = 10
-        backgroundView.layer.shadowOffset = CGSize(width: 25, height: 25)
-        backgroundView.layer.shadowOpacity = 0.3
-        
         topicStatusButton.backgroundColor = .black
         
         if let topicModel = topicViewModel {
@@ -157,12 +135,11 @@ class TopicEditCreateViewController: UIViewController {
     
     // load data
     private func loadData() {
-        
         if let topicModel = topicViewModel {
             titleTextField.text = topicModel.topic.title
             topicStatusButton.setTitle(topicModel.topic.status, for: .normal)
             datePicker.date = topicModel.convertedTimeStampToDate()
-             
+            
         } else {
             configureDefaultDate()
             configureDefaultStatus()
@@ -177,23 +154,24 @@ class TopicEditCreateViewController: UIViewController {
     
     // set default status
     private func configureDefaultStatus() {
-            topicStatusButton.setTitle(TopicStatus.unstarted.rawValue, for: .normal)
+        topicStatusButton.setTitle(TopicStatus.unstarted.rawValue, for: .normal)
     }
 }
 
 // MARK: - TextField Delegate
 extension TopicEditCreateViewController: UITextFieldDelegate {
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         view.endEditing(true)
     }
     
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-
-        let text = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+    func textField(_ textField: UITextField,
+                   shouldChangeCharactersIn range: NSRange,
+                   replacementString string: String) -> Bool {
+        let text = (textField.text! as NSString).replacingCharacters(in: range,
+                                                                     with: string)
         changesMade = true
-
+        
         if !text.isEmpty {
             saveButton.isEnabled = true
         } else {

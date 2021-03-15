@@ -8,9 +8,9 @@
 import UIKit
 
 extension QuestionsViewController {
-    
-    override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        
+    override func collectionView(_ collectionView: UICollectionView,
+                                 contextMenuConfigurationForItemAt indexPath: IndexPath,
+                                 point: CGPoint) -> UIContextMenuConfiguration? {
         return UIContextMenuConfiguration(
             identifier: nil,
             previewProvider: nil,
@@ -23,9 +23,7 @@ extension QuestionsViewController {
     }
     
     private func removeQuestionAction(at index: IndexPath) -> UIAction {
-        
         let removeAttribute = UIMenuElement.Attributes.destructive
-        
         let deleteImage = UIImage(systemName: "trash.slash")
         
         return UIAction(
@@ -33,9 +31,7 @@ extension QuestionsViewController {
             image: deleteImage,
             identifier: nil,
             attributes: removeAttribute) { [weak self] _ in
-            
             var questions = self?.topic?.questions
-            
             questions?.remove(at: index.item)
             
             let topic = Topic(id: self?.topic?.id,
@@ -62,9 +58,7 @@ extension QuestionsViewController {
     }
     
     private func editQuestionAction(at index: IndexPath) -> UIAction {
-        
         let editImage = UIImage(systemName: "pencil")
-        
         return UIAction(title: "Edit question",
                         image: editImage,
                         identifier: nil) { _ in

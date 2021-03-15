@@ -15,11 +15,9 @@ class TasksSecondViewController: UIViewController {
     @IBOutlet weak var progressLabel: UILabel!
     @IBOutlet weak var progressSlider: UISlider!
     
-    // MARK: - Public Properties
+    // MARK: - Properties
     var task: Task?
     var delegate: ModelViewControllerDelegate?
-    
-    // MARK: - Private Properties
     private lazy var mediator = TasksMediator()
     
     // MARK: - View Didload
@@ -27,6 +25,7 @@ class TasksSecondViewController: UIViewController {
         super.viewDidLoad()
         saveButton.isEnabled = false
         loadData()
+        descriptionTextField.becomeFirstResponder()
     }
     
     // MARK: - IBActions
@@ -40,7 +39,6 @@ class TasksSecondViewController: UIViewController {
     }
     
     @IBAction func saveButtonPressed(_ sender: UIButton) {
-        
         if task == nil {
             createNewTask()
         } else {
@@ -52,16 +50,13 @@ class TasksSecondViewController: UIViewController {
     
     // Create new task
     private func createNewTask() {
-        
         let timeStamp = Int32(Date.timeIntervalSinceReferenceDate)
-        
         let task = Task(createdOn: timeStamp,
                         description: descriptionTextField.text,
                         sld: String(timeStamp),
                         progress: Int32(progressSlider.value))
         
         mediator.createNewData(for: task) { result in
-            
             switch result {
             
             case .success(_):
@@ -69,7 +64,6 @@ class TasksSecondViewController: UIViewController {
                 self.dismiss(animated: true)
             case .failure(let error):
                 Alert.errorAlert(error: error)
-                print("could not create")
                 self.dismiss(animated: true, completion: nil)
             }
         }
@@ -77,7 +71,6 @@ class TasksSecondViewController: UIViewController {
     
     // Update task
     private func updateTask() {
-        
         let task = Task(createdOn: self.task?.createdOn,
                         description: descriptionTextField.text,
                         sld: self.task?.sld,
@@ -90,39 +83,39 @@ class TasksSecondViewController: UIViewController {
                 self.delegate?.saveData(for: task, with: self.task?.sld ?? "")
                 self.dismiss(animated: true)
                 
-                DispatchQueue.global(qos: .background).async {
-                    // todo: save to core data here
-                }
-                
             case .failure(let error):
                 Alert.errorAlert(error: error)
-                print("Could not update data")
-                self.dismiss(animated: true, completion: nil) // call in alert instead
+                self.dismiss(animated: true, completion: nil)
             }
         }
     }
     
     // Load data
     private func loadData() {
-        if let task = task {
-            descriptionTextField.text = task.description
-            progressSlider.value = Float(task.progress ?? 0)
-            progressLabel.text = "\(task.progress ?? 0)"
+        if task != nil{
+            descriptionTextField.text = task?.description
+            progressSlider.value = Float(task?.progress ?? 0)
+            progressLabel.text = "\(task?.progress ?? 0)"
+        } else {
+            progressSlider.value = 0
+            progressLabel.text = "0"
         }
     }
 }
 
 // MARK: - UITextFieldDelegate Extension
 extension TasksSecondViewController: UITextFieldDelegate {
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         view.endEditing(true)
     }
     
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField,
+                   shouldChangeCharactersIn range: NSRange,
+                   replacementString string: String) -> Bool {
         
-        let text = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+        let text = (textField.text! as NSString).replacingCharacters(in: range,
+                                                                     with: string)
         
         if !text.isEmpty {
             saveButton.isEnabled = true

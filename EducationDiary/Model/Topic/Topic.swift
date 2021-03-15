@@ -10,7 +10,6 @@ import UIKit
 typealias Topics = [String : Topic]
 
 struct Topic: Model {
-    
     let id: String?
     let title: String?
     let links: [String]?

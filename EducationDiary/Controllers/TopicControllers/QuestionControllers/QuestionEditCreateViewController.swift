@@ -9,12 +9,14 @@ import UIKit
 
 class QuestionEditCreateViewController: UIViewController {
     
+    // MARK: - IBOutlets
     @IBOutlet weak var questionTextView: UITextView!
     @IBOutlet weak var answerTextView: UITextView!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var completedSwitchLabel: UISwitch!
     @IBOutlet weak var scrollView: UIScrollView!
     
+    // MARK: - Properties
     var topic: Topic?
     var question: Question?
     var index: Int?
@@ -22,6 +24,7 @@ class QuestionEditCreateViewController: UIViewController {
     private lazy var mediator = TopicsMediator()
     var onCompletionFromQuestionDetailsVC: ((_ topic: Topic) -> ())?
     
+    // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -29,6 +32,7 @@ class QuestionEditCreateViewController: UIViewController {
         registerForKeyboardNotifications()
     }
     
+    // MARK: - IBActions
     @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
         if question == nil {
             createQuestion()
@@ -47,17 +51,12 @@ class QuestionEditCreateViewController: UIViewController {
     }
     
     private func createQuestion() {
-        
         var questions: [Question] = []
-        
         if let topicQuestions = topic?.questions {
             questions = topicQuestions
         }
         
-        print("Questions before append - \(questions.count)")
-        
         let timeStamp = Int(Date.timeIntervalSinceReferenceDate)
-        
         let  question = Question(id: String(timeStamp),
                                  topic_id: self.topic?.id,
                                  text: questionTextView.text,
@@ -65,9 +64,6 @@ class QuestionEditCreateViewController: UIViewController {
                                  done: completedSwitchLabel.isOn)
         
         questions.insert(question, at: 0)
-        
-        print("Questions after append - \(questions.count)")
-        
         let topic = Topic(id: self.topic?.id,
                           title: self.topic?.title,
                           links: self.topic?.links,
@@ -83,7 +79,7 @@ class QuestionEditCreateViewController: UIViewController {
             case .success(_):
                 self?.onCompletionFromQuestionDetailsVC?(topic)
                 self?.navigationController?.popViewController(animated: true)
-            
+                
             case .failure(let error):
                 Alert.errorAlert(error: error)
             }
@@ -91,9 +87,7 @@ class QuestionEditCreateViewController: UIViewController {
     }
     
     private func updateQuestion() {
-        
         var questions: [Question] = []
-        
         if let topicQuestions = topic?.questions {
             questions = topicQuestions
         }
@@ -104,9 +98,7 @@ class QuestionEditCreateViewController: UIViewController {
                                  answer: answerTextView.text,
                                  done: completedSwitchLabel.isOn)
         
-       questions[index ?? 0] = question
-        
-        print("Questions after append - \(questions.count)")
+        questions[index ?? 0] = question
         
         let topic = Topic(id: self.topic?.id,
                           title: self.topic?.title,
@@ -123,7 +115,7 @@ class QuestionEditCreateViewController: UIViewController {
             case .success(_):
                 self?.onCompletionFromQuestionDetailsVC?(topic)
                 self?.navigationController?.popViewController(animated: true)
-            
+                
             case .failure(let error):
                 Alert.errorAlert(error: error)
             }
@@ -158,8 +150,12 @@ class QuestionEditCreateViewController: UIViewController {
     }
     
     private func removeKeyboardNotifications() {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self,
+                                                  name: UIResponder.keyboardWillShowNotification,
+                                                  object: nil)
+        NotificationCenter.default.removeObserver(self,
+                                                  name: UIResponder.keyboardWillHideNotification,
+                                                  object: nil)
     }
     
     deinit {
@@ -171,6 +167,6 @@ extension QuestionEditCreateViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         changesMade = true
         
-    saveButton.isEnabled = !(questionTextView.text?.isEmpty ?? false)
+        saveButton.isEnabled = !(questionTextView.text?.isEmpty ?? false)
     }
 }

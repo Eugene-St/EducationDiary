@@ -40,14 +40,11 @@ class TopicViewModel {
     }
     
     func dueDateColorAndTextReturn() -> (color: UIColor, text: String) {
-        
         let toDay = Date()
         var dueDateText = ""
         
         if let topicDueDate = topic.due_date {
-            
             let dueDate = NSDate(timeIntervalSince1970: TimeInterval(topicDueDate)) as Date
-            
             let calendar = NSCalendar.current
             let days = calendar.numberOfDaysBetween(toDay, and: dueDate)
             
@@ -67,7 +64,6 @@ class TopicViewModel {
     }
     
     func statusTextColorReturn() -> UIColor {
-        
         switch topic.status {
         
         case TopicStatus.done.rawValue:

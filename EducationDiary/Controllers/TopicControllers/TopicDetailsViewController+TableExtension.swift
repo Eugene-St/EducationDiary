@@ -8,13 +8,13 @@
 import UIKit
 
 extension TopicDetailsViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView,
+                   numberOfRowsInSection section: Int) -> Int {
         topicViewModel?.topic.links?.count ?? 0
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+    func tableView(_ tableView: UITableView,
+                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "linkCell", for: indexPath)
         
         cell.textLabel?.text = topicViewModel?.topic.links?[indexPath.row]
@@ -36,14 +36,12 @@ extension TopicDetailsViewController: UITableViewDelegate, UITableViewDataSource
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        
+    func tableView(_ tableView: UITableView,
+                   commit editingStyle: UITableViewCell.EditingStyle,
+                   forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-
             var links = topicViewModel?.topic.links
-            
             links?.remove(at: indexPath.row)
-            
             let topic = Topic(id: topicViewModel?.topic.id,
                               title: topicViewModel?.topic.title,
                               links: links,
@@ -52,8 +50,6 @@ extension TopicDetailsViewController: UITableViewDelegate, UITableViewDataSource
                               due_date: topicViewModel?.topic.due_date,
                               created_on: topicViewModel?.topic.created_on,
                               questions: topicViewModel?.topic.questions)
-            
-            // todo: freeze here
             
             mediator.updateData(for: topic) { [weak self] result in
                 switch result {

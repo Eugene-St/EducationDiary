@@ -34,7 +34,7 @@
 		58369FC825C30FE800296493 /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FC725C30FE800296493 /* Bookmark.swift */; };
 		58369FCD25C3683B00296493 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FCC25C3683B00296493 /* NetworkManager.swift */; };
 		58369FD225C7EF9300296493 /* Mediator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FD125C7EF9300296493 /* Mediator.swift */; };
-		58369FD625C7F8A000296493 /* NetworkMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FD525C7F8A000296493 /* NetworkMethods.swift */; };
+		58369FD625C7F8A000296493 /* NetworkMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FD525C7F8A000296493 /* NetworkMethod.swift */; };
 		58369FE125C7FE0D00296493 /* TasksMediator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FE025C7FE0D00296493 /* TasksMediator.swift */; };
 		58369FE425C7FE1900296493 /* TopicsMediator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FE325C7FE1900296493 /* TopicsMediator.swift */; };
 		58369FE725C7FE2F00296493 /* BookmarksMediator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58369FE625C7FE2F00296493 /* BookmarksMediator.swift */; };
@@ -92,7 +92,7 @@
 		58369FC725C30FE800296493 /* Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
 		58369FCC25C3683B00296493 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		58369FD125C7EF9300296493 /* Mediator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mediator.swift; sourceTree = "<group>"; };
-		58369FD525C7F8A000296493 /* NetworkMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMethods.swift; sourceTree = "<group>"; };
+		58369FD525C7F8A000296493 /* NetworkMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMethod.swift; sourceTree = "<group>"; };
 		58369FE025C7FE0D00296493 /* TasksMediator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksMediator.swift; sourceTree = "<group>"; };
 		58369FE325C7FE1900296493 /* TopicsMediator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicsMediator.swift; sourceTree = "<group>"; };
 		58369FE625C7FE2F00296493 /* BookmarksMediator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksMediator.swift; sourceTree = "<group>"; };
@@ -158,12 +158,8 @@
 		58369F7E25C2DEC500296493 /* EducationDiary */ = {
 			isa = PBXGroup;
 			children = (
-				58638B3625FB4E9A00569A68 /* TopicCoreData+CoreDataClass.swift */,
-				58638B3725FB4E9A00569A68 /* TopicCoreData+CoreDataProperties.swift */,
-				58638B3825FB4E9A00569A68 /* QuestionCoreData+CoreDataClass.swift */,
-				58638B3925FB4E9A00569A68 /* QuestionCoreData+CoreDataProperties.swift */,
+				58C65DB025FF203600B240E5 /* CoreData */,
 				586077ED25D4355000495AB3 /* Protocols */,
-				58FCE19825D124F100654915 /* CoreDataManager */,
 				58369FD025C7EF8100296493 /* DataMediator */,
 				58369FCB25C3682900296493 /* Network */,
 				58369F9D25C2E7CA00296493 /* Model */,
@@ -233,7 +229,7 @@
 			children = (
 				58369FCC25C3683B00296493 /* NetworkManager.swift */,
 				58369FED25C8081D00296493 /* NetworkMonitor.swift */,
-				58369FD525C7F8A000296493 /* NetworkMethods.swift */,
+				58369FD525C7F8A000296493 /* NetworkMethod.swift */,
 				58D5C8A725C92BE6008402BE /* DataError.swift */,
 				582B571625CC878900637760 /* NetworkEndType.swift */,
 			);
@@ -339,6 +335,18 @@
 				5836150B25EEA9380094249E /* QuestionsViewController+ContextMenuExtension.swift */,
 			);
 			path = QuestionControllers;
+			sourceTree = "<group>";
+		};
+		58C65DB025FF203600B240E5 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				58FCE19825D124F100654915 /* CoreDataManager */,
+				58638B3625FB4E9A00569A68 /* TopicCoreData+CoreDataClass.swift */,
+				58638B3725FB4E9A00569A68 /* TopicCoreData+CoreDataProperties.swift */,
+				58638B3825FB4E9A00569A68 /* QuestionCoreData+CoreDataClass.swift */,
+				58638B3925FB4E9A00569A68 /* QuestionCoreData+CoreDataProperties.swift */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		58DA2BF725EA476E00BFBBD0 /* Topic */ = {
@@ -466,7 +474,7 @@
 				58369F8025C2DEC500296493 /* AppDelegate.swift in Sources */,
 				58369FD225C7EF9300296493 /* Mediator.swift in Sources */,
 				5836150825EE9A4D0094249E /* QuestionEditCreateViewController+AlertExtension.swift in Sources */,
-				58369FD625C7F8A000296493 /* NetworkMethods.swift in Sources */,
+				58369FD625C7F8A000296493 /* NetworkMethod.swift in Sources */,
 				582F429F25FBDDC100812F2C /* CoreDataRequestTypes.swift in Sources */,
 				58369FBA25C30EAF00296493 /* QuestionEditCreateViewController.swift in Sources */,
 				586077F325D5594000495AB3 /* Extensions.swift in Sources */,

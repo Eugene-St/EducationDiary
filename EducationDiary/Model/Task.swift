@@ -10,7 +10,6 @@ import UIKit
 typealias Tasks = [String : Task]
 
 struct Task: Model {
-
     let createdOn: Int32?
     let description: String?
     let sld: String?

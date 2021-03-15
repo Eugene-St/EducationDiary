@@ -17,6 +17,7 @@ class TasksCell: UITableViewCell {
         super.awakeFromNib()
         progressView.backgroundColor = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
         addConstraintsToProgressView()
+        textLabel?.numberOfLines = 0
     }
     
     func configure(with taskViewModel: TaskViewModel) {
@@ -42,10 +43,11 @@ class TasksCell: UITableViewCell {
         
         let multiplier = CGFloat(taskViewModel.task.progress ?? 0) / CGFloat(100)
         progressWidth?.isActive = false
-
-        progressWidth = progressView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: multiplier)
+        
+        progressWidth = progressView.widthAnchor.constraint(equalTo: contentView.widthAnchor,
+                                                            multiplier: multiplier)
         progressWidth?.isActive = true
-
+        
         UIView.animate(withDuration: 1.5) {
             self.progressView.superview?.layoutIfNeeded()
         }

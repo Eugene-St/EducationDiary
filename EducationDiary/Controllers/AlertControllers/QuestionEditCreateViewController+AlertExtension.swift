@@ -8,9 +8,7 @@
 import UIKit
 
 extension QuestionEditCreateViewController {
-    
     func showCancelAlert() {
-        
         let message: String = {
             let message: String
             if changesMade {
@@ -21,10 +19,10 @@ extension QuestionEditCreateViewController {
             return message
         }()
         
-        let ac = UIAlertController(title: "Are you sure you want to cancel ?", message: message, preferredStyle: .alert)
-        
+        let ac = UIAlertController(title: "Are you sure you want to cancel ?",
+                                   message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "Yes", style: .default) { _ in
-        self.navigationController?.popViewController(animated: true)
+            self.navigationController?.popViewController(animated: true)
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)

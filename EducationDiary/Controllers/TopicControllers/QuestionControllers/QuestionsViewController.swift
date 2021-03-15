@@ -9,11 +9,13 @@ import UIKit
 
 class QuestionsViewController: UICollectionViewController {
     
+    // MARK: - Properties
     var topic: Topic?
     var onCompletionFromQuestionsVC: ((_ topic: Topic?) -> ())?
     var interaction: UIContextMenuInteraction?
     lazy var mediator = TopicsMediator()
-
+    
+    // MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         let layout = CollectionViewWaterfallLayout()
@@ -23,18 +25,20 @@ class QuestionsViewController: UICollectionViewController {
         
         collectionView.collectionViewLayout = layout
     }
-
+    
     // MARK: UICollectionViewDataSource
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView,
+                                 numberOfItemsInSection section: Int) -> Int {
         topic?.questions?.count ?? 0
     }
-
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "QuestionCell", for: indexPath) as! QuestionCell
+    
+    override func collectionView(_ collectionView: UICollectionView,
+                                 cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "QuestionCell",
+                                                      for: indexPath) as! QuestionCell
         
         cell.configure(for: topic?.questions?[indexPath.item])
-    
+        
         return cell
     }
     
@@ -50,16 +54,13 @@ class QuestionsViewController: UICollectionViewController {
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         switch segue.identifier {
         
         case "AddNewQuestion":
             guard let vc = segue.destination as? QuestionEditCreateViewController else { return }
             vc.title = "Add new question"
             vc.topic = topic
-            
             vc.onCompletionFromQuestionDetailsVC = { [weak self] topic in
-                
                 self?.topic? = topic
                 self?.collectionView.insertItems(at: [IndexPath(item: 0, section: 0)])
             }
@@ -68,17 +69,15 @@ class QuestionsViewController: UICollectionViewController {
             guard let vc = segue.destination as? QuestionEditCreateViewController else { return }
             guard let indexPath = sender as? IndexPath else { return }
             let question = topic?.questions?[indexPath.item]
-            
             vc.title = "Edit question"
             vc.topic = topic
             vc.question = question
             vc.index = indexPath.item
-            
             vc.onCompletionFromQuestionDetailsVC = { [weak self] topic in
-                    self?.topic? = topic
-                    self?.collectionView.reloadItems(at: [indexPath])
+                self?.topic? = topic
+                self?.collectionView.reloadItems(at: [indexPath])
             }
-       
+            
         default:
             break
         }
@@ -88,22 +87,17 @@ class QuestionsViewController: UICollectionViewController {
 // MARK: - CollectionViewWaterfallLayoutDelegate
 extension QuestionsViewController: CollectionViewWaterfallLayoutDelegate {
     
-    func collectionView(_ collectionView: UICollectionView, layout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        
+    func collectionView(_ collectionView: UICollectionView,
+                        layout: UICollectionViewLayout,
+                        sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         let itemsPerRow: CGFloat = 2
-        
         let paddingWidth = 20 * (itemsPerRow + 1)
-        
         let availableWidth = collectionView.frame.width - paddingWidth
-        
         let widthPerItem = availableWidth / itemsPerRow
-        
         let title = topic?.questions?[indexPath.item].text ?? ""
         let answer = topic?.questions?[indexPath.item].answer ?? ""
         let done = String(topic?.questions?[indexPath.item].done ?? false)
-        
         let size = CGSize(width: widthPerItem, height: 1000)
-        
         let attributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)]
         
         let estimatedTitleFrame = NSString(string: title).boundingRect(

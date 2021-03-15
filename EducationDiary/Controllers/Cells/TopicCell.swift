@@ -13,7 +13,7 @@ class TopicCell: UITableViewCell {
     @IBOutlet weak var titleTextLabel: UILabel!
     @IBOutlet weak var statusTextLabel: UILabel!
     @IBOutlet weak var dueDateTextLabel: UILabel!
-
+    
     func configureWith(topicModel: TopicViewModel) {
         titleTextLabel?.text = topicModel.topic.title
         configureStatus(for: topicModel)
@@ -21,7 +21,6 @@ class TopicCell: UITableViewCell {
     }
     
     // MARK: - Private Methods
-    
     // configure status text label
     private func configureStatus(for topicModel: TopicViewModel) {
         statusTextLabel?.text = topicModel.topic.status
